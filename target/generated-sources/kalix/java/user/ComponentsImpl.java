@@ -29,26 +29,68 @@ public final class ComponentsImpl implements Components {
   public Components.UserCalls user() {
     return new UserCallsImpl();
   }
+  @Override
+  public Components.UserStateSubscriptionActionCalls userStateSubscriptionAction() {
+    return new UserStateSubscriptionActionCallsImpl();
+  }
+  @Override
+  public Components.AuthCalls auth() {
+    return new AuthCallsImpl();
+  }
 
   private final class UserCallsImpl implements Components.UserCalls {
      @Override
-    public DeferredCall<user.api.UserApi.User, com.google.protobuf.Empty> register(user.api.UserApi.User user) {
+    public DeferredCall<user.api.UserApi.User, com.google.protobuf.Empty> createUser(user.api.UserApi.User user) {
       return new DeferredCallImpl<>(
         user,
         MetadataImpl.Empty(),
         "user.api.UserService",
-        "Register",
-        () -> getGrpcClient(user.api.UserService.class).register(user)
+        "CreateUser",
+        () -> getGrpcClient(user.api.UserService.class).createUser(user)
       );
     }
     @Override
-    public DeferredCall<user.api.UserApi.GetLoginRequest, user.api.UserApi.User> login(user.api.UserApi.GetLoginRequest getLoginRequest) {
+    public DeferredCall<user.api.UserApi.GetUserRequest, user.api.UserApi.User> getUser(user.api.UserApi.GetUserRequest getUserRequest) {
+      return new DeferredCallImpl<>(
+        getUserRequest,
+        MetadataImpl.Empty(),
+        "user.api.UserService",
+        "GetUser",
+        () -> getGrpcClient(user.api.UserService.class).getUser(getUserRequest)
+      );
+    }
+  }
+  private final class UserStateSubscriptionActionCallsImpl implements Components.UserStateSubscriptionActionCalls {
+     @Override
+    public DeferredCall<user.domain.UserDomain.UserState, user.api.UserApi.User> onStateChange(user.domain.UserDomain.UserState userState) {
+      return new DeferredCallImpl<>(
+        userState,
+        MetadataImpl.Empty(),
+        "user.action.UserStateSubscription",
+        "OnStateChange",
+        () -> getGrpcClient(user.action.UserStateSubscription.class).onStateChange(userState)
+      );
+    }
+  }
+  private final class AuthCallsImpl implements Components.AuthCalls {
+     @Override
+    public DeferredCall<user.api.AuthApi.Auth, com.google.protobuf.Empty> register(user.api.AuthApi.Auth auth) {
+      return new DeferredCallImpl<>(
+        auth,
+        MetadataImpl.Empty(),
+        "user.api.AuthService",
+        "Register",
+        () -> getGrpcClient(user.api.AuthService.class).register(auth)
+      );
+    }
+    @Override
+    public DeferredCall<user.api.AuthApi.GetLoginRequest, user.api.AuthApi.Auth> login(user.api.AuthApi.GetLoginRequest getLoginRequest) {
       return new DeferredCallImpl<>(
         getLoginRequest,
         MetadataImpl.Empty(),
-        "user.api.UserService",
+        "user.api.AuthService",
         "Login",
-        () -> getGrpcClient(user.api.UserService.class).login(getLoginRequest)
+        () -> getGrpcClient(user.api.AuthService.class).login(getLoginRequest)
       );
     }
   }

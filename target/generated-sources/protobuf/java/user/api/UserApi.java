@@ -101,18 +101,6 @@ public final class UserApi {
      */
     com.google.protobuf.ByteString
         getRoleBytes();
-
-    /**
-     * <code>string access_token = 8 [(.kalix.field) = { ... }</code>
-     * @return The accessToken.
-     */
-    java.lang.String getAccessToken();
-    /**
-     * <code>string access_token = 8 [(.kalix.field) = { ... }</code>
-     * @return The bytes for accessToken.
-     */
-    com.google.protobuf.ByteString
-        getAccessTokenBytes();
   }
   /**
    * Protobuf type {@code user.api.User}
@@ -134,7 +122,6 @@ public final class UserApi {
       firstName_ = "";
       lastName_ = "";
       role_ = "";
-      accessToken_ = "";
     }
 
     @java.lang.Override
@@ -207,12 +194,6 @@ public final class UserApi {
               java.lang.String s = input.readStringRequireUtf8();
 
               role_ = s;
-              break;
-            }
-            case 66: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              accessToken_ = s;
               break;
             }
             default: {
@@ -513,44 +494,6 @@ public final class UserApi {
       }
     }
 
-    public static final int ACCESS_TOKEN_FIELD_NUMBER = 8;
-    private volatile java.lang.Object accessToken_;
-    /**
-     * <code>string access_token = 8 [(.kalix.field) = { ... }</code>
-     * @return The accessToken.
-     */
-    @java.lang.Override
-    public java.lang.String getAccessToken() {
-      java.lang.Object ref = accessToken_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        accessToken_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string access_token = 8 [(.kalix.field) = { ... }</code>
-     * @return The bytes for accessToken.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getAccessTokenBytes() {
-      java.lang.Object ref = accessToken_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        accessToken_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -586,9 +529,6 @@ public final class UserApi {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(role_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 7, role_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(accessToken_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, accessToken_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -619,9 +559,6 @@ public final class UserApi {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(role_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, role_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(accessToken_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, accessToken_);
-      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -651,8 +588,6 @@ public final class UserApi {
           .equals(other.getLastName())) return false;
       if (!getRole()
           .equals(other.getRole())) return false;
-      if (!getAccessToken()
-          .equals(other.getAccessToken())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -678,8 +613,6 @@ public final class UserApi {
       hash = (53 * hash) + getLastName().hashCode();
       hash = (37 * hash) + ROLE_FIELD_NUMBER;
       hash = (53 * hash) + getRole().hashCode();
-      hash = (37 * hash) + ACCESS_TOKEN_FIELD_NUMBER;
-      hash = (53 * hash) + getAccessToken().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -827,8 +760,6 @@ public final class UserApi {
 
         role_ = "";
 
-        accessToken_ = "";
-
         return this;
       }
 
@@ -862,7 +793,6 @@ public final class UserApi {
         result.firstName_ = firstName_;
         result.lastName_ = lastName_;
         result.role_ = role_;
-        result.accessToken_ = accessToken_;
         onBuilt();
         return result;
       }
@@ -937,10 +867,6 @@ public final class UserApi {
         }
         if (!other.getRole().isEmpty()) {
           role_ = other.role_;
-          onChanged();
-        }
-        if (!other.getAccessToken().isEmpty()) {
-          accessToken_ = other.accessToken_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -1503,82 +1429,6 @@ public final class UserApi {
         onChanged();
         return this;
       }
-
-      private java.lang.Object accessToken_ = "";
-      /**
-       * <code>string access_token = 8 [(.kalix.field) = { ... }</code>
-       * @return The accessToken.
-       */
-      public java.lang.String getAccessToken() {
-        java.lang.Object ref = accessToken_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          accessToken_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string access_token = 8 [(.kalix.field) = { ... }</code>
-       * @return The bytes for accessToken.
-       */
-      public com.google.protobuf.ByteString
-          getAccessTokenBytes() {
-        java.lang.Object ref = accessToken_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          accessToken_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string access_token = 8 [(.kalix.field) = { ... }</code>
-       * @param value The accessToken to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAccessToken(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        accessToken_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string access_token = 8 [(.kalix.field) = { ... }</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAccessToken() {
-        
-        accessToken_ = getDefaultInstance().getAccessToken();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string access_token = 8 [(.kalix.field) = { ... }</code>
-       * @param value The bytes for accessToken to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAccessTokenBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        accessToken_ = value;
-        onChanged();
-        return this;
-      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1632,8 +1482,8 @@ public final class UserApi {
 
   }
 
-  public interface GetLoginRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:user.api.GetLoginRequest)
+  public interface GetUserRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:user.api.GetUserRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1647,41 +1497,28 @@ public final class UserApi {
      */
     com.google.protobuf.ByteString
         getEmailBytes();
-
-    /**
-     * <code>string password = 2;</code>
-     * @return The password.
-     */
-    java.lang.String getPassword();
-    /**
-     * <code>string password = 2;</code>
-     * @return The bytes for password.
-     */
-    com.google.protobuf.ByteString
-        getPasswordBytes();
   }
   /**
-   * Protobuf type {@code user.api.GetLoginRequest}
+   * Protobuf type {@code user.api.GetUserRequest}
    */
-  public static final class GetLoginRequest extends
+  public static final class GetUserRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:user.api.GetLoginRequest)
-      GetLoginRequestOrBuilder {
+      // @@protoc_insertion_point(message_implements:user.api.GetUserRequest)
+      GetUserRequestOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use GetLoginRequest.newBuilder() to construct.
-    private GetLoginRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use GetUserRequest.newBuilder() to construct.
+    private GetUserRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private GetLoginRequest() {
+    private GetUserRequest() {
       email_ = "";
-      password_ = "";
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new GetLoginRequest();
+      return new GetUserRequest();
     }
 
     @java.lang.Override
@@ -1689,7 +1526,7 @@ public final class UserApi {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private GetLoginRequest(
+    private GetUserRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1713,12 +1550,6 @@ public final class UserApi {
               email_ = s;
               break;
             }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              password_ = s;
-              break;
-            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -1740,15 +1571,15 @@ public final class UserApi {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return user.api.UserApi.internal_static_user_api_GetLoginRequest_descriptor;
+      return user.api.UserApi.internal_static_user_api_GetUserRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return user.api.UserApi.internal_static_user_api_GetLoginRequest_fieldAccessorTable
+      return user.api.UserApi.internal_static_user_api_GetUserRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              user.api.UserApi.GetLoginRequest.class, user.api.UserApi.GetLoginRequest.Builder.class);
+              user.api.UserApi.GetUserRequest.class, user.api.UserApi.GetUserRequest.Builder.class);
     }
 
     public static final int EMAIL_FIELD_NUMBER = 1;
@@ -1789,44 +1620,6 @@ public final class UserApi {
       }
     }
 
-    public static final int PASSWORD_FIELD_NUMBER = 2;
-    private volatile java.lang.Object password_;
-    /**
-     * <code>string password = 2;</code>
-     * @return The password.
-     */
-    @java.lang.Override
-    public java.lang.String getPassword() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        password_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string password = 2;</code>
-     * @return The bytes for password.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getPasswordBytes() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        password_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1844,9 +1637,6 @@ public final class UserApi {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(email_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, email_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(password_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -1859,9 +1649,6 @@ public final class UserApi {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(email_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, email_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(password_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
-      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1872,15 +1659,13 @@ public final class UserApi {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof user.api.UserApi.GetLoginRequest)) {
+      if (!(obj instanceof user.api.UserApi.GetUserRequest)) {
         return super.equals(obj);
       }
-      user.api.UserApi.GetLoginRequest other = (user.api.UserApi.GetLoginRequest) obj;
+      user.api.UserApi.GetUserRequest other = (user.api.UserApi.GetUserRequest) obj;
 
       if (!getEmail()
           .equals(other.getEmail())) return false;
-      if (!getPassword()
-          .equals(other.getPassword())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1894,76 +1679,74 @@ public final class UserApi {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + EMAIL_FIELD_NUMBER;
       hash = (53 * hash) + getEmail().hashCode();
-      hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
-      hash = (53 * hash) + getPassword().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static user.api.UserApi.GetLoginRequest parseFrom(
+    public static user.api.UserApi.GetUserRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static user.api.UserApi.GetLoginRequest parseFrom(
+    public static user.api.UserApi.GetUserRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static user.api.UserApi.GetLoginRequest parseFrom(
+    public static user.api.UserApi.GetUserRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static user.api.UserApi.GetLoginRequest parseFrom(
+    public static user.api.UserApi.GetUserRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static user.api.UserApi.GetLoginRequest parseFrom(byte[] data)
+    public static user.api.UserApi.GetUserRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static user.api.UserApi.GetLoginRequest parseFrom(
+    public static user.api.UserApi.GetUserRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static user.api.UserApi.GetLoginRequest parseFrom(java.io.InputStream input)
+    public static user.api.UserApi.GetUserRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static user.api.UserApi.GetLoginRequest parseFrom(
+    public static user.api.UserApi.GetUserRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static user.api.UserApi.GetLoginRequest parseDelimitedFrom(java.io.InputStream input)
+    public static user.api.UserApi.GetUserRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static user.api.UserApi.GetLoginRequest parseDelimitedFrom(
+    public static user.api.UserApi.GetUserRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static user.api.UserApi.GetLoginRequest parseFrom(
+    public static user.api.UserApi.GetUserRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static user.api.UserApi.GetLoginRequest parseFrom(
+    public static user.api.UserApi.GetUserRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1976,7 +1759,7 @@ public final class UserApi {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(user.api.UserApi.GetLoginRequest prototype) {
+    public static Builder newBuilder(user.api.UserApi.GetUserRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1992,26 +1775,26 @@ public final class UserApi {
       return builder;
     }
     /**
-     * Protobuf type {@code user.api.GetLoginRequest}
+     * Protobuf type {@code user.api.GetUserRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:user.api.GetLoginRequest)
-        user.api.UserApi.GetLoginRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:user.api.GetUserRequest)
+        user.api.UserApi.GetUserRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return user.api.UserApi.internal_static_user_api_GetLoginRequest_descriptor;
+        return user.api.UserApi.internal_static_user_api_GetUserRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return user.api.UserApi.internal_static_user_api_GetLoginRequest_fieldAccessorTable
+        return user.api.UserApi.internal_static_user_api_GetUserRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                user.api.UserApi.GetLoginRequest.class, user.api.UserApi.GetLoginRequest.Builder.class);
+                user.api.UserApi.GetUserRequest.class, user.api.UserApi.GetUserRequest.Builder.class);
       }
 
-      // Construct using user.api.UserApi.GetLoginRequest.newBuilder()
+      // Construct using user.api.UserApi.GetUserRequest.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2031,25 +1814,23 @@ public final class UserApi {
         super.clear();
         email_ = "";
 
-        password_ = "";
-
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return user.api.UserApi.internal_static_user_api_GetLoginRequest_descriptor;
+        return user.api.UserApi.internal_static_user_api_GetUserRequest_descriptor;
       }
 
       @java.lang.Override
-      public user.api.UserApi.GetLoginRequest getDefaultInstanceForType() {
-        return user.api.UserApi.GetLoginRequest.getDefaultInstance();
+      public user.api.UserApi.GetUserRequest getDefaultInstanceForType() {
+        return user.api.UserApi.GetUserRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public user.api.UserApi.GetLoginRequest build() {
-        user.api.UserApi.GetLoginRequest result = buildPartial();
+      public user.api.UserApi.GetUserRequest build() {
+        user.api.UserApi.GetUserRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2057,10 +1838,9 @@ public final class UserApi {
       }
 
       @java.lang.Override
-      public user.api.UserApi.GetLoginRequest buildPartial() {
-        user.api.UserApi.GetLoginRequest result = new user.api.UserApi.GetLoginRequest(this);
+      public user.api.UserApi.GetUserRequest buildPartial() {
+        user.api.UserApi.GetUserRequest result = new user.api.UserApi.GetUserRequest(this);
         result.email_ = email_;
-        result.password_ = password_;
         onBuilt();
         return result;
       }
@@ -2099,22 +1879,18 @@ public final class UserApi {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof user.api.UserApi.GetLoginRequest) {
-          return mergeFrom((user.api.UserApi.GetLoginRequest)other);
+        if (other instanceof user.api.UserApi.GetUserRequest) {
+          return mergeFrom((user.api.UserApi.GetUserRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(user.api.UserApi.GetLoginRequest other) {
-        if (other == user.api.UserApi.GetLoginRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(user.api.UserApi.GetUserRequest other) {
+        if (other == user.api.UserApi.GetUserRequest.getDefaultInstance()) return this;
         if (!other.getEmail().isEmpty()) {
           email_ = other.email_;
-          onChanged();
-        }
-        if (!other.getPassword().isEmpty()) {
-          password_ = other.password_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -2132,11 +1908,11 @@ public final class UserApi {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        user.api.UserApi.GetLoginRequest parsedMessage = null;
+        user.api.UserApi.GetUserRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (user.api.UserApi.GetLoginRequest) e.getUnfinishedMessage();
+          parsedMessage = (user.api.UserApi.GetUserRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2221,82 +1997,6 @@ public final class UserApi {
         onChanged();
         return this;
       }
-
-      private java.lang.Object password_ = "";
-      /**
-       * <code>string password = 2;</code>
-       * @return The password.
-       */
-      public java.lang.String getPassword() {
-        java.lang.Object ref = password_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          password_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string password = 2;</code>
-       * @return The bytes for password.
-       */
-      public com.google.protobuf.ByteString
-          getPasswordBytes() {
-        java.lang.Object ref = password_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          password_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string password = 2;</code>
-       * @param value The password to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPassword(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        password_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string password = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPassword() {
-        
-        password_ = getDefaultInstance().getPassword();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string password = 2;</code>
-       * @param value The bytes for password to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPasswordBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        password_ = value;
-        onChanged();
-        return this;
-      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2310,41 +2010,41 @@ public final class UserApi {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:user.api.GetLoginRequest)
+      // @@protoc_insertion_point(builder_scope:user.api.GetUserRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:user.api.GetLoginRequest)
-    private static final user.api.UserApi.GetLoginRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:user.api.GetUserRequest)
+    private static final user.api.UserApi.GetUserRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new user.api.UserApi.GetLoginRequest();
+      DEFAULT_INSTANCE = new user.api.UserApi.GetUserRequest();
     }
 
-    public static user.api.UserApi.GetLoginRequest getDefaultInstance() {
+    public static user.api.UserApi.GetUserRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<GetLoginRequest>
-        PARSER = new com.google.protobuf.AbstractParser<GetLoginRequest>() {
+    private static final com.google.protobuf.Parser<GetUserRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetUserRequest>() {
       @java.lang.Override
-      public GetLoginRequest parsePartialFrom(
+      public GetUserRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetLoginRequest(input, extensionRegistry);
+        return new GetUserRequest(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<GetLoginRequest> parser() {
+    public static com.google.protobuf.Parser<GetUserRequest> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<GetLoginRequest> getParserForType() {
+    public com.google.protobuf.Parser<GetUserRequest> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public user.api.UserApi.GetLoginRequest getDefaultInstanceForType() {
+    public user.api.UserApi.GetUserRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2356,10 +2056,10 @@ public final class UserApi {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_user_api_User_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_user_api_GetLoginRequest_descriptor;
+    internal_static_user_api_GetUserRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_user_api_GetLoginRequest_fieldAccessorTable;
+      internal_static_user_api_GetUserRequest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2372,18 +2072,17 @@ public final class UserApi {
       "\n\027user/api/user_api.proto\022\010user.api\032\034goo" +
       "gle/api/annotations.proto\032\033google/protob" +
       "uf/empty.proto\032\027kalix/annotations.proto\"" +
-      "\233\001\n\004User\022\n\n\002id\030\001 \001(\t\022\013\n\003img\030\002 \001(\t\022\024\n\005ema" +
-      "il\030\003 \001(\tB\005\302C\002\010\001\022\020\n\010password\030\004 \001(\t\022\022\n\nfir" +
-      "st_name\030\005 \001(\t\022\021\n\tlast_name\030\006 \001(\t\022\014\n\004role" +
-      "\030\007 \001(\t\022\035\n\014access_token\030\010 \001(\tB\007\302C\004\022\002\030\001\"9\n" +
-      "\017GetLoginRequest\022\024\n\005email\030\001 \001(\tB\005\302C\002\010\001\022\020" +
-      "\n\010password\030\002 \001(\t2\335\001\n\013UserService\022H\n\010Regi" +
-      "ster\022\016.user.api.User\032\026.google.protobuf.E" +
-      "mpty\"\024\202\323\344\223\002\016\"\t/register:\001*\022M\n\005Login\022\031.us" +
-      "er.api.GetLoginRequest\032\016.user.api.User\"\031" +
-      "\202\323\344\223\002\013\"\006/login:\001*\302C\005\032\003\022\001\002\0325\312C2\0220\n\020user.d" +
-      "omain.User\022\005users\032\025user.domain.UserState" +
-      "B\tB\007UserApib\006proto3"
+      "|\n\004User\022\n\n\002id\030\001 \001(\t\022\013\n\003img\030\002 \001(\t\022\024\n\005emai" +
+      "l\030\003 \001(\tB\005\302C\002\010\001\022\020\n\010password\030\004 \001(\t\022\022\n\nfirs" +
+      "t_name\030\005 \001(\t\022\021\n\tlast_name\030\006 \001(\t\022\014\n\004role\030" +
+      "\007 \001(\t\"&\n\016GetUserRequest\022\024\n\005email\030\001 \001(\tB\005" +
+      "\302C\002\010\0012\336\001\n\013UserService\022M\n\nCreateUser\022\016.us" +
+      "er.api.User\032\026.google.protobuf.Empty\"\027\202\323\344" +
+      "\223\002\021\"\014/create_user:\001*\022I\n\007GetUser\022\030.user.a" +
+      "pi.GetUserRequest\032\016.user.api.User\"\024\202\323\344\223\002" +
+      "\016\"\t/get_user:\001*\0325\312C2\0220\n\020user.domain.User" +
+      "\022\005users\032\025user.domain.UserStateB\tB\007UserAp" +
+      "ib\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2397,19 +2096,18 @@ public final class UserApi {
     internal_static_user_api_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_user_api_User_descriptor,
-        new java.lang.String[] { "Id", "Img", "Email", "Password", "FirstName", "LastName", "Role", "AccessToken", });
-    internal_static_user_api_GetLoginRequest_descriptor =
+        new java.lang.String[] { "Id", "Img", "Email", "Password", "FirstName", "LastName", "Role", });
+    internal_static_user_api_GetUserRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_user_api_GetLoginRequest_fieldAccessorTable = new
+    internal_static_user_api_GetUserRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_user_api_GetLoginRequest_descriptor,
-        new java.lang.String[] { "Email", "Password", });
+        internal_static_user_api_GetUserRequest_descriptor,
+        new java.lang.String[] { "Email", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.api.AnnotationsProto.http);
     registry.add(kalix.Annotations.codegen);
     registry.add(kalix.Annotations.field);
-    registry.add(kalix.Annotations.method);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.api.AnnotationsProto.getDescriptor();

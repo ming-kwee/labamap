@@ -13,10 +13,10 @@ public abstract class UserServiceClientPowerApi {
   
     /**
      * Lower level "lifted" version of the method, giving access to request metadata etc.
-     * prefer register(user.api.UserApi.User) if possible.
+     * prefer createUser(user.api.UserApi.User) if possible.
      */
     
-      public SingleResponseRequestBuilder<user.api.UserApi.User, com.google.protobuf.Empty> register()
+      public SingleResponseRequestBuilder<user.api.UserApi.User, com.google.protobuf.Empty> createUser()
     
     {
         throw new java.lang.UnsupportedOperationException();
@@ -24,10 +24,10 @@ public abstract class UserServiceClientPowerApi {
   
     /**
      * Lower level "lifted" version of the method, giving access to request metadata etc.
-     * prefer login(user.api.UserApi.GetLoginRequest) if possible.
+     * prefer getUser(user.api.UserApi.GetUserRequest) if possible.
      */
     
-      public SingleResponseRequestBuilder<user.api.UserApi.GetLoginRequest, user.api.UserApi.User> login()
+      public SingleResponseRequestBuilder<user.api.UserApi.GetUserRequest, user.api.UserApi.User> getUser()
     
     {
         throw new java.lang.UnsupportedOperationException();

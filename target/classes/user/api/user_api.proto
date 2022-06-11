@@ -17,19 +17,17 @@ service UserService {
       }
     };
   
-    rpc Register(User) returns (google.protobuf.Empty) {
+    rpc CreateUser(User) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            post: "/register"
+            post: "/create_user"
             body: "*"
         };
     }
-    rpc Login(GetLoginRequest) returns (User) {
+
+    rpc GetUser(GetUserRequest) returns (User) {
         option (google.api.http) = {
-            post: "/login"
+            post: "/get_user"
             body: "*"
-        };
-        option (kalix.method).jwt = {
-            sign: MESSAGE
         };
     }
   
@@ -38,17 +36,13 @@ service UserService {
 message User {
     string id = 1;
     string img = 2;
-    string email = 3 [(kalix.field).entity_key = true];;
+    string email = 3 [(kalix.field).entity_key = true];
     string password = 4;
     string first_name = 5;
     string last_name = 6;
     string role = 7;
-    string access_token = 8 [(kalix.field).jwt = {
-        token: true
-    }];
 }
 
-message GetLoginRequest {
-    string email = 1 [(kalix.field).entity_key = true];;
-    string password = 2;
+message GetUserRequest {
+    string email = 1 [(kalix.field).entity_key = true];
 }

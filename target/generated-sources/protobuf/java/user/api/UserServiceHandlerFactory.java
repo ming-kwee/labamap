@@ -154,15 +154,15 @@ public class UserServiceHandlerFactory {
         
         switch(method) {
           
-          case "Register":
+          case "CreateUser":
             response = GrpcMarshalling.unmarshal(request.entity(), UserSerializer, mat, reader)
-              .thenCompose(e -> implementation.register(e))
+              .thenCompose(e -> implementation.createUser(e))
               .thenApply(e -> GrpcMarshalling.marshal(e, EmptySerializer, writer, system, eHandler));
             break;
           
-          case "Login":
-            response = GrpcMarshalling.unmarshal(request.entity(), GetLoginRequestSerializer, mat, reader)
-              .thenCompose(e -> implementation.login(e))
+          case "GetUser":
+            response = GrpcMarshalling.unmarshal(request.entity(), GetUserRequestSerializer, mat, reader)
+              .thenCompose(e -> implementation.getUser(e))
               .thenApply(e -> GrpcMarshalling.marshal(e, UserSerializer, writer, system, eHandler));
             break;
           

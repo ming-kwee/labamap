@@ -11,10 +11,10 @@ import akka.grpc.AkkaGrpcGenerated;
 public interface UserService {
   
   
-  java.util.concurrent.CompletionStage<com.google.protobuf.Empty> register(user.api.UserApi.User in);
+  java.util.concurrent.CompletionStage<com.google.protobuf.Empty> createUser(user.api.UserApi.User in);
   
   
-  java.util.concurrent.CompletionStage<user.api.UserApi.User> login(user.api.UserApi.GetLoginRequest in);
+  java.util.concurrent.CompletionStage<user.api.UserApi.User> getUser(user.api.UserApi.GetUserRequest in);
   
 
   static String name = "user.api.UserService";
@@ -25,7 +25,7 @@ public interface UserService {
     
       public static ProtobufSerializer<user.api.UserApi.User> UserSerializer = new GoogleProtobufSerializer<>(user.api.UserApi.User.parser());
     
-      public static ProtobufSerializer<user.api.UserApi.GetLoginRequest> GetLoginRequestSerializer = new GoogleProtobufSerializer<>(user.api.UserApi.GetLoginRequest.parser());
+      public static ProtobufSerializer<user.api.UserApi.GetUserRequest> GetUserRequestSerializer = new GoogleProtobufSerializer<>(user.api.UserApi.GetUserRequest.parser());
     
       public static ProtobufSerializer<com.google.protobuf.Empty> EmptySerializer = new GoogleProtobufSerializer<>(com.google.protobuf.Empty.parser());
     

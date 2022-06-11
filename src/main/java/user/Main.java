@@ -3,6 +3,8 @@ package user;
 import kalix.javasdk.Kalix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import user.action.UserStateSubscriptionAction;
+import user.domain.Auth;
 import user.domain.User;
 
 // This class was initially generated based on the .proto definition by Kalix tooling.
@@ -20,7 +22,9 @@ public final class Main {
     // If you prefer, you may remove this and manually register these components in a
     // `new Kalix()` instance.
     return KalixFactory.withComponents(
-      User::new);
+      Auth::new,
+      User::new,
+      UserStateSubscriptionAction::new);
   }
 
   public static void main(String[] args) throws Exception {

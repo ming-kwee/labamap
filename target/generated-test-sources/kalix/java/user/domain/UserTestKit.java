@@ -74,27 +74,27 @@ public final class UserTestKit {
     return result;
   }
 
-  public ValueEntityResult<Empty> register(UserApi.User user, Metadata metadata) {
+  public ValueEntityResult<Empty> createUser(UserApi.User user, Metadata metadata) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, metadata)));
-    ValueEntity.Effect<Empty> effect = entity.register(state, user);
+    ValueEntity.Effect<Empty> effect = entity.createUser(state, user);
     return interpretEffects(effect);
   }
 
-  public ValueEntityResult<UserApi.User> login(UserApi.GetLoginRequest getLoginRequest, Metadata metadata) {
+  public ValueEntityResult<UserApi.User> getUser(UserApi.GetUserRequest getUserRequest, Metadata metadata) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, metadata)));
-    ValueEntity.Effect<UserApi.User> effect = entity.login(state, getLoginRequest);
+    ValueEntity.Effect<UserApi.User> effect = entity.getUser(state, getUserRequest);
     return interpretEffects(effect);
   }
 
-  public ValueEntityResult<Empty> register(UserApi.User user) {
+  public ValueEntityResult<Empty> createUser(UserApi.User user) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
-    ValueEntity.Effect<Empty> effect = entity.register(state, user);
+    ValueEntity.Effect<Empty> effect = entity.createUser(state, user);
     return interpretEffects(effect);
   }
 
-  public ValueEntityResult<UserApi.User> login(UserApi.GetLoginRequest getLoginRequest) {
+  public ValueEntityResult<UserApi.User> getUser(UserApi.GetUserRequest getUserRequest) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
-    ValueEntity.Effect<UserApi.User> effect = entity.login(state, getLoginRequest);
+    ValueEntity.Effect<UserApi.User> effect = entity.getUser(state, getUserRequest);
     return interpretEffects(effect);
   }
 }

@@ -35,16 +35,16 @@ public class UserIntegrationTest {
   }
 
   @Test
-  public void registerOnNonExistingEntity() throws Exception {
+  public void createUserOnNonExistingEntity() throws Exception {
     // TODO: set fields in command, and provide assertions to match replies
-    // client.register(UserApi.User.newBuilder().build())
+    // client.createUser(UserApi.User.newBuilder().build())
     //         .toCompletableFuture().get(5, SECONDS);
   }
 
   @Test
-  public void loginOnNonExistingEntity() throws Exception {
+  public void getUserOnNonExistingEntity() throws Exception {
     // TODO: set fields in command, and provide assertions to match replies
-    // client.login(UserApi.GetLoginRequest.newBuilder().build())
+    // client.getUser(UserApi.GetUserRequest.newBuilder().build())
     //         .toCompletableFuture().get(5, SECONDS);
   }
 }

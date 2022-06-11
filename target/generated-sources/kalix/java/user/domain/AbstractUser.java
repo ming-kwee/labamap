@@ -16,8 +16,8 @@ public abstract class AbstractUser extends ValueEntity<UserDomain.UserState> {
     return new ComponentsImpl(commandContext());
   }
 
-  public abstract Effect<Empty> register(UserDomain.UserState currentState, UserApi.User user);
+  public abstract Effect<Empty> createUser(UserDomain.UserState currentState, UserApi.User user);
 
-  public abstract Effect<UserApi.User> login(UserDomain.UserState currentState, UserApi.GetLoginRequest getLoginRequest);
+  public abstract Effect<UserApi.User> getUser(UserDomain.UserState currentState, UserApi.GetUserRequest getUserRequest);
 
 }

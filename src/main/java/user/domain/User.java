@@ -3,7 +3,6 @@ package user.domain;
 import com.google.protobuf.Empty;
 import kalix.javasdk.valueentity.ValueEntityContext;
 import user.api.UserApi;
-import java.util.UUID;
 import java.util.Optional;
 
 // This class was initially generated based on the .proto definition by Kalix tooling.
@@ -26,16 +25,16 @@ public class User extends AbstractUser {
   }
 
   @Override
-  public Effect<Empty> register(
+  public Effect<Empty> createUser(
       UserDomain.UserState currentState, UserApi.User command) {
     UserDomain.UserState state = convertToDomain(command);
     return reject(currentState, command).orElseGet(() -> handle(state, command));
   }
 
   private Optional<Effect<Empty>> reject(UserDomain.UserState currentState, UserApi.User command) {
-    if (currentState.getEmail().equals(command.getEmail())) {
-      return Optional.of(effects().error("Email is already exists!"));
-    }
+    // if (currentState.getEmail().equals(command.getEmail())) {
+    // return Optional.of(effects().error("Email is already exists!"));
+    // }
     return Optional.empty();
   }
 
@@ -56,11 +55,8 @@ public class User extends AbstractUser {
   }
 
   @Override
-  public Effect<UserApi.User> login(
-      UserDomain.UserState currentState,
-      UserApi.GetLoginRequest command) {
-    if (currentState.getEmail().equals(command.getEmail())
-        && currentState.getPassword().equals(command.getPassword())) {
+  public Effect<UserApi.User> getUser(UserDomain.UserState currentState, UserApi.GetUserRequest command) {
+    if (currentState.getEmail().equals(command.getEmail())) {
       return effects().reply(convertToApi(currentState));
     } else {
       return effects().error("User " + command.getEmail() + " has not been created.");
@@ -69,9 +65,9 @@ public class User extends AbstractUser {
 
   private UserApi.User convertToApi(UserDomain.UserState state) {
     return UserApi.User.newBuilder()
-        .setId(UUID.randomUUID().toString())
-        .setImg(state.getImg())
+        .setId(state.getId())
         .setEmail(state.getEmail())
+        .setImg(state.getImg())
         // .setPassword(state.getPassword())
         .setFirstName(state.getFirstName())
         .setLastName(state.getLastName())

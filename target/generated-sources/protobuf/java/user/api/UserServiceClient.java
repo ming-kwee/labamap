@@ -52,14 +52,14 @@ public abstract class UserServiceClient extends UserServiceClientPowerApi implem
 
   
     
-      private final SingleResponseRequestBuilder<user.api.UserApi.User, com.google.protobuf.Empty> registerRequestBuilder(akka.grpc.internal.InternalChannel channel){
-        return new JavaUnaryRequestBuilder<>(registerDescriptor, channel, options, settings, ec);
+      private final SingleResponseRequestBuilder<user.api.UserApi.User, com.google.protobuf.Empty> createUserRequestBuilder(akka.grpc.internal.InternalChannel channel){
+        return new JavaUnaryRequestBuilder<>(createUserDescriptor, channel, options, settings, ec);
       }
     
   
     
-      private final SingleResponseRequestBuilder<user.api.UserApi.GetLoginRequest, user.api.UserApi.User> loginRequestBuilder(akka.grpc.internal.InternalChannel channel){
-        return new JavaUnaryRequestBuilder<>(loginDescriptor, channel, options, settings, ec);
+      private final SingleResponseRequestBuilder<user.api.UserApi.GetUserRequest, user.api.UserApi.User> getUserRequestBuilder(akka.grpc.internal.InternalChannel channel){
+        return new JavaUnaryRequestBuilder<>(getUserDescriptor, channel, options, settings, ec);
       }
     
   
@@ -67,45 +67,45 @@ public abstract class UserServiceClient extends UserServiceClientPowerApi implem
       
 
         /**
-         * For access to method metadata use the parameterless version of register
+         * For access to method metadata use the parameterless version of createUser
          */
-        public java.util.concurrent.CompletionStage<com.google.protobuf.Empty> register(user.api.UserApi.User request) {
-          return register().invoke(request);
+        public java.util.concurrent.CompletionStage<com.google.protobuf.Empty> createUser(user.api.UserApi.User request) {
+          return createUser().invoke(request);
         }
 
         /**
          * Lower level "lifted" version of the method, giving access to request metadata etc.
-         * prefer register(user.api.UserApi.User) if possible.
+         * prefer createUser(user.api.UserApi.User) if possible.
          */
         
-          public SingleResponseRequestBuilder<user.api.UserApi.User, com.google.protobuf.Empty> register()
+          public SingleResponseRequestBuilder<user.api.UserApi.User, com.google.protobuf.Empty> createUser()
         
         {
-          return registerRequestBuilder(clientState.internalChannel());
+          return createUserRequestBuilder(clientState.internalChannel());
         }
       
 
         /**
-         * For access to method metadata use the parameterless version of login
+         * For access to method metadata use the parameterless version of getUser
          */
-        public java.util.concurrent.CompletionStage<user.api.UserApi.User> login(user.api.UserApi.GetLoginRequest request) {
-          return login().invoke(request);
+        public java.util.concurrent.CompletionStage<user.api.UserApi.User> getUser(user.api.UserApi.GetUserRequest request) {
+          return getUser().invoke(request);
         }
 
         /**
          * Lower level "lifted" version of the method, giving access to request metadata etc.
-         * prefer login(user.api.UserApi.GetLoginRequest) if possible.
+         * prefer getUser(user.api.UserApi.GetUserRequest) if possible.
          */
         
-          public SingleResponseRequestBuilder<user.api.UserApi.GetLoginRequest, user.api.UserApi.User> login()
+          public SingleResponseRequestBuilder<user.api.UserApi.GetUserRequest, user.api.UserApi.User> getUser()
         
         {
-          return loginRequestBuilder(clientState.internalChannel());
+          return getUserRequestBuilder(clientState.internalChannel());
         }
       
 
       
-        private static MethodDescriptor<user.api.UserApi.User, com.google.protobuf.Empty> registerDescriptor =
+        private static MethodDescriptor<user.api.UserApi.User, com.google.protobuf.Empty> createUserDescriptor =
           MethodDescriptor.<user.api.UserApi.User, com.google.protobuf.Empty>newBuilder()
             .setType(
    MethodDescriptor.MethodType.UNARY 
@@ -113,22 +113,22 @@ public abstract class UserServiceClient extends UserServiceClientPowerApi implem
   
   
 )
-            .setFullMethodName(MethodDescriptor.generateFullMethodName("user.api.UserService", "Register"))
+            .setFullMethodName(MethodDescriptor.generateFullMethodName("user.api.UserService", "CreateUser"))
             .setRequestMarshaller(new ProtoMarshaller<user.api.UserApi.User>(UserSerializer))
             .setResponseMarshaller(new ProtoMarshaller<com.google.protobuf.Empty>(EmptySerializer))
             .setSampledToLocalTracing(true)
             .build();
         
-        private static MethodDescriptor<user.api.UserApi.GetLoginRequest, user.api.UserApi.User> loginDescriptor =
-          MethodDescriptor.<user.api.UserApi.GetLoginRequest, user.api.UserApi.User>newBuilder()
+        private static MethodDescriptor<user.api.UserApi.GetUserRequest, user.api.UserApi.User> getUserDescriptor =
+          MethodDescriptor.<user.api.UserApi.GetUserRequest, user.api.UserApi.User>newBuilder()
             .setType(
    MethodDescriptor.MethodType.UNARY 
   
   
   
 )
-            .setFullMethodName(MethodDescriptor.generateFullMethodName("user.api.UserService", "Login"))
-            .setRequestMarshaller(new ProtoMarshaller<user.api.UserApi.GetLoginRequest>(GetLoginRequestSerializer))
+            .setFullMethodName(MethodDescriptor.generateFullMethodName("user.api.UserService", "GetUser"))
+            .setRequestMarshaller(new ProtoMarshaller<user.api.UserApi.GetUserRequest>(GetUserRequestSerializer))
             .setResponseMarshaller(new ProtoMarshaller<user.api.UserApi.User>(UserSerializer))
             .setSampledToLocalTracing(true)
             .build();

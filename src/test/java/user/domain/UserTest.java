@@ -33,19 +33,19 @@ public class UserTest {
 
   @Test
   @Ignore("to be implemented")
-  public void registerTest() {
+  public void createUserTest() {
     UserTestKit service = UserTestKit.of(User::new);
     // User command = User.newBuilder()...build();
-    // ValueEntityResult<Empty> result = service.register(command);
+    // ValueEntityResult<Empty> result = service.createUser(command);
   }
 
 
   @Test
   @Ignore("to be implemented")
-  public void loginTest() {
+  public void getUserTest() {
     UserTestKit service = UserTestKit.of(User::new);
-    // GetLoginRequest command = GetLoginRequest.newBuilder()...build();
-    // ValueEntityResult<User> result = service.login(command);
+    // GetUserRequest command = GetUserRequest.newBuilder()...build();
+    // ValueEntityResult<User> result = service.getUser(command);
   }
 
 }

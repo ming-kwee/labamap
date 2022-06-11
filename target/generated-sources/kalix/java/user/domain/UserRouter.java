@@ -25,11 +25,11 @@ public class UserRouter extends ValueEntityRouter<UserDomain.UserState, User> {
       String commandName, UserDomain.UserState state, Object command, CommandContext context) {
     switch (commandName) {
 
-      case "Register":
-        return entity().register(state, (UserApi.User) command);
+      case "CreateUser":
+        return entity().createUser(state, (UserApi.User) command);
 
-      case "Login":
-        return entity().login(state, (UserApi.GetLoginRequest) command);
+      case "GetUser":
+        return entity().getUser(state, (UserApi.GetUserRequest) command);
 
       default:
         throw new ValueEntityRouter.CommandHandlerNotFound(commandName);
