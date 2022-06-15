@@ -1,0 +1,3 @@
+components\users\auth\domain\AuthTestKit.class
+components\users\user\action\UserStateSubscriptionActionTestKit.class
+components\users\user\domain\UserTestKit.class

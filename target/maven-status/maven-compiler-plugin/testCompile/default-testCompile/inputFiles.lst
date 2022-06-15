@@ -1,8 +1,8 @@
-D:\Akka\cliniva-auth\src\test\java\user\action\UserStateSubscriptionActionTest.java
-D:\Akka\cliniva-auth\target\generated-test-sources\kalix\java\user\action\UserStateSubscriptionActionTestKit.java
-D:\Akka\cliniva-auth\src\it\java\user\api\AuthIntegrationTest.java
-D:\Akka\cliniva-auth\src\it\java\user\api\UserIntegrationTest.java
-D:\Akka\cliniva-auth\target\generated-test-sources\kalix\java\user\domain\UserTestKit.java
-D:\Akka\cliniva-auth\src\test\java\user\domain\AuthTest.java
-D:\Akka\cliniva-auth\target\generated-test-sources\kalix\java\user\domain\AuthTestKit.java
-D:\Akka\cliniva-auth\src\test\java\user\domain\UserTest.java
+D:\Akka\cliniva-auth\src\test\java\components\users\user\domain\UserTest.java
+D:\Akka\cliniva-auth\src\it\java\components\users\auth\api\AuthIntegrationTest.java
+D:\Akka\cliniva-auth\src\test\java\components\users\user\action\UserStateSubscriptionActionTest.java
+D:\Akka\cliniva-auth\target\generated-test-sources\kalix\java\components\users\user\action\UserStateSubscriptionActionTestKit.java
+D:\Akka\cliniva-auth\target\generated-test-sources\kalix\java\components\users\user\domain\UserTestKit.java
+D:\Akka\cliniva-auth\src\test\java\components\users\auth\domain\AuthTest.java
+D:\Akka\cliniva-auth\src\it\java\components\users\user\api\UserIntegrationTest.java
+D:\Akka\cliniva-auth\target\generated-test-sources\kalix\java\components\users\auth\domain\AuthTestKit.java

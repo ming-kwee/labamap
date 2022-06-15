@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: components.users.auth.domain.AuthTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.067 s - in components.users.auth.domain.AuthTest

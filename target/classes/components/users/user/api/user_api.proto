@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package components.users.user.api;
+
+option java_outer_classname = "UserApi";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "kalix/annotations.proto";
+
+service UserService {
+    option (kalix.codegen) = {
+      value_entity: {
+        name: "components.users.user.domain.User"
+        entity_type: "users"
+        state: "components.users.user.domain.UserState"
+      }
+    };
+  
+    rpc CreateUser(User) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "/create_user"
+            body: "*"
+        };
+    }
+
+    rpc GetUser(GetUserRequest) returns (User) {
+        option (google.api.http) = {
+            post: "/get_user"
+            body: "*"
+        };
+    }
+  
+}
+
+message User {
+    string id = 1;
+    string img = 2;
+    string email = 3 [(kalix.field).entity_key = true];
+    string password = 4;
+    string first_name = 5;
+    string last_name = 6;
+    string role = 7;
+}
+
+message GetUserRequest {
+    string email = 1 [(kalix.field).entity_key = true];
+}
