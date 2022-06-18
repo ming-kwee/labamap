@@ -3,6 +3,7 @@ package components.users.auth.domain;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Empty;
 import com.google.protobuf.EmptyProto;
+import components.users.auth.action.AuthActionApi;
 import components.users.auth.api.AuthApi;
 import kalix.javasdk.valueentity.ValueEntityContext;
 import kalix.javasdk.valueentity.ValueEntityOptions;
@@ -64,6 +65,7 @@ public class AuthProvider implements ValueEntityProvider<AuthDomain.AuthState, A
   @Override
   public final Descriptors.FileDescriptor[] additionalDescriptors() {
     return new Descriptors.FileDescriptor[] {
+      AuthActionApi.getDescriptor(),
       AuthApi.getDescriptor(),
       AuthDomain.getDescriptor(),
       EmptyProto.getDescriptor()

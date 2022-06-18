@@ -7,6 +7,7 @@ option java_outer_classname = "AuthApi";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "kalix/annotations.proto";
+import "components/users/auth/action/auth_action.proto";
 
 service AuthService {
     option (kalix.codegen) = {
@@ -17,13 +18,9 @@ service AuthService {
       }
     };
   
-    rpc Register(Auth) returns (google.protobuf.Empty) {
-        option (google.api.http) = {
-            post: "/register"
-            body: "*"
-        };
-    }
-    rpc Login(GetLoginRequest) returns (Auth) {
+    rpc Register(auth.action.Auth) returns (google.protobuf.Empty);
+
+    rpc Login(GetLoginRequest) returns (auth.action.Auth) {
         option (google.api.http) = {
             post: "/login"
             body: "*"

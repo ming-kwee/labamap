@@ -11,10 +11,10 @@ import akka.grpc.AkkaGrpcGenerated;
 public interface AuthService {
   
   
-  java.util.concurrent.CompletionStage<com.google.protobuf.Empty> register(components.users.auth.api.AuthApi.Auth in);
+  java.util.concurrent.CompletionStage<com.google.protobuf.Empty> register(components.users.auth.action.AuthActionApi.Auth in);
   
   
-  java.util.concurrent.CompletionStage<components.users.auth.api.AuthApi.Auth> login(components.users.auth.api.AuthApi.GetLoginRequest in);
+  java.util.concurrent.CompletionStage<components.users.auth.action.AuthActionApi.Auth> login(components.users.auth.api.AuthApi.GetLoginRequest in);
   
 
   static String name = "components.users.auth.api.AuthService";
@@ -23,7 +23,7 @@ public interface AuthService {
   @AkkaGrpcGenerated
   public static class Serializers {
     
-      public static ProtobufSerializer<components.users.auth.api.AuthApi.Auth> AuthSerializer = new GoogleProtobufSerializer<>(components.users.auth.api.AuthApi.Auth.parser());
+      public static ProtobufSerializer<components.users.auth.action.AuthActionApi.Auth> AuthSerializer = new GoogleProtobufSerializer<>(components.users.auth.action.AuthActionApi.Auth.parser());
     
       public static ProtobufSerializer<components.users.auth.api.AuthApi.GetLoginRequest> GetLoginRequestSerializer = new GoogleProtobufSerializer<>(components.users.auth.api.AuthApi.GetLoginRequest.parser());
     

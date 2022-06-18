@@ -52,13 +52,13 @@ public abstract class AuthServiceClient extends AuthServiceClientPowerApi implem
 
   
     
-      private final SingleResponseRequestBuilder<components.users.auth.api.AuthApi.Auth, com.google.protobuf.Empty> registerRequestBuilder(akka.grpc.internal.InternalChannel channel){
+      private final SingleResponseRequestBuilder<components.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> registerRequestBuilder(akka.grpc.internal.InternalChannel channel){
         return new JavaUnaryRequestBuilder<>(registerDescriptor, channel, options, settings, ec);
       }
     
   
     
-      private final SingleResponseRequestBuilder<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.api.AuthApi.Auth> loginRequestBuilder(akka.grpc.internal.InternalChannel channel){
+      private final SingleResponseRequestBuilder<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.action.AuthActionApi.Auth> loginRequestBuilder(akka.grpc.internal.InternalChannel channel){
         return new JavaUnaryRequestBuilder<>(loginDescriptor, channel, options, settings, ec);
       }
     
@@ -69,16 +69,16 @@ public abstract class AuthServiceClient extends AuthServiceClientPowerApi implem
         /**
          * For access to method metadata use the parameterless version of register
          */
-        public java.util.concurrent.CompletionStage<com.google.protobuf.Empty> register(components.users.auth.api.AuthApi.Auth request) {
+        public java.util.concurrent.CompletionStage<com.google.protobuf.Empty> register(components.users.auth.action.AuthActionApi.Auth request) {
           return register().invoke(request);
         }
 
         /**
          * Lower level "lifted" version of the method, giving access to request metadata etc.
-         * prefer register(components.users.auth.api.AuthApi.Auth) if possible.
+         * prefer register(components.users.auth.action.AuthActionApi.Auth) if possible.
          */
         
-          public SingleResponseRequestBuilder<components.users.auth.api.AuthApi.Auth, com.google.protobuf.Empty> register()
+          public SingleResponseRequestBuilder<components.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> register()
         
         {
           return registerRequestBuilder(clientState.internalChannel());
@@ -88,7 +88,7 @@ public abstract class AuthServiceClient extends AuthServiceClientPowerApi implem
         /**
          * For access to method metadata use the parameterless version of login
          */
-        public java.util.concurrent.CompletionStage<components.users.auth.api.AuthApi.Auth> login(components.users.auth.api.AuthApi.GetLoginRequest request) {
+        public java.util.concurrent.CompletionStage<components.users.auth.action.AuthActionApi.Auth> login(components.users.auth.api.AuthApi.GetLoginRequest request) {
           return login().invoke(request);
         }
 
@@ -97,7 +97,7 @@ public abstract class AuthServiceClient extends AuthServiceClientPowerApi implem
          * prefer login(components.users.auth.api.AuthApi.GetLoginRequest) if possible.
          */
         
-          public SingleResponseRequestBuilder<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.api.AuthApi.Auth> login()
+          public SingleResponseRequestBuilder<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.action.AuthActionApi.Auth> login()
         
         {
           return loginRequestBuilder(clientState.internalChannel());
@@ -105,8 +105,8 @@ public abstract class AuthServiceClient extends AuthServiceClientPowerApi implem
       
 
       
-        private static MethodDescriptor<components.users.auth.api.AuthApi.Auth, com.google.protobuf.Empty> registerDescriptor =
-          MethodDescriptor.<components.users.auth.api.AuthApi.Auth, com.google.protobuf.Empty>newBuilder()
+        private static MethodDescriptor<components.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> registerDescriptor =
+          MethodDescriptor.<components.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty>newBuilder()
             .setType(
    MethodDescriptor.MethodType.UNARY 
   
@@ -114,13 +114,13 @@ public abstract class AuthServiceClient extends AuthServiceClientPowerApi implem
   
 )
             .setFullMethodName(MethodDescriptor.generateFullMethodName("components.users.auth.api.AuthService", "Register"))
-            .setRequestMarshaller(new ProtoMarshaller<components.users.auth.api.AuthApi.Auth>(AuthSerializer))
+            .setRequestMarshaller(new ProtoMarshaller<components.users.auth.action.AuthActionApi.Auth>(AuthSerializer))
             .setResponseMarshaller(new ProtoMarshaller<com.google.protobuf.Empty>(EmptySerializer))
             .setSampledToLocalTracing(true)
             .build();
         
-        private static MethodDescriptor<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.api.AuthApi.Auth> loginDescriptor =
-          MethodDescriptor.<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.api.AuthApi.Auth>newBuilder()
+        private static MethodDescriptor<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.action.AuthActionApi.Auth> loginDescriptor =
+          MethodDescriptor.<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.action.AuthActionApi.Auth>newBuilder()
             .setType(
    MethodDescriptor.MethodType.UNARY 
   
@@ -129,7 +129,7 @@ public abstract class AuthServiceClient extends AuthServiceClientPowerApi implem
 )
             .setFullMethodName(MethodDescriptor.generateFullMethodName("components.users.auth.api.AuthService", "Login"))
             .setRequestMarshaller(new ProtoMarshaller<components.users.auth.api.AuthApi.GetLoginRequest>(GetLoginRequestSerializer))
-            .setResponseMarshaller(new ProtoMarshaller<components.users.auth.api.AuthApi.Auth>(AuthSerializer))
+            .setResponseMarshaller(new ProtoMarshaller<components.users.auth.action.AuthActionApi.Auth>(AuthSerializer))
             .setSampledToLocalTracing(true)
             .build();
         

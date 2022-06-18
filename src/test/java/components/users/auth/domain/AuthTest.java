@@ -33,15 +33,6 @@ public class AuthTest {
 
   @Test
   @Ignore("to be implemented")
-  public void registerTest() {
-    AuthTestKit service = AuthTestKit.of(Auth::new);
-    // Auth command = Auth.newBuilder()...build();
-    // ValueEntityResult<Empty> result = service.register(command);
-  }
-
-
-  @Test
-  @Ignore("to be implemented")
   public void loginTest() {
     AuthTestKit service = AuthTestKit.of(Auth::new);
     // GetLoginRequest command = GetLoginRequest.newBuilder()...build();

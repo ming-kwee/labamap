@@ -1,5 +1,6 @@
 package components.users;
 
+import components.users.auth.action.AuthActionImpl;
 import components.users.auth.domain.Auth;
 import components.users.user.action.UserStateSubscriptionAction;
 import components.users.user.domain.User;
@@ -24,6 +25,7 @@ public final class Main {
     return KalixFactory.withComponents(
       Auth::new,
       User::new,
+      AuthActionImpl:: new,
       UserStateSubscriptionAction::new);
   }
 

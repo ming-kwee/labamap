@@ -1,5 +1,8 @@
 package components.users;
 
+import components.users.auth.action.AuthActionApi;
+import components.users.auth.action.AuthActionImpl;
+import components.users.auth.action.AuthActionProvider;
 import components.users.auth.api.AuthApi;
 import components.users.auth.domain.Auth;
 import components.users.auth.domain.AuthProvider;
@@ -24,9 +27,11 @@ public final class KalixFactory {
   public static Kalix withComponents(
       Function<ValueEntityContext, Auth> createAuth,
       Function<ValueEntityContext, User> createUser,
+      Function<ActionCreationContext, AuthActionImpl> createAuthActionImpl,
       Function<ActionCreationContext, UserStateSubscriptionAction> createUserStateSubscriptionAction) {
     Kalix kalix = new Kalix();
     return kalix
+      .register(AuthActionProvider.of(createAuthActionImpl))
       .register(AuthProvider.of(createAuth))
       .register(UserProvider.of(createUser))
       .register(UserStateSubscriptionActionProvider.of(createUserStateSubscriptionAction));

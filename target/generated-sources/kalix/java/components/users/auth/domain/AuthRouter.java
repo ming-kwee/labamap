@@ -1,6 +1,7 @@
 package components.users.auth.domain;
 
 import com.google.protobuf.Empty;
+import components.users.auth.action.AuthActionApi;
 import components.users.auth.api.AuthApi;
 import kalix.javasdk.impl.valueentity.ValueEntityRouter;
 import kalix.javasdk.valueentity.CommandContext;
@@ -26,7 +27,7 @@ public class AuthRouter extends ValueEntityRouter<AuthDomain.AuthState, Auth> {
     switch (commandName) {
 
       case "Register":
-        return entity().register(state, (AuthApi.Auth) command);
+        return entity().register(state, (AuthActionApi.Auth) command);
 
       case "Login":
         return entity().login(state, (AuthApi.GetLoginRequest) command);

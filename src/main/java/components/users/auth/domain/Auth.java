@@ -1,11 +1,11 @@
 package components.users.auth.domain;
 
 import com.google.protobuf.Empty;
+import components.users.auth.action.AuthActionApi;
 import components.users.auth.api.AuthApi;
 import kalix.javasdk.valueentity.ValueEntityContext;
 import java.util.UUID;
 import java.util.Optional;
-
 // This class was initially generated based on the .proto definition by Kalix tooling.
 // This is the implementation for the Value Entity Service described in your components/users/auth/api/auth_api.proto file.
 //
@@ -20,6 +20,7 @@ public class Auth extends AbstractAuth {
     this.entityId = context.entityId();
   }
 
+
   @Override
   public AuthDomain.AuthState emptyState() {
     return AuthDomain.AuthState.getDefaultInstance();
@@ -27,23 +28,24 @@ public class Auth extends AbstractAuth {
 
   @Override
   public Effect<Empty> register(
-      AuthDomain.AuthState currentState, AuthApi.Auth command) {
+      AuthDomain.AuthState currentState, AuthActionApi.Auth command) {
     AuthDomain.AuthState state = convertToDomain(command);
     return reject(currentState, command).orElseGet(() -> handle(state, command));
   }
 
-  private Optional<Effect<Empty>> reject(AuthDomain.AuthState currentState, AuthApi.Auth command) {
+
+  private Optional<Effect<Empty>> reject(AuthDomain.AuthState currentState, AuthActionApi.Auth command) {
     if (currentState.getEmail().equals(command.getEmail())) {
       return Optional.of(effects().error("Email is already exists!"));
     }
     return Optional.empty();
   }
-
-  private Effect<Empty> handle(AuthDomain.AuthState state, AuthApi.Auth command) {
+  
+  private Effect<Empty> handle(AuthDomain.AuthState state, AuthActionApi.Auth command) {
     return effects().updateState(state).thenReply(Empty.getDefaultInstance());
   }
 
-  private AuthDomain.AuthState convertToDomain(AuthApi.Auth user) {
+  private AuthDomain.AuthState convertToDomain(AuthActionApi.Auth user) {
     return AuthDomain.AuthState.newBuilder()
         .setId(UUID.randomUUID().toString())
         .setEmail(user.getEmail())
@@ -54,8 +56,9 @@ public class Auth extends AbstractAuth {
         .build();
   }
 
+
   @Override
-  public Effect<AuthApi.Auth> login(
+  public Effect<AuthActionApi.Auth> login(
       AuthDomain.AuthState currentState,
       AuthApi.GetLoginRequest command) {
     if (currentState.getEmail().equals(command.getEmail())
@@ -66,8 +69,9 @@ public class Auth extends AbstractAuth {
     }
   }
 
-  private AuthApi.Auth convertToApi(AuthDomain.AuthState state) {
-    return AuthApi.Auth.newBuilder()
+
+  private AuthActionApi.Auth convertToApi(AuthDomain.AuthState state) {
+    return AuthActionApi.Auth.newBuilder()
         .setId(state.getId())
         .setEmail(state.getEmail())
         // .setPassword(state.getPassword())
@@ -76,4 +80,5 @@ public class Auth extends AbstractAuth {
         .setRole(state.getRole())
         .build();
   }
+
 }

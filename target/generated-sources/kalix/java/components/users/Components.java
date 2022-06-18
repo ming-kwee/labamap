@@ -10,14 +10,18 @@ import kalix.javasdk.DeferredCall;
  * Not intended for user extension, provided through generated implementation
  */
 public interface Components {
+  AuthActionImplCalls authActionImpl();
   AuthCalls auth();
   UserCalls user();
   UserStateSubscriptionActionCalls userStateSubscriptionAction();
 
+  interface AuthActionImplCalls {
+    DeferredCall<components.users.auth.action.AuthActionApi.Auth, components.users.auth.action.AuthActionApi.Auth> register(components.users.auth.action.AuthActionApi.Auth auth);
+  }
   interface AuthCalls {
-    DeferredCall<components.users.auth.api.AuthApi.Auth, com.google.protobuf.Empty> register(components.users.auth.api.AuthApi.Auth auth);
+    DeferredCall<components.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> register(components.users.auth.action.AuthActionApi.Auth auth);
 
-    DeferredCall<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.api.AuthApi.Auth> login(components.users.auth.api.AuthApi.GetLoginRequest getLoginRequest);
+    DeferredCall<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.action.AuthActionApi.Auth> login(components.users.auth.api.AuthApi.GetLoginRequest getLoginRequest);
   }
   interface UserCalls {
     DeferredCall<components.users.user.api.UserApi.User, com.google.protobuf.Empty> createUser(components.users.user.api.UserApi.User user);

@@ -3,6 +3,7 @@ package components.users.auth.domain;
 import com.google.protobuf.Empty;
 import components.users.Components;
 import components.users.ComponentsImpl;
+import components.users.auth.action.AuthActionApi;
 import components.users.auth.api.AuthApi;
 import kalix.javasdk.valueentity.ValueEntity;
 
@@ -16,8 +17,8 @@ public abstract class AbstractAuth extends ValueEntity<AuthDomain.AuthState> {
     return new ComponentsImpl(commandContext());
   }
 
-  public abstract Effect<Empty> register(AuthDomain.AuthState currentState, AuthApi.Auth auth);
+  public abstract Effect<Empty> register(AuthDomain.AuthState currentState, AuthActionApi.Auth auth);
 
-  public abstract Effect<AuthApi.Auth> login(AuthDomain.AuthState currentState, AuthApi.GetLoginRequest getLoginRequest);
+  public abstract Effect<AuthActionApi.Auth> login(AuthDomain.AuthState currentState, AuthApi.GetLoginRequest getLoginRequest);
 
 }

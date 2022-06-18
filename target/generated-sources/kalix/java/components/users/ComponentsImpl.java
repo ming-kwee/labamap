@@ -26,6 +26,10 @@ public final class ComponentsImpl implements Components {
   }
 
   @Override
+  public Components.AuthActionImplCalls authActionImpl() {
+    return new AuthActionImplCallsImpl();
+  }
+  @Override
   public Components.AuthCalls auth() {
     return new AuthCallsImpl();
   }
@@ -38,9 +42,21 @@ public final class ComponentsImpl implements Components {
     return new UserStateSubscriptionActionCallsImpl();
   }
 
+  private final class AuthActionImplCallsImpl implements Components.AuthActionImplCalls {
+     @Override
+    public DeferredCall<components.users.auth.action.AuthActionApi.Auth, components.users.auth.action.AuthActionApi.Auth> register(components.users.auth.action.AuthActionApi.Auth auth) {
+      return new DeferredCallImpl<>(
+        auth,
+        MetadataImpl.Empty(),
+        "components.users.auth.action.AuthAction",
+        "Register",
+        () -> getGrpcClient(components.users.auth.action.AuthAction.class).register(auth)
+      );
+    }
+  }
   private final class AuthCallsImpl implements Components.AuthCalls {
      @Override
-    public DeferredCall<components.users.auth.api.AuthApi.Auth, com.google.protobuf.Empty> register(components.users.auth.api.AuthApi.Auth auth) {
+    public DeferredCall<components.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> register(components.users.auth.action.AuthActionApi.Auth auth) {
       return new DeferredCallImpl<>(
         auth,
         MetadataImpl.Empty(),
@@ -50,7 +66,7 @@ public final class ComponentsImpl implements Components {
       );
     }
     @Override
-    public DeferredCall<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.api.AuthApi.Auth> login(components.users.auth.api.AuthApi.GetLoginRequest getLoginRequest) {
+    public DeferredCall<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.action.AuthActionApi.Auth> login(components.users.auth.api.AuthApi.GetLoginRequest getLoginRequest) {
       return new DeferredCallImpl<>(
         getLoginRequest,
         MetadataImpl.Empty(),

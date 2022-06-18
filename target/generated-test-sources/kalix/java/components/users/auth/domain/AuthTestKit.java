@@ -1,6 +1,7 @@
 package components.users.auth.domain;
 
 import com.google.protobuf.Empty;
+import components.users.auth.action.AuthActionApi;
 import components.users.auth.api.AuthApi;
 import kalix.javasdk.Metadata;
 import kalix.javasdk.impl.effect.MessageReplyImpl;
@@ -74,27 +75,27 @@ public final class AuthTestKit {
     return result;
   }
 
-  public ValueEntityResult<Empty> register(AuthApi.Auth auth, Metadata metadata) {
+  public ValueEntityResult<Empty> register(AuthActionApi.Auth auth, Metadata metadata) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, metadata)));
     ValueEntity.Effect<Empty> effect = entity.register(state, auth);
     return interpretEffects(effect);
   }
 
-  public ValueEntityResult<AuthApi.Auth> login(AuthApi.GetLoginRequest getLoginRequest, Metadata metadata) {
+  public ValueEntityResult<AuthActionApi.Auth> login(AuthApi.GetLoginRequest getLoginRequest, Metadata metadata) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, metadata)));
-    ValueEntity.Effect<AuthApi.Auth> effect = entity.login(state, getLoginRequest);
+    ValueEntity.Effect<AuthActionApi.Auth> effect = entity.login(state, getLoginRequest);
     return interpretEffects(effect);
   }
 
-  public ValueEntityResult<Empty> register(AuthApi.Auth auth) {
+  public ValueEntityResult<Empty> register(AuthActionApi.Auth auth) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
     ValueEntity.Effect<Empty> effect = entity.register(state, auth);
     return interpretEffects(effect);
   }
 
-  public ValueEntityResult<AuthApi.Auth> login(AuthApi.GetLoginRequest getLoginRequest) {
+  public ValueEntityResult<AuthActionApi.Auth> login(AuthApi.GetLoginRequest getLoginRequest) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
-    ValueEntity.Effect<AuthApi.Auth> effect = entity.login(state, getLoginRequest);
+    ValueEntity.Effect<AuthActionApi.Auth> effect = entity.login(state, getLoginRequest);
     return interpretEffects(effect);
   }
 }

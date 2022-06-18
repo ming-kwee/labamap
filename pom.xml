@@ -4,14 +4,14 @@
 
   <groupId>user</groupId>
   <artifactId>cliniva-auth</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.5-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Cliniva Auth</name>
 
   <properties>
     <!-- TODO Update to your own Docker repository or Docker Hub scope -->
-    <dockerImage>sonnywirawan/${project.artifactId}</dockerImage>
+    <dockerImage>sudimin/${project.artifactId}</dockerImage>
     <dockerTag>${project.version}-${build.timestamp}</dockerTag>
     <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
     <mainClass>components.users.Main</mainClass>

@@ -13,10 +13,10 @@ public abstract class AuthServiceClientPowerApi {
   
     /**
      * Lower level "lifted" version of the method, giving access to request metadata etc.
-     * prefer register(components.users.auth.api.AuthApi.Auth) if possible.
+     * prefer register(components.users.auth.action.AuthActionApi.Auth) if possible.
      */
     
-      public SingleResponseRequestBuilder<components.users.auth.api.AuthApi.Auth, com.google.protobuf.Empty> register()
+      public SingleResponseRequestBuilder<components.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> register()
     
     {
         throw new java.lang.UnsupportedOperationException();
@@ -27,7 +27,7 @@ public abstract class AuthServiceClientPowerApi {
      * prefer login(components.users.auth.api.AuthApi.GetLoginRequest) if possible.
      */
     
-      public SingleResponseRequestBuilder<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.api.AuthApi.Auth> login()
+      public SingleResponseRequestBuilder<components.users.auth.api.AuthApi.GetLoginRequest, components.users.auth.action.AuthActionApi.Auth> login()
     
     {
         throw new java.lang.UnsupportedOperationException();

@@ -2258,21 +2258,22 @@ public final class AuthApi {
       "\n(components/users/auth/api/auth_api.pro" +
       "to\022\031components.users.auth.api\032\034google/ap" +
       "i/annotations.proto\032\033google/protobuf/emp" +
-      "ty.proto\032\027kalix/annotations.proto\"\216\001\n\004Au" +
-      "th\022\n\n\002id\030\001 \001(\t\022\024\n\005email\030\002 \001(\tB\005\302C\002\010\001\022\020\n\010" +
-      "password\030\003 \001(\t\022\022\n\nfirst_name\030\004 \001(\t\022\021\n\tla" +
-      "st_name\030\005 \001(\t\022\014\n\004role\030\006 \001(\t\022\035\n\014access_to" +
-      "ken\030\007 \001(\tB\007\302C\004\022\002\030\001\"9\n\017GetLoginRequest\022\024\n" +
-      "\005email\030\001 \001(\tB\005\302C\002\010\001\022\020\n\010password\030\002 \001(\t2\272\002" +
-      "\n\013AuthService\022Y\n\010Register\022\037.components.u" +
-      "sers.auth.api.Auth\032\026.google.protobuf.Emp" +
-      "ty\"\024\202\323\344\223\002\016\"\t/register:\001*\022o\n\005Login\022*.comp" +
-      "onents.users.auth.api.GetLoginRequest\032\037." +
-      "components.users.auth.api.Auth\"\031\202\323\344\223\002\013\"\006" +
-      "/login:\001*\302C\005\032\003\022\001\002\032_\312C\\\022Z\n!components.use" +
-      "rs.auth.domain.Auth\022\rauthorization\032&comp" +
-      "onents.users.auth.domain.AuthStateB\tB\007Au" +
-      "thApib\006proto3"
+      "ty.proto\032\027kalix/annotations.proto\032.compo" +
+      "nents/users/auth/action/auth_action.prot" +
+      "o\"\216\001\n\004Auth\022\n\n\002id\030\001 \001(\t\022\024\n\005email\030\002 \001(\tB\005\302" +
+      "C\002\010\001\022\020\n\010password\030\003 \001(\t\022\022\n\nfirst_name\030\004 \001" +
+      "(\t\022\021\n\tlast_name\030\005 \001(\t\022\014\n\004role\030\006 \001(\t\022\035\n\014a" +
+      "ccess_token\030\007 \001(\tB\007\302C\004\022\002\030\001\"9\n\017GetLoginRe" +
+      "quest\022\024\n\005email\030\001 \001(\tB\005\302C\002\010\001\022\020\n\010password\030" +
+      "\002 \001(\t2\252\002\n\013AuthService\022F\n\010Register\022\".comp" +
+      "onents.users.auth.action.Auth\032\026.google.p" +
+      "rotobuf.Empty\022r\n\005Login\022*.components.user" +
+      "s.auth.api.GetLoginRequest\032\".components." +
+      "users.auth.action.Auth\"\031\202\323\344\223\002\013\"\006/login:\001" +
+      "*\302C\005\032\003\022\001\002\032_\312C\\\022Z\n!components.users.auth." +
+      "domain.Auth\022\rauthorization\032&components.u" +
+      "sers.auth.domain.AuthStateB\tB\007AuthApib\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2280,6 +2281,7 @@ public final class AuthApi {
           com.google.api.AnnotationsProto.getDescriptor(),
           com.google.protobuf.EmptyProto.getDescriptor(),
           kalix.Annotations.getDescriptor(),
+          components.users.auth.action.AuthActionApi.getDescriptor(),
         });
     internal_static_components_users_auth_api_Auth_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2304,6 +2306,7 @@ public final class AuthApi {
     com.google.api.AnnotationsProto.getDescriptor();
     com.google.protobuf.EmptyProto.getDescriptor();
     kalix.Annotations.getDescriptor();
+    components.users.auth.action.AuthActionApi.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
