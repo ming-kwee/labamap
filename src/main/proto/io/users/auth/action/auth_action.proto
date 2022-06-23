@@ -1,0 +1,35 @@
+syntax = "proto3";
+package io.users.auth.action;
+
+option java_outer_classname = "AuthActionApi";
+
+import "kalix/annotations.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service AuthAction {
+    option (kalix.codegen) = {
+      action: {}
+    };
+  
+    rpc Register(Auth) returns (auth.action.Auth) {
+      option (google.api.http) = {
+          post: "/register"
+          body: "*"
+      };
+  }
+}
+
+  message Auth {
+    string id = 1;
+    // string img = 2;
+    string email = 2 [(kalix.field).entity_key = true];
+    string password = 3;
+    string first_name = 4;
+    string last_name = 5;
+    string role = 6;
+    string access_token = 7 [(kalix.field).jwt = {
+        token: true
+    }];
+}
+

@@ -4,7 +4,7 @@
   <groupId>user</groupId>
   <artifactId>cliniva-auth</artifactId>
   <name>Cliniva Auth</name>
-  <version>1.5-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <build>
     <extensions>
       <extension>
@@ -282,8 +282,8 @@
   </dependencies>
   <properties>
     <jdk.target>11</jdk.target>
-    <dockerImage>sudimin/${project.artifactId}</dockerImage>
-    <mainClass>components.users.Main</mainClass>
+    <dockerImage>sonnywirawan/${project.artifactId}</dockerImage>
+    <mainClass>io.users.Main</mainClass>
     <akka-grpc.version>2.1.4</akka-grpc.version>
     <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
