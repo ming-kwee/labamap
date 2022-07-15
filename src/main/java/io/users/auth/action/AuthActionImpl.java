@@ -40,7 +40,7 @@ public class AuthActionImpl extends AbstractAuthAction {
         .setPassword(auth.getPassword()).build())
         .execute();
 
-    if (auth.getRole().toLowerCase() == "admin") {
+    if (auth.getRole().equalsIgnoreCase("admin")) {
       CompletionStage<Empty> userCreated = authCreated.thenCompose(empty -> {
         return components().admin().createAdmin(AdminApi.Admin.newBuilder()
             .setId(id)
@@ -58,7 +58,7 @@ public class AuthActionImpl extends AbstractAuthAction {
               .setEmail(auth.getEmail()).build());
 
       return effects().asyncReply(reply);
-    } else if (auth.getRole().toLowerCase() == "doctor") {
+    } else if (auth.getRole().equalsIgnoreCase("doctor")) {
       CompletionStage<Empty> userCreated = authCreated.thenCompose(empty -> {
         return components().doctor().createDoctor(DoctorApi.Doctor.newBuilder()
             .setId(id)
