@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package io.users.patient.domain;
+
+option java_outer_classname = "PatientDomain";
+
+message PatientState {
+    string id = 1;
+    string email = 2;
+    string password = 3;
+    string first_name = 4;
+    string last_name = 5;
+    string role = 6;
+    // Patient
+    string gender = 7;
+    string mobile = 8;
+    string date_of_birth = 9;
+    int32 age = 10;
+    string marital_status = 11;
+    string address = 12;
+    string blood_group = 13;
+    string blood_pressure = 14;
+    string sugger = 15;
+    string injury = 16;
+    string img = 17;
+}

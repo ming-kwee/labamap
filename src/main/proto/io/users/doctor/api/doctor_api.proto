@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package io.users.doctor.api;
+
+option java_outer_classname = "DoctorApi";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "kalix/annotations.proto";
+
+service DoctorService {
+    option (kalix.codegen) = {
+      value_entity: {
+        name: "io.users.doctor.domain.Doctor"
+        entity_type: "doctors"
+        state: "io.users.doctor.domain.DoctorState"
+      }
+    };
+  
+    rpc CreateDoctor(Doctor) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "/create_doctor"
+            body: "*"
+        };
+    }
+
+    rpc GetDoctor(GetDoctorRequest) returns (Doctor) {
+        option (google.api.http) = {
+            post: "/get_doctor"
+            body: "*"
+        };
+    }
+}
+
+message Doctor {
+    string id = 1;
+    string email = 2 [(kalix.field).entity_key = true];
+    string password = 3;
+    string first_name = 4;
+    string last_name = 5;
+    string role = 6;
+    // Doctor
+    string gender = 7;
+    string mobile = 8;
+    string designation = 9;
+    string department = 10;
+    string address = 11;
+    string date_of_birth = 12;
+    string education = 13;
+    string img = 14;
+    string specialization = 15;
+    string degree = 16;
+    string joining_date = 17;
+}
+
+message GetDoctorRequest {
+    string email = 1 [(kalix.field).entity_key = true];
+}

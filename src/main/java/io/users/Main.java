@@ -1,10 +1,12 @@
 package io.users;
 
-import io.users.KalixFactory;
+import io.users.admin.domain.Admin;
 import io.users.auth.action.AuthActionImpl;
 import io.users.auth.domain.Auth;
-import io.users.user.action.UserStateSubscriptionAction;
-import io.users.user.domain.User;
+import io.users.doctor.action.DoctorStateSubscriptionAction;
+import io.users.doctor.domain.Doctor;
+import io.users.patient.action.PatientStateSubscriptionAction;
+import io.users.patient.domain.Patient;
 import kalix.javasdk.Kalix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +26,13 @@ public final class Main {
     // If you prefer, you may remove this and manually register these components in a
     // `new Kalix()` instance.
     return KalixFactory.withComponents(
+      Admin::new,
       Auth::new,
-      User::new,
+      Doctor::new,
+      Patient::new,
       AuthActionImpl::new,
-      UserStateSubscriptionAction::new);
+      DoctorStateSubscriptionAction::new,
+      PatientStateSubscriptionAction::new);
   }
 
   public static void main(String[] args) throws Exception {

@@ -31,19 +31,11 @@ public final class AuthActionApi {
         getIdBytes();
 
     /**
-     * <pre>
-     * string img = 2;
-     * </pre>
-     *
      * <code>string email = 2 [(.kalix.field) = { ... }</code>
      * @return The email.
      */
     java.lang.String getEmail();
     /**
-     * <pre>
-     * string img = 2;
-     * </pre>
-     *
      * <code>string email = 2 [(.kalix.field) = { ... }</code>
      * @return The bytes for email.
      */
@@ -109,6 +101,216 @@ public final class AuthActionApi {
      */
     com.google.protobuf.ByteString
         getAccessTokenBytes();
+
+    /**
+     * <pre>
+     * Doctor
+     * </pre>
+     *
+     * <code>string gender = 8;</code>
+     * @return The gender.
+     */
+    java.lang.String getGender();
+    /**
+     * <pre>
+     * Doctor
+     * </pre>
+     *
+     * <code>string gender = 8;</code>
+     * @return The bytes for gender.
+     */
+    com.google.protobuf.ByteString
+        getGenderBytes();
+
+    /**
+     * <code>string mobile = 9;</code>
+     * @return The mobile.
+     */
+    java.lang.String getMobile();
+    /**
+     * <code>string mobile = 9;</code>
+     * @return The bytes for mobile.
+     */
+    com.google.protobuf.ByteString
+        getMobileBytes();
+
+    /**
+     * <code>string designation = 10;</code>
+     * @return The designation.
+     */
+    java.lang.String getDesignation();
+    /**
+     * <code>string designation = 10;</code>
+     * @return The bytes for designation.
+     */
+    com.google.protobuf.ByteString
+        getDesignationBytes();
+
+    /**
+     * <code>string department = 11;</code>
+     * @return The department.
+     */
+    java.lang.String getDepartment();
+    /**
+     * <code>string department = 11;</code>
+     * @return The bytes for department.
+     */
+    com.google.protobuf.ByteString
+        getDepartmentBytes();
+
+    /**
+     * <code>string address = 12;</code>
+     * @return The address.
+     */
+    java.lang.String getAddress();
+    /**
+     * <code>string address = 12;</code>
+     * @return The bytes for address.
+     */
+    com.google.protobuf.ByteString
+        getAddressBytes();
+
+    /**
+     * <code>string date_of_birth = 13;</code>
+     * @return The dateOfBirth.
+     */
+    java.lang.String getDateOfBirth();
+    /**
+     * <code>string date_of_birth = 13;</code>
+     * @return The bytes for dateOfBirth.
+     */
+    com.google.protobuf.ByteString
+        getDateOfBirthBytes();
+
+    /**
+     * <code>string education = 14;</code>
+     * @return The education.
+     */
+    java.lang.String getEducation();
+    /**
+     * <code>string education = 14;</code>
+     * @return The bytes for education.
+     */
+    com.google.protobuf.ByteString
+        getEducationBytes();
+
+    /**
+     * <code>string img = 15;</code>
+     * @return The img.
+     */
+    java.lang.String getImg();
+    /**
+     * <code>string img = 15;</code>
+     * @return The bytes for img.
+     */
+    com.google.protobuf.ByteString
+        getImgBytes();
+
+    /**
+     * <code>string specialization = 16;</code>
+     * @return The specialization.
+     */
+    java.lang.String getSpecialization();
+    /**
+     * <code>string specialization = 16;</code>
+     * @return The bytes for specialization.
+     */
+    com.google.protobuf.ByteString
+        getSpecializationBytes();
+
+    /**
+     * <code>string degree = 17;</code>
+     * @return The degree.
+     */
+    java.lang.String getDegree();
+    /**
+     * <code>string degree = 17;</code>
+     * @return The bytes for degree.
+     */
+    com.google.protobuf.ByteString
+        getDegreeBytes();
+
+    /**
+     * <code>string joining_date = 18;</code>
+     * @return The joiningDate.
+     */
+    java.lang.String getJoiningDate();
+    /**
+     * <code>string joining_date = 18;</code>
+     * @return The bytes for joiningDate.
+     */
+    com.google.protobuf.ByteString
+        getJoiningDateBytes();
+
+    /**
+     * <pre>
+     * Patient
+     * </pre>
+     *
+     * <code>int32 age = 19;</code>
+     * @return The age.
+     */
+    int getAge();
+
+    /**
+     * <code>string marital_status = 20;</code>
+     * @return The maritalStatus.
+     */
+    java.lang.String getMaritalStatus();
+    /**
+     * <code>string marital_status = 20;</code>
+     * @return The bytes for maritalStatus.
+     */
+    com.google.protobuf.ByteString
+        getMaritalStatusBytes();
+
+    /**
+     * <code>string blood_group = 21;</code>
+     * @return The bloodGroup.
+     */
+    java.lang.String getBloodGroup();
+    /**
+     * <code>string blood_group = 21;</code>
+     * @return The bytes for bloodGroup.
+     */
+    com.google.protobuf.ByteString
+        getBloodGroupBytes();
+
+    /**
+     * <code>string blood_pressure = 22;</code>
+     * @return The bloodPressure.
+     */
+    java.lang.String getBloodPressure();
+    /**
+     * <code>string blood_pressure = 22;</code>
+     * @return The bytes for bloodPressure.
+     */
+    com.google.protobuf.ByteString
+        getBloodPressureBytes();
+
+    /**
+     * <code>string sugger = 23;</code>
+     * @return The sugger.
+     */
+    java.lang.String getSugger();
+    /**
+     * <code>string sugger = 23;</code>
+     * @return The bytes for sugger.
+     */
+    com.google.protobuf.ByteString
+        getSuggerBytes();
+
+    /**
+     * <code>string injury = 24;</code>
+     * @return The injury.
+     */
+    java.lang.String getInjury();
+    /**
+     * <code>string injury = 24;</code>
+     * @return The bytes for injury.
+     */
+    com.google.protobuf.ByteString
+        getInjuryBytes();
   }
   /**
    * Protobuf type {@code io.users.auth.action.Auth}
@@ -130,6 +332,22 @@ public final class AuthActionApi {
       lastName_ = "";
       role_ = "";
       accessToken_ = "";
+      gender_ = "";
+      mobile_ = "";
+      designation_ = "";
+      department_ = "";
+      address_ = "";
+      dateOfBirth_ = "";
+      education_ = "";
+      img_ = "";
+      specialization_ = "";
+      degree_ = "";
+      joiningDate_ = "";
+      maritalStatus_ = "";
+      bloodGroup_ = "";
+      bloodPressure_ = "";
+      sugger_ = "";
+      injury_ = "";
     }
 
     @java.lang.Override
@@ -202,6 +420,107 @@ public final class AuthActionApi {
               java.lang.String s = input.readStringRequireUtf8();
 
               accessToken_ = s;
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              gender_ = s;
+              break;
+            }
+            case 74: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              mobile_ = s;
+              break;
+            }
+            case 82: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              designation_ = s;
+              break;
+            }
+            case 90: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              department_ = s;
+              break;
+            }
+            case 98: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              address_ = s;
+              break;
+            }
+            case 106: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              dateOfBirth_ = s;
+              break;
+            }
+            case 114: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              education_ = s;
+              break;
+            }
+            case 122: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              img_ = s;
+              break;
+            }
+            case 130: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              specialization_ = s;
+              break;
+            }
+            case 138: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              degree_ = s;
+              break;
+            }
+            case 146: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              joiningDate_ = s;
+              break;
+            }
+            case 152: {
+
+              age_ = input.readInt32();
+              break;
+            }
+            case 162: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              maritalStatus_ = s;
+              break;
+            }
+            case 170: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              bloodGroup_ = s;
+              break;
+            }
+            case 178: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              bloodPressure_ = s;
+              break;
+            }
+            case 186: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              sugger_ = s;
+              break;
+            }
+            case 194: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              injury_ = s;
               break;
             }
             default: {
@@ -277,10 +596,6 @@ public final class AuthActionApi {
     public static final int EMAIL_FIELD_NUMBER = 2;
     private volatile java.lang.Object email_;
     /**
-     * <pre>
-     * string img = 2;
-     * </pre>
-     *
      * <code>string email = 2 [(.kalix.field) = { ... }</code>
      * @return The email.
      */
@@ -298,10 +613,6 @@ public final class AuthActionApi {
       }
     }
     /**
-     * <pre>
-     * string img = 2;
-     * </pre>
-     *
      * <code>string email = 2 [(.kalix.field) = { ... }</code>
      * @return The bytes for email.
      */
@@ -510,6 +821,637 @@ public final class AuthActionApi {
       }
     }
 
+    public static final int GENDER_FIELD_NUMBER = 8;
+    private volatile java.lang.Object gender_;
+    /**
+     * <pre>
+     * Doctor
+     * </pre>
+     *
+     * <code>string gender = 8;</code>
+     * @return The gender.
+     */
+    @java.lang.Override
+    public java.lang.String getGender() {
+      java.lang.Object ref = gender_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        gender_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Doctor
+     * </pre>
+     *
+     * <code>string gender = 8;</code>
+     * @return The bytes for gender.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getGenderBytes() {
+      java.lang.Object ref = gender_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        gender_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MOBILE_FIELD_NUMBER = 9;
+    private volatile java.lang.Object mobile_;
+    /**
+     * <code>string mobile = 9;</code>
+     * @return The mobile.
+     */
+    @java.lang.Override
+    public java.lang.String getMobile() {
+      java.lang.Object ref = mobile_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        mobile_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string mobile = 9;</code>
+     * @return The bytes for mobile.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMobileBytes() {
+      java.lang.Object ref = mobile_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        mobile_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DESIGNATION_FIELD_NUMBER = 10;
+    private volatile java.lang.Object designation_;
+    /**
+     * <code>string designation = 10;</code>
+     * @return The designation.
+     */
+    @java.lang.Override
+    public java.lang.String getDesignation() {
+      java.lang.Object ref = designation_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        designation_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string designation = 10;</code>
+     * @return The bytes for designation.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDesignationBytes() {
+      java.lang.Object ref = designation_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        designation_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DEPARTMENT_FIELD_NUMBER = 11;
+    private volatile java.lang.Object department_;
+    /**
+     * <code>string department = 11;</code>
+     * @return The department.
+     */
+    @java.lang.Override
+    public java.lang.String getDepartment() {
+      java.lang.Object ref = department_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        department_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string department = 11;</code>
+     * @return The bytes for department.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDepartmentBytes() {
+      java.lang.Object ref = department_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        department_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ADDRESS_FIELD_NUMBER = 12;
+    private volatile java.lang.Object address_;
+    /**
+     * <code>string address = 12;</code>
+     * @return The address.
+     */
+    @java.lang.Override
+    public java.lang.String getAddress() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        address_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string address = 12;</code>
+     * @return The bytes for address.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAddressBytes() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        address_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DATE_OF_BIRTH_FIELD_NUMBER = 13;
+    private volatile java.lang.Object dateOfBirth_;
+    /**
+     * <code>string date_of_birth = 13;</code>
+     * @return The dateOfBirth.
+     */
+    @java.lang.Override
+    public java.lang.String getDateOfBirth() {
+      java.lang.Object ref = dateOfBirth_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        dateOfBirth_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string date_of_birth = 13;</code>
+     * @return The bytes for dateOfBirth.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDateOfBirthBytes() {
+      java.lang.Object ref = dateOfBirth_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        dateOfBirth_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EDUCATION_FIELD_NUMBER = 14;
+    private volatile java.lang.Object education_;
+    /**
+     * <code>string education = 14;</code>
+     * @return The education.
+     */
+    @java.lang.Override
+    public java.lang.String getEducation() {
+      java.lang.Object ref = education_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        education_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string education = 14;</code>
+     * @return The bytes for education.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEducationBytes() {
+      java.lang.Object ref = education_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        education_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int IMG_FIELD_NUMBER = 15;
+    private volatile java.lang.Object img_;
+    /**
+     * <code>string img = 15;</code>
+     * @return The img.
+     */
+    @java.lang.Override
+    public java.lang.String getImg() {
+      java.lang.Object ref = img_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        img_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string img = 15;</code>
+     * @return The bytes for img.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getImgBytes() {
+      java.lang.Object ref = img_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        img_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SPECIALIZATION_FIELD_NUMBER = 16;
+    private volatile java.lang.Object specialization_;
+    /**
+     * <code>string specialization = 16;</code>
+     * @return The specialization.
+     */
+    @java.lang.Override
+    public java.lang.String getSpecialization() {
+      java.lang.Object ref = specialization_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        specialization_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string specialization = 16;</code>
+     * @return The bytes for specialization.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSpecializationBytes() {
+      java.lang.Object ref = specialization_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        specialization_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DEGREE_FIELD_NUMBER = 17;
+    private volatile java.lang.Object degree_;
+    /**
+     * <code>string degree = 17;</code>
+     * @return The degree.
+     */
+    @java.lang.Override
+    public java.lang.String getDegree() {
+      java.lang.Object ref = degree_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        degree_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string degree = 17;</code>
+     * @return The bytes for degree.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDegreeBytes() {
+      java.lang.Object ref = degree_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        degree_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int JOINING_DATE_FIELD_NUMBER = 18;
+    private volatile java.lang.Object joiningDate_;
+    /**
+     * <code>string joining_date = 18;</code>
+     * @return The joiningDate.
+     */
+    @java.lang.Override
+    public java.lang.String getJoiningDate() {
+      java.lang.Object ref = joiningDate_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        joiningDate_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string joining_date = 18;</code>
+     * @return The bytes for joiningDate.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getJoiningDateBytes() {
+      java.lang.Object ref = joiningDate_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        joiningDate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int AGE_FIELD_NUMBER = 19;
+    private int age_;
+    /**
+     * <pre>
+     * Patient
+     * </pre>
+     *
+     * <code>int32 age = 19;</code>
+     * @return The age.
+     */
+    @java.lang.Override
+    public int getAge() {
+      return age_;
+    }
+
+    public static final int MARITAL_STATUS_FIELD_NUMBER = 20;
+    private volatile java.lang.Object maritalStatus_;
+    /**
+     * <code>string marital_status = 20;</code>
+     * @return The maritalStatus.
+     */
+    @java.lang.Override
+    public java.lang.String getMaritalStatus() {
+      java.lang.Object ref = maritalStatus_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        maritalStatus_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string marital_status = 20;</code>
+     * @return The bytes for maritalStatus.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMaritalStatusBytes() {
+      java.lang.Object ref = maritalStatus_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        maritalStatus_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int BLOOD_GROUP_FIELD_NUMBER = 21;
+    private volatile java.lang.Object bloodGroup_;
+    /**
+     * <code>string blood_group = 21;</code>
+     * @return The bloodGroup.
+     */
+    @java.lang.Override
+    public java.lang.String getBloodGroup() {
+      java.lang.Object ref = bloodGroup_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        bloodGroup_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string blood_group = 21;</code>
+     * @return The bytes for bloodGroup.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getBloodGroupBytes() {
+      java.lang.Object ref = bloodGroup_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        bloodGroup_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int BLOOD_PRESSURE_FIELD_NUMBER = 22;
+    private volatile java.lang.Object bloodPressure_;
+    /**
+     * <code>string blood_pressure = 22;</code>
+     * @return The bloodPressure.
+     */
+    @java.lang.Override
+    public java.lang.String getBloodPressure() {
+      java.lang.Object ref = bloodPressure_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        bloodPressure_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string blood_pressure = 22;</code>
+     * @return The bytes for bloodPressure.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getBloodPressureBytes() {
+      java.lang.Object ref = bloodPressure_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        bloodPressure_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SUGGER_FIELD_NUMBER = 23;
+    private volatile java.lang.Object sugger_;
+    /**
+     * <code>string sugger = 23;</code>
+     * @return The sugger.
+     */
+    @java.lang.Override
+    public java.lang.String getSugger() {
+      java.lang.Object ref = sugger_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sugger_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string sugger = 23;</code>
+     * @return The bytes for sugger.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSuggerBytes() {
+      java.lang.Object ref = sugger_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sugger_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int INJURY_FIELD_NUMBER = 24;
+    private volatile java.lang.Object injury_;
+    /**
+     * <code>string injury = 24;</code>
+     * @return The injury.
+     */
+    @java.lang.Override
+    public java.lang.String getInjury() {
+      java.lang.Object ref = injury_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        injury_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string injury = 24;</code>
+     * @return The bytes for injury.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getInjuryBytes() {
+      java.lang.Object ref = injury_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        injury_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -545,6 +1487,57 @@ public final class AuthActionApi {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(accessToken_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 7, accessToken_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(gender_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, gender_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mobile_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, mobile_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(designation_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, designation_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(department_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, department_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(address_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, address_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(dateOfBirth_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 13, dateOfBirth_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(education_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 14, education_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(img_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 15, img_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(specialization_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 16, specialization_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(degree_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 17, degree_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(joiningDate_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 18, joiningDate_);
+      }
+      if (age_ != 0) {
+        output.writeInt32(19, age_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(maritalStatus_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 20, maritalStatus_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(bloodGroup_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 21, bloodGroup_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(bloodPressure_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 22, bloodPressure_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sugger_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 23, sugger_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(injury_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 24, injury_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -575,6 +1568,58 @@ public final class AuthActionApi {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(accessToken_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, accessToken_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(gender_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, gender_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mobile_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, mobile_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(designation_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, designation_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(department_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, department_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(address_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, address_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(dateOfBirth_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, dateOfBirth_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(education_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, education_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(img_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, img_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(specialization_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, specialization_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(degree_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, degree_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(joiningDate_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(18, joiningDate_);
+      }
+      if (age_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(19, age_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(maritalStatus_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(20, maritalStatus_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(bloodGroup_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(21, bloodGroup_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(bloodPressure_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(22, bloodPressure_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sugger_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(23, sugger_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(injury_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(24, injury_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -604,6 +1649,40 @@ public final class AuthActionApi {
           .equals(other.getRole())) return false;
       if (!getAccessToken()
           .equals(other.getAccessToken())) return false;
+      if (!getGender()
+          .equals(other.getGender())) return false;
+      if (!getMobile()
+          .equals(other.getMobile())) return false;
+      if (!getDesignation()
+          .equals(other.getDesignation())) return false;
+      if (!getDepartment()
+          .equals(other.getDepartment())) return false;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (!getDateOfBirth()
+          .equals(other.getDateOfBirth())) return false;
+      if (!getEducation()
+          .equals(other.getEducation())) return false;
+      if (!getImg()
+          .equals(other.getImg())) return false;
+      if (!getSpecialization()
+          .equals(other.getSpecialization())) return false;
+      if (!getDegree()
+          .equals(other.getDegree())) return false;
+      if (!getJoiningDate()
+          .equals(other.getJoiningDate())) return false;
+      if (getAge()
+          != other.getAge()) return false;
+      if (!getMaritalStatus()
+          .equals(other.getMaritalStatus())) return false;
+      if (!getBloodGroup()
+          .equals(other.getBloodGroup())) return false;
+      if (!getBloodPressure()
+          .equals(other.getBloodPressure())) return false;
+      if (!getSugger()
+          .equals(other.getSugger())) return false;
+      if (!getInjury()
+          .equals(other.getInjury())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -629,6 +1708,40 @@ public final class AuthActionApi {
       hash = (53 * hash) + getRole().hashCode();
       hash = (37 * hash) + ACCESS_TOKEN_FIELD_NUMBER;
       hash = (53 * hash) + getAccessToken().hashCode();
+      hash = (37 * hash) + GENDER_FIELD_NUMBER;
+      hash = (53 * hash) + getGender().hashCode();
+      hash = (37 * hash) + MOBILE_FIELD_NUMBER;
+      hash = (53 * hash) + getMobile().hashCode();
+      hash = (37 * hash) + DESIGNATION_FIELD_NUMBER;
+      hash = (53 * hash) + getDesignation().hashCode();
+      hash = (37 * hash) + DEPARTMENT_FIELD_NUMBER;
+      hash = (53 * hash) + getDepartment().hashCode();
+      hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getAddress().hashCode();
+      hash = (37 * hash) + DATE_OF_BIRTH_FIELD_NUMBER;
+      hash = (53 * hash) + getDateOfBirth().hashCode();
+      hash = (37 * hash) + EDUCATION_FIELD_NUMBER;
+      hash = (53 * hash) + getEducation().hashCode();
+      hash = (37 * hash) + IMG_FIELD_NUMBER;
+      hash = (53 * hash) + getImg().hashCode();
+      hash = (37 * hash) + SPECIALIZATION_FIELD_NUMBER;
+      hash = (53 * hash) + getSpecialization().hashCode();
+      hash = (37 * hash) + DEGREE_FIELD_NUMBER;
+      hash = (53 * hash) + getDegree().hashCode();
+      hash = (37 * hash) + JOINING_DATE_FIELD_NUMBER;
+      hash = (53 * hash) + getJoiningDate().hashCode();
+      hash = (37 * hash) + AGE_FIELD_NUMBER;
+      hash = (53 * hash) + getAge();
+      hash = (37 * hash) + MARITAL_STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + getMaritalStatus().hashCode();
+      hash = (37 * hash) + BLOOD_GROUP_FIELD_NUMBER;
+      hash = (53 * hash) + getBloodGroup().hashCode();
+      hash = (37 * hash) + BLOOD_PRESSURE_FIELD_NUMBER;
+      hash = (53 * hash) + getBloodPressure().hashCode();
+      hash = (37 * hash) + SUGGER_FIELD_NUMBER;
+      hash = (53 * hash) + getSugger().hashCode();
+      hash = (37 * hash) + INJURY_FIELD_NUMBER;
+      hash = (53 * hash) + getInjury().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -776,6 +1889,40 @@ public final class AuthActionApi {
 
         accessToken_ = "";
 
+        gender_ = "";
+
+        mobile_ = "";
+
+        designation_ = "";
+
+        department_ = "";
+
+        address_ = "";
+
+        dateOfBirth_ = "";
+
+        education_ = "";
+
+        img_ = "";
+
+        specialization_ = "";
+
+        degree_ = "";
+
+        joiningDate_ = "";
+
+        age_ = 0;
+
+        maritalStatus_ = "";
+
+        bloodGroup_ = "";
+
+        bloodPressure_ = "";
+
+        sugger_ = "";
+
+        injury_ = "";
+
         return this;
       }
 
@@ -809,6 +1956,23 @@ public final class AuthActionApi {
         result.lastName_ = lastName_;
         result.role_ = role_;
         result.accessToken_ = accessToken_;
+        result.gender_ = gender_;
+        result.mobile_ = mobile_;
+        result.designation_ = designation_;
+        result.department_ = department_;
+        result.address_ = address_;
+        result.dateOfBirth_ = dateOfBirth_;
+        result.education_ = education_;
+        result.img_ = img_;
+        result.specialization_ = specialization_;
+        result.degree_ = degree_;
+        result.joiningDate_ = joiningDate_;
+        result.age_ = age_;
+        result.maritalStatus_ = maritalStatus_;
+        result.bloodGroup_ = bloodGroup_;
+        result.bloodPressure_ = bloodPressure_;
+        result.sugger_ = sugger_;
+        result.injury_ = injury_;
         onBuilt();
         return result;
       }
@@ -883,6 +2047,73 @@ public final class AuthActionApi {
         }
         if (!other.getAccessToken().isEmpty()) {
           accessToken_ = other.accessToken_;
+          onChanged();
+        }
+        if (!other.getGender().isEmpty()) {
+          gender_ = other.gender_;
+          onChanged();
+        }
+        if (!other.getMobile().isEmpty()) {
+          mobile_ = other.mobile_;
+          onChanged();
+        }
+        if (!other.getDesignation().isEmpty()) {
+          designation_ = other.designation_;
+          onChanged();
+        }
+        if (!other.getDepartment().isEmpty()) {
+          department_ = other.department_;
+          onChanged();
+        }
+        if (!other.getAddress().isEmpty()) {
+          address_ = other.address_;
+          onChanged();
+        }
+        if (!other.getDateOfBirth().isEmpty()) {
+          dateOfBirth_ = other.dateOfBirth_;
+          onChanged();
+        }
+        if (!other.getEducation().isEmpty()) {
+          education_ = other.education_;
+          onChanged();
+        }
+        if (!other.getImg().isEmpty()) {
+          img_ = other.img_;
+          onChanged();
+        }
+        if (!other.getSpecialization().isEmpty()) {
+          specialization_ = other.specialization_;
+          onChanged();
+        }
+        if (!other.getDegree().isEmpty()) {
+          degree_ = other.degree_;
+          onChanged();
+        }
+        if (!other.getJoiningDate().isEmpty()) {
+          joiningDate_ = other.joiningDate_;
+          onChanged();
+        }
+        if (other.getAge() != 0) {
+          setAge(other.getAge());
+        }
+        if (!other.getMaritalStatus().isEmpty()) {
+          maritalStatus_ = other.maritalStatus_;
+          onChanged();
+        }
+        if (!other.getBloodGroup().isEmpty()) {
+          bloodGroup_ = other.bloodGroup_;
+          onChanged();
+        }
+        if (!other.getBloodPressure().isEmpty()) {
+          bloodPressure_ = other.bloodPressure_;
+          onChanged();
+        }
+        if (!other.getSugger().isEmpty()) {
+          sugger_ = other.sugger_;
+          onChanged();
+        }
+        if (!other.getInjury().isEmpty()) {
+          injury_ = other.injury_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -992,10 +2223,6 @@ public final class AuthActionApi {
 
       private java.lang.Object email_ = "";
       /**
-       * <pre>
-       * string img = 2;
-       * </pre>
-       *
        * <code>string email = 2 [(.kalix.field) = { ... }</code>
        * @return The email.
        */
@@ -1012,10 +2239,6 @@ public final class AuthActionApi {
         }
       }
       /**
-       * <pre>
-       * string img = 2;
-       * </pre>
-       *
        * <code>string email = 2 [(.kalix.field) = { ... }</code>
        * @return The bytes for email.
        */
@@ -1033,10 +2256,6 @@ public final class AuthActionApi {
         }
       }
       /**
-       * <pre>
-       * string img = 2;
-       * </pre>
-       *
        * <code>string email = 2 [(.kalix.field) = { ... }</code>
        * @param value The email to set.
        * @return This builder for chaining.
@@ -1052,10 +2271,6 @@ public final class AuthActionApi {
         return this;
       }
       /**
-       * <pre>
-       * string img = 2;
-       * </pre>
-       *
        * <code>string email = 2 [(.kalix.field) = { ... }</code>
        * @return This builder for chaining.
        */
@@ -1066,10 +2281,6 @@ public final class AuthActionApi {
         return this;
       }
       /**
-       * <pre>
-       * string img = 2;
-       * </pre>
-       *
        * <code>string email = 2 [(.kalix.field) = { ... }</code>
        * @param value The bytes for email to set.
        * @return This builder for chaining.
@@ -1465,6 +2676,1285 @@ public final class AuthActionApi {
         onChanged();
         return this;
       }
+
+      private java.lang.Object gender_ = "";
+      /**
+       * <pre>
+       * Doctor
+       * </pre>
+       *
+       * <code>string gender = 8;</code>
+       * @return The gender.
+       */
+      public java.lang.String getGender() {
+        java.lang.Object ref = gender_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          gender_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Doctor
+       * </pre>
+       *
+       * <code>string gender = 8;</code>
+       * @return The bytes for gender.
+       */
+      public com.google.protobuf.ByteString
+          getGenderBytes() {
+        java.lang.Object ref = gender_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          gender_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Doctor
+       * </pre>
+       *
+       * <code>string gender = 8;</code>
+       * @param value The gender to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGender(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        gender_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Doctor
+       * </pre>
+       *
+       * <code>string gender = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearGender() {
+        
+        gender_ = getDefaultInstance().getGender();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Doctor
+       * </pre>
+       *
+       * <code>string gender = 8;</code>
+       * @param value The bytes for gender to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGenderBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        gender_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object mobile_ = "";
+      /**
+       * <code>string mobile = 9;</code>
+       * @return The mobile.
+       */
+      public java.lang.String getMobile() {
+        java.lang.Object ref = mobile_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          mobile_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string mobile = 9;</code>
+       * @return The bytes for mobile.
+       */
+      public com.google.protobuf.ByteString
+          getMobileBytes() {
+        java.lang.Object ref = mobile_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          mobile_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string mobile = 9;</code>
+       * @param value The mobile to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMobile(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        mobile_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string mobile = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMobile() {
+        
+        mobile_ = getDefaultInstance().getMobile();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string mobile = 9;</code>
+       * @param value The bytes for mobile to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMobileBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        mobile_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object designation_ = "";
+      /**
+       * <code>string designation = 10;</code>
+       * @return The designation.
+       */
+      public java.lang.String getDesignation() {
+        java.lang.Object ref = designation_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          designation_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string designation = 10;</code>
+       * @return The bytes for designation.
+       */
+      public com.google.protobuf.ByteString
+          getDesignationBytes() {
+        java.lang.Object ref = designation_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          designation_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string designation = 10;</code>
+       * @param value The designation to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDesignation(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        designation_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string designation = 10;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDesignation() {
+        
+        designation_ = getDefaultInstance().getDesignation();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string designation = 10;</code>
+       * @param value The bytes for designation to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDesignationBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        designation_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object department_ = "";
+      /**
+       * <code>string department = 11;</code>
+       * @return The department.
+       */
+      public java.lang.String getDepartment() {
+        java.lang.Object ref = department_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          department_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string department = 11;</code>
+       * @return The bytes for department.
+       */
+      public com.google.protobuf.ByteString
+          getDepartmentBytes() {
+        java.lang.Object ref = department_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          department_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string department = 11;</code>
+       * @param value The department to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDepartment(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        department_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string department = 11;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDepartment() {
+        
+        department_ = getDefaultInstance().getDepartment();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string department = 11;</code>
+       * @param value The bytes for department to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDepartmentBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        department_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object address_ = "";
+      /**
+       * <code>string address = 12;</code>
+       * @return The address.
+       */
+      public java.lang.String getAddress() {
+        java.lang.Object ref = address_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          address_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string address = 12;</code>
+       * @return The bytes for address.
+       */
+      public com.google.protobuf.ByteString
+          getAddressBytes() {
+        java.lang.Object ref = address_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          address_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string address = 12;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddress(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        address_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string address = 12;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAddress() {
+        
+        address_ = getDefaultInstance().getAddress();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string address = 12;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        address_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object dateOfBirth_ = "";
+      /**
+       * <code>string date_of_birth = 13;</code>
+       * @return The dateOfBirth.
+       */
+      public java.lang.String getDateOfBirth() {
+        java.lang.Object ref = dateOfBirth_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          dateOfBirth_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string date_of_birth = 13;</code>
+       * @return The bytes for dateOfBirth.
+       */
+      public com.google.protobuf.ByteString
+          getDateOfBirthBytes() {
+        java.lang.Object ref = dateOfBirth_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          dateOfBirth_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string date_of_birth = 13;</code>
+       * @param value The dateOfBirth to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDateOfBirth(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        dateOfBirth_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string date_of_birth = 13;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDateOfBirth() {
+        
+        dateOfBirth_ = getDefaultInstance().getDateOfBirth();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string date_of_birth = 13;</code>
+       * @param value The bytes for dateOfBirth to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDateOfBirthBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        dateOfBirth_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object education_ = "";
+      /**
+       * <code>string education = 14;</code>
+       * @return The education.
+       */
+      public java.lang.String getEducation() {
+        java.lang.Object ref = education_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          education_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string education = 14;</code>
+       * @return The bytes for education.
+       */
+      public com.google.protobuf.ByteString
+          getEducationBytes() {
+        java.lang.Object ref = education_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          education_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string education = 14;</code>
+       * @param value The education to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEducation(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        education_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string education = 14;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEducation() {
+        
+        education_ = getDefaultInstance().getEducation();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string education = 14;</code>
+       * @param value The bytes for education to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEducationBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        education_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object img_ = "";
+      /**
+       * <code>string img = 15;</code>
+       * @return The img.
+       */
+      public java.lang.String getImg() {
+        java.lang.Object ref = img_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          img_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string img = 15;</code>
+       * @return The bytes for img.
+       */
+      public com.google.protobuf.ByteString
+          getImgBytes() {
+        java.lang.Object ref = img_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          img_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string img = 15;</code>
+       * @param value The img to set.
+       * @return This builder for chaining.
+       */
+      public Builder setImg(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        img_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string img = 15;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearImg() {
+        
+        img_ = getDefaultInstance().getImg();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string img = 15;</code>
+       * @param value The bytes for img to set.
+       * @return This builder for chaining.
+       */
+      public Builder setImgBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        img_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object specialization_ = "";
+      /**
+       * <code>string specialization = 16;</code>
+       * @return The specialization.
+       */
+      public java.lang.String getSpecialization() {
+        java.lang.Object ref = specialization_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          specialization_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string specialization = 16;</code>
+       * @return The bytes for specialization.
+       */
+      public com.google.protobuf.ByteString
+          getSpecializationBytes() {
+        java.lang.Object ref = specialization_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          specialization_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string specialization = 16;</code>
+       * @param value The specialization to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSpecialization(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        specialization_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string specialization = 16;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSpecialization() {
+        
+        specialization_ = getDefaultInstance().getSpecialization();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string specialization = 16;</code>
+       * @param value The bytes for specialization to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSpecializationBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        specialization_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object degree_ = "";
+      /**
+       * <code>string degree = 17;</code>
+       * @return The degree.
+       */
+      public java.lang.String getDegree() {
+        java.lang.Object ref = degree_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          degree_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string degree = 17;</code>
+       * @return The bytes for degree.
+       */
+      public com.google.protobuf.ByteString
+          getDegreeBytes() {
+        java.lang.Object ref = degree_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          degree_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string degree = 17;</code>
+       * @param value The degree to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDegree(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        degree_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string degree = 17;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDegree() {
+        
+        degree_ = getDefaultInstance().getDegree();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string degree = 17;</code>
+       * @param value The bytes for degree to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDegreeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        degree_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object joiningDate_ = "";
+      /**
+       * <code>string joining_date = 18;</code>
+       * @return The joiningDate.
+       */
+      public java.lang.String getJoiningDate() {
+        java.lang.Object ref = joiningDate_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          joiningDate_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string joining_date = 18;</code>
+       * @return The bytes for joiningDate.
+       */
+      public com.google.protobuf.ByteString
+          getJoiningDateBytes() {
+        java.lang.Object ref = joiningDate_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          joiningDate_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string joining_date = 18;</code>
+       * @param value The joiningDate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setJoiningDate(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        joiningDate_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string joining_date = 18;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearJoiningDate() {
+        
+        joiningDate_ = getDefaultInstance().getJoiningDate();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string joining_date = 18;</code>
+       * @param value The bytes for joiningDate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setJoiningDateBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        joiningDate_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int age_ ;
+      /**
+       * <pre>
+       * Patient
+       * </pre>
+       *
+       * <code>int32 age = 19;</code>
+       * @return The age.
+       */
+      @java.lang.Override
+      public int getAge() {
+        return age_;
+      }
+      /**
+       * <pre>
+       * Patient
+       * </pre>
+       *
+       * <code>int32 age = 19;</code>
+       * @param value The age to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAge(int value) {
+        
+        age_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Patient
+       * </pre>
+       *
+       * <code>int32 age = 19;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAge() {
+        
+        age_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object maritalStatus_ = "";
+      /**
+       * <code>string marital_status = 20;</code>
+       * @return The maritalStatus.
+       */
+      public java.lang.String getMaritalStatus() {
+        java.lang.Object ref = maritalStatus_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          maritalStatus_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string marital_status = 20;</code>
+       * @return The bytes for maritalStatus.
+       */
+      public com.google.protobuf.ByteString
+          getMaritalStatusBytes() {
+        java.lang.Object ref = maritalStatus_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          maritalStatus_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string marital_status = 20;</code>
+       * @param value The maritalStatus to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaritalStatus(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        maritalStatus_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string marital_status = 20;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMaritalStatus() {
+        
+        maritalStatus_ = getDefaultInstance().getMaritalStatus();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string marital_status = 20;</code>
+       * @param value The bytes for maritalStatus to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaritalStatusBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        maritalStatus_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object bloodGroup_ = "";
+      /**
+       * <code>string blood_group = 21;</code>
+       * @return The bloodGroup.
+       */
+      public java.lang.String getBloodGroup() {
+        java.lang.Object ref = bloodGroup_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          bloodGroup_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string blood_group = 21;</code>
+       * @return The bytes for bloodGroup.
+       */
+      public com.google.protobuf.ByteString
+          getBloodGroupBytes() {
+        java.lang.Object ref = bloodGroup_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          bloodGroup_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string blood_group = 21;</code>
+       * @param value The bloodGroup to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBloodGroup(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        bloodGroup_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string blood_group = 21;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBloodGroup() {
+        
+        bloodGroup_ = getDefaultInstance().getBloodGroup();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string blood_group = 21;</code>
+       * @param value The bytes for bloodGroup to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBloodGroupBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        bloodGroup_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object bloodPressure_ = "";
+      /**
+       * <code>string blood_pressure = 22;</code>
+       * @return The bloodPressure.
+       */
+      public java.lang.String getBloodPressure() {
+        java.lang.Object ref = bloodPressure_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          bloodPressure_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string blood_pressure = 22;</code>
+       * @return The bytes for bloodPressure.
+       */
+      public com.google.protobuf.ByteString
+          getBloodPressureBytes() {
+        java.lang.Object ref = bloodPressure_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          bloodPressure_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string blood_pressure = 22;</code>
+       * @param value The bloodPressure to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBloodPressure(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        bloodPressure_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string blood_pressure = 22;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBloodPressure() {
+        
+        bloodPressure_ = getDefaultInstance().getBloodPressure();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string blood_pressure = 22;</code>
+       * @param value The bytes for bloodPressure to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBloodPressureBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        bloodPressure_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object sugger_ = "";
+      /**
+       * <code>string sugger = 23;</code>
+       * @return The sugger.
+       */
+      public java.lang.String getSugger() {
+        java.lang.Object ref = sugger_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sugger_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string sugger = 23;</code>
+       * @return The bytes for sugger.
+       */
+      public com.google.protobuf.ByteString
+          getSuggerBytes() {
+        java.lang.Object ref = sugger_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sugger_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string sugger = 23;</code>
+       * @param value The sugger to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSugger(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        sugger_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string sugger = 23;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSugger() {
+        
+        sugger_ = getDefaultInstance().getSugger();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string sugger = 23;</code>
+       * @param value The bytes for sugger to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSuggerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        sugger_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object injury_ = "";
+      /**
+       * <code>string injury = 24;</code>
+       * @return The injury.
+       */
+      public java.lang.String getInjury() {
+        java.lang.Object ref = injury_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          injury_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string injury = 24;</code>
+       * @return The bytes for injury.
+       */
+      public com.google.protobuf.ByteString
+          getInjuryBytes() {
+        java.lang.Object ref = injury_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          injury_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string injury = 24;</code>
+       * @param value The injury to set.
+       * @return This builder for chaining.
+       */
+      public Builder setInjury(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        injury_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string injury = 24;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearInjury() {
+        
+        injury_ = getDefaultInstance().getInjury();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string injury = 24;</code>
+       * @param value The bytes for injury to set.
+       * @return This builder for chaining.
+       */
+      public Builder setInjuryBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        injury_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1535,14 +4025,22 @@ public final class AuthActionApi {
       "\n&io/users/auth/action/auth_action.proto" +
       "\022\024io.users.auth.action\032\027kalix/annotation" +
       "s.proto\032\034google/api/annotations.proto\032\033g" +
-      "oogle/protobuf/empty.proto\"\216\001\n\004Auth\022\n\n\002i" +
+      "oogle/protobuf/empty.proto\"\317\003\n\004Auth\022\n\n\002i" +
       "d\030\001 \001(\t\022\024\n\005email\030\002 \001(\tB\005\302C\002\010\001\022\020\n\010passwor" +
       "d\030\003 \001(\t\022\022\n\nfirst_name\030\004 \001(\t\022\021\n\tlast_name" +
       "\030\005 \001(\t\022\014\n\004role\030\006 \001(\t\022\035\n\014access_token\030\007 \001" +
-      "(\tB\007\302C\004\022\002\030\0012m\n\nAuthAction\022X\n\010Register\022\032." +
-      "io.users.auth.action.Auth\032\032.io.users.aut" +
-      "h.action.Auth\"\024\202\323\344\223\002\016\"\t/register:\001*\032\005\312C\002" +
-      "\"\000B\017B\rAuthActionApib\006proto3"
+      "(\tB\007\302C\004\022\002\030\001\022\016\n\006gender\030\010 \001(\t\022\016\n\006mobile\030\t " +
+      "\001(\t\022\023\n\013designation\030\n \001(\t\022\022\n\ndepartment\030\013" +
+      " \001(\t\022\017\n\007address\030\014 \001(\t\022\025\n\rdate_of_birth\030\r" +
+      " \001(\t\022\021\n\teducation\030\016 \001(\t\022\013\n\003img\030\017 \001(\t\022\026\n\016" +
+      "specialization\030\020 \001(\t\022\016\n\006degree\030\021 \001(\t\022\024\n\014" +
+      "joining_date\030\022 \001(\t\022\013\n\003age\030\023 \001(\005\022\026\n\016marit" +
+      "al_status\030\024 \001(\t\022\023\n\013blood_group\030\025 \001(\t\022\026\n\016" +
+      "blood_pressure\030\026 \001(\t\022\016\n\006sugger\030\027 \001(\t\022\016\n\006" +
+      "injury\030\030 \001(\t2m\n\nAuthAction\022X\n\010Register\022\032" +
+      ".io.users.auth.action.Auth\032\032.io.users.au" +
+      "th.action.Auth\"\024\202\323\344\223\002\016\"\t/register:\001*\032\005\312C" +
+      "\002\"\000B\017B\rAuthActionApib\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1556,7 +4054,7 @@ public final class AuthActionApi {
     internal_static_io_users_auth_action_Auth_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_io_users_auth_action_Auth_descriptor,
-        new java.lang.String[] { "Id", "Email", "Password", "FirstName", "LastName", "Role", "AccessToken", });
+        new java.lang.String[] { "Id", "Email", "Password", "FirstName", "LastName", "Role", "AccessToken", "Gender", "Mobile", "Designation", "Department", "Address", "DateOfBirth", "Education", "Img", "Specialization", "Degree", "JoiningDate", "Age", "MaritalStatus", "BloodGroup", "BloodPressure", "Sugger", "Injury", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.api.AnnotationsProto.http);

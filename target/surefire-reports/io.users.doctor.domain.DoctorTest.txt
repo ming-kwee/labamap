@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: io.users.doctor.domain.DoctorTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0 s - in io.users.doctor.domain.DoctorTest

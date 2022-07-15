@@ -30,16 +30,28 @@ public final class ComponentsImpl implements Components {
     return new AuthActionImplCallsImpl();
   }
   @Override
+  public Components.DoctorCalls doctor() {
+    return new DoctorCallsImpl();
+  }
+  @Override
+  public Components.DoctorStateSubscriptionActionCalls doctorStateSubscriptionAction() {
+    return new DoctorStateSubscriptionActionCallsImpl();
+  }
+  @Override
+  public Components.PatientCalls patient() {
+    return new PatientCallsImpl();
+  }
+  @Override
+  public Components.PatientStateSubscriptionActionCalls patientStateSubscriptionAction() {
+    return new PatientStateSubscriptionActionCallsImpl();
+  }
+  @Override
+  public Components.AdminCalls admin() {
+    return new AdminCallsImpl();
+  }
+  @Override
   public Components.AuthCalls auth() {
     return new AuthCallsImpl();
-  }
-  @Override
-  public Components.UserCalls user() {
-    return new UserCallsImpl();
-  }
-  @Override
-  public Components.UserStateSubscriptionActionCalls userStateSubscriptionAction() {
-    return new UserStateSubscriptionActionCallsImpl();
   }
 
   private final class AuthActionImplCallsImpl implements Components.AuthActionImplCalls {
@@ -51,6 +63,96 @@ public final class ComponentsImpl implements Components {
         "io.users.auth.action.AuthAction",
         "Register",
         () -> getGrpcClient(io.users.auth.action.AuthAction.class).register(auth)
+      );
+    }
+  }
+  private final class DoctorCallsImpl implements Components.DoctorCalls {
+     @Override
+    public DeferredCall<io.users.doctor.api.DoctorApi.Doctor, com.google.protobuf.Empty> createDoctor(io.users.doctor.api.DoctorApi.Doctor doctor) {
+      return new DeferredCallImpl<>(
+        doctor,
+        MetadataImpl.Empty(),
+        "io.users.doctor.api.DoctorService",
+        "CreateDoctor",
+        () -> getGrpcClient(io.users.doctor.api.DoctorService.class).createDoctor(doctor)
+      );
+    }
+    @Override
+    public DeferredCall<io.users.doctor.api.DoctorApi.GetDoctorRequest, io.users.doctor.api.DoctorApi.Doctor> getDoctor(io.users.doctor.api.DoctorApi.GetDoctorRequest getDoctorRequest) {
+      return new DeferredCallImpl<>(
+        getDoctorRequest,
+        MetadataImpl.Empty(),
+        "io.users.doctor.api.DoctorService",
+        "GetDoctor",
+        () -> getGrpcClient(io.users.doctor.api.DoctorService.class).getDoctor(getDoctorRequest)
+      );
+    }
+  }
+  private final class DoctorStateSubscriptionActionCallsImpl implements Components.DoctorStateSubscriptionActionCalls {
+     @Override
+    public DeferredCall<io.users.doctor.domain.DoctorDomain.DoctorState, io.users.doctor.api.DoctorApi.Doctor> onStateChange(io.users.doctor.domain.DoctorDomain.DoctorState doctorState) {
+      return new DeferredCallImpl<>(
+        doctorState,
+        MetadataImpl.Empty(),
+        "io.users.doctor.action.DoctorStateSubscription",
+        "OnStateChange",
+        () -> getGrpcClient(io.users.doctor.action.DoctorStateSubscription.class).onStateChange(doctorState)
+      );
+    }
+  }
+  private final class PatientCallsImpl implements Components.PatientCalls {
+     @Override
+    public DeferredCall<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty> createPatient(io.users.patient.api.PatientApi.Patient patient) {
+      return new DeferredCallImpl<>(
+        patient,
+        MetadataImpl.Empty(),
+        "io.users.patient.api.PatientService",
+        "CreatePatient",
+        () -> getGrpcClient(io.users.patient.api.PatientService.class).createPatient(patient)
+      );
+    }
+    @Override
+    public DeferredCall<io.users.patient.api.PatientApi.GetPatientRequest, io.users.patient.api.PatientApi.Patient> getPatient(io.users.patient.api.PatientApi.GetPatientRequest getPatientRequest) {
+      return new DeferredCallImpl<>(
+        getPatientRequest,
+        MetadataImpl.Empty(),
+        "io.users.patient.api.PatientService",
+        "GetPatient",
+        () -> getGrpcClient(io.users.patient.api.PatientService.class).getPatient(getPatientRequest)
+      );
+    }
+  }
+  private final class PatientStateSubscriptionActionCallsImpl implements Components.PatientStateSubscriptionActionCalls {
+     @Override
+    public DeferredCall<io.users.patient.domain.PatientDomain.PatientState, io.users.patient.api.PatientApi.Patient> onStateChange(io.users.patient.domain.PatientDomain.PatientState patientState) {
+      return new DeferredCallImpl<>(
+        patientState,
+        MetadataImpl.Empty(),
+        "io.users.patient.action.PatientStateSubscription",
+        "OnStateChange",
+        () -> getGrpcClient(io.users.patient.action.PatientStateSubscription.class).onStateChange(patientState)
+      );
+    }
+  }
+  private final class AdminCallsImpl implements Components.AdminCalls {
+     @Override
+    public DeferredCall<io.users.admin.api.AdminApi.Admin, com.google.protobuf.Empty> createAdmin(io.users.admin.api.AdminApi.Admin admin) {
+      return new DeferredCallImpl<>(
+        admin,
+        MetadataImpl.Empty(),
+        "io.users.admin.api.AdminService",
+        "CreateAdmin",
+        () -> getGrpcClient(io.users.admin.api.AdminService.class).createAdmin(admin)
+      );
+    }
+    @Override
+    public DeferredCall<io.users.admin.api.AdminApi.GetAdminRequest, io.users.admin.api.AdminApi.Admin> getAdmin(io.users.admin.api.AdminApi.GetAdminRequest getAdminRequest) {
+      return new DeferredCallImpl<>(
+        getAdminRequest,
+        MetadataImpl.Empty(),
+        "io.users.admin.api.AdminService",
+        "GetAdmin",
+        () -> getGrpcClient(io.users.admin.api.AdminService.class).getAdmin(getAdminRequest)
       );
     }
   }
@@ -73,40 +175,6 @@ public final class ComponentsImpl implements Components {
         "io.users.auth.api.AuthService",
         "Login",
         () -> getGrpcClient(io.users.auth.api.AuthService.class).login(getLoginRequest)
-      );
-    }
-  }
-  private final class UserCallsImpl implements Components.UserCalls {
-     @Override
-    public DeferredCall<io.users.user.api.UserApi.User, com.google.protobuf.Empty> createUser(io.users.user.api.UserApi.User user) {
-      return new DeferredCallImpl<>(
-        user,
-        MetadataImpl.Empty(),
-        "io.users.user.api.UserService",
-        "CreateUser",
-        () -> getGrpcClient(io.users.user.api.UserService.class).createUser(user)
-      );
-    }
-    @Override
-    public DeferredCall<io.users.user.api.UserApi.GetUserRequest, io.users.user.api.UserApi.User> getUser(io.users.user.api.UserApi.GetUserRequest getUserRequest) {
-      return new DeferredCallImpl<>(
-        getUserRequest,
-        MetadataImpl.Empty(),
-        "io.users.user.api.UserService",
-        "GetUser",
-        () -> getGrpcClient(io.users.user.api.UserService.class).getUser(getUserRequest)
-      );
-    }
-  }
-  private final class UserStateSubscriptionActionCallsImpl implements Components.UserStateSubscriptionActionCalls {
-     @Override
-    public DeferredCall<io.users.user.domain.UserDomain.UserState, io.users.user.api.UserApi.User> onStateChange(io.users.user.domain.UserDomain.UserState userState) {
-      return new DeferredCallImpl<>(
-        userState,
-        MetadataImpl.Empty(),
-        "io.users.user.action.UserStateSubscription",
-        "OnStateChange",
-        () -> getGrpcClient(io.users.user.action.UserStateSubscription.class).onStateChange(userState)
       );
     }
   }
