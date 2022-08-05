@@ -282,7 +282,7 @@
   </dependencies>
   <properties>
     <jdk.target>11</jdk.target>
-    <dockerImage>sonnywirawan/${project.artifactId}</dockerImage>
+    <dockerImage>sudimin/${project.artifactId}</dockerImage>
     <mainClass>io.users.Main</mainClass>
     <akka-grpc.version>2.1.4</akka-grpc.version>
     <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>

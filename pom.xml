@@ -11,7 +11,7 @@
 
   <properties>
     <!-- TODO Update to your own Docker repository or Docker Hub scope -->
-    <dockerImage>sonnywirawan/${project.artifactId}</dockerImage>
+    <dockerImage>sudimin/${project.artifactId}</dockerImage>
     <dockerTag>${project.version}-${build.timestamp}</dockerTag>
     <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
     <mainClass>io.users.Main</mainClass>
