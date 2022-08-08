@@ -6,13 +6,11 @@ import io.users.doctor.domain.DoctorDomain;
 import kalix.javasdk.Metadata;
 import kalix.javasdk.action.Action.Effect;
 import kalix.javasdk.action.ActionCreationContext;
-import kalix.javasdk.impl.action.ActionEffectImpl;
 import kalix.javasdk.testkit.ActionResult;
+import kalix.javasdk.testkit.MockRegistry;
 import kalix.javasdk.testkit.impl.ActionResultImpl;
 import kalix.javasdk.testkit.impl.TestKitActionContext;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -22,7 +20,9 @@ import java.util.function.Function;
 
 public final class DoctorStateSubscriptionActionTestKit {
 
-  private Function<ActionCreationContext, DoctorStateSubscriptionAction> actionFactory;
+  private final Function<ActionCreationContext, DoctorStateSubscriptionAction> actionFactory;
+
+  private final MockRegistry mockRegistry;
 
   private DoctorStateSubscriptionAction createAction(TestKitActionContext context) {
     DoctorStateSubscriptionAction action = actionFactory.apply(context);
@@ -31,11 +31,16 @@ public final class DoctorStateSubscriptionActionTestKit {
   }
 
   public static DoctorStateSubscriptionActionTestKit of(Function<ActionCreationContext, DoctorStateSubscriptionAction> actionFactory) {
-    return new DoctorStateSubscriptionActionTestKit(actionFactory);
+    return new DoctorStateSubscriptionActionTestKit(actionFactory, MockRegistry.EMPTY);
   }
 
-  private DoctorStateSubscriptionActionTestKit(Function<ActionCreationContext, DoctorStateSubscriptionAction> actionFactory) {
+  public static DoctorStateSubscriptionActionTestKit of(Function<ActionCreationContext, DoctorStateSubscriptionAction> actionFactory, MockRegistry mockRegistry) {
+    return new DoctorStateSubscriptionActionTestKit(actionFactory, mockRegistry);
+  }
+
+  private DoctorStateSubscriptionActionTestKit(Function<ActionCreationContext, DoctorStateSubscriptionAction> actionFactory, MockRegistry mockRegistry) {
     this.actionFactory = actionFactory;
+    this.mockRegistry = mockRegistry;
   }
 
   private <E> ActionResult<E> interpretEffects(Effect<E> effect) {
@@ -43,7 +48,7 @@ public final class DoctorStateSubscriptionActionTestKit {
   }
 
   public ActionResult<DoctorApi.Doctor> onStateChange(DoctorDomain.DoctorState doctorState, Metadata metadata) {
-    TestKitActionContext context = new TestKitActionContext(metadata);
+    TestKitActionContext context = new TestKitActionContext(metadata, mockRegistry);
     Effect<DoctorApi.Doctor> effect = createAction(context).onStateChange(doctorState);
     return interpretEffects(effect);
   }

@@ -5,13 +5,11 @@ import io.users.auth.action.AuthActionImpl;
 import kalix.javasdk.Metadata;
 import kalix.javasdk.action.Action.Effect;
 import kalix.javasdk.action.ActionCreationContext;
-import kalix.javasdk.impl.action.ActionEffectImpl;
 import kalix.javasdk.testkit.ActionResult;
+import kalix.javasdk.testkit.MockRegistry;
 import kalix.javasdk.testkit.impl.ActionResultImpl;
 import kalix.javasdk.testkit.impl.TestKitActionContext;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -21,7 +19,9 @@ import java.util.function.Function;
 
 public final class AuthActionImplTestKit {
 
-  private Function<ActionCreationContext, AuthActionImpl> actionFactory;
+  private final Function<ActionCreationContext, AuthActionImpl> actionFactory;
+
+  private final MockRegistry mockRegistry;
 
   private AuthActionImpl createAction(TestKitActionContext context) {
     AuthActionImpl action = actionFactory.apply(context);
@@ -30,11 +30,16 @@ public final class AuthActionImplTestKit {
   }
 
   public static AuthActionImplTestKit of(Function<ActionCreationContext, AuthActionImpl> actionFactory) {
-    return new AuthActionImplTestKit(actionFactory);
+    return new AuthActionImplTestKit(actionFactory, MockRegistry.EMPTY);
   }
 
-  private AuthActionImplTestKit(Function<ActionCreationContext, AuthActionImpl> actionFactory) {
+  public static AuthActionImplTestKit of(Function<ActionCreationContext, AuthActionImpl> actionFactory, MockRegistry mockRegistry) {
+    return new AuthActionImplTestKit(actionFactory, mockRegistry);
+  }
+
+  private AuthActionImplTestKit(Function<ActionCreationContext, AuthActionImpl> actionFactory, MockRegistry mockRegistry) {
     this.actionFactory = actionFactory;
+    this.mockRegistry = mockRegistry;
   }
 
   private <E> ActionResult<E> interpretEffects(Effect<E> effect) {
@@ -42,7 +47,7 @@ public final class AuthActionImplTestKit {
   }
 
   public ActionResult<AuthActionApi.Auth> register(AuthActionApi.Auth auth, Metadata metadata) {
-    TestKitActionContext context = new TestKitActionContext(metadata);
+    TestKitActionContext context = new TestKitActionContext(metadata, mockRegistry);
     Effect<AuthActionApi.Auth> effect = createAction(context).register(auth);
     return interpretEffects(effect);
   }
