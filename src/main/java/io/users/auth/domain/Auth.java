@@ -73,4 +73,25 @@ public class Auth extends AbstractAuth {
         .setRole(state.getRole())
         .build();
   }
+  
+  @Override
+  public Effect<Empty> updateUser(AuthDomain.AuthState currentState, AuthActionApi.Auth command) {
+    if(currentState.getId().equals(command.getId())) {
+      AuthDomain.AuthState state = convertToDomain(currentState, command);
+      return handle(state, command);
+    } else {
+      return effects().error("User " + command.getId() + " not found.");
+    }
+  }
+  private AuthDomain.AuthState convertToDomain(AuthDomain.AuthState currentState, AuthActionApi.Auth user) {
+    return AuthDomain.AuthState.newBuilder()
+        .setId(user.getId())
+        .setEmail(user.getEmail())
+        .setPassword(currentState.getPassword())
+        .setFirstName(user.getFirstName())
+        .setLastName(user.getLastName())
+        .setRole(user.getRole())
+        .build();
+  }
 }
+

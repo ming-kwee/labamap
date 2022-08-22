@@ -63,6 +63,12 @@ public abstract class DoctorServiceClient extends DoctorServiceClientPowerApi im
       }
     
   
+    
+      private final SingleResponseRequestBuilder<io.users.doctor.api.DoctorApi.Doctor, com.google.protobuf.Empty> updateDoctorRequestBuilder(akka.grpc.internal.InternalChannel channel){
+        return new JavaUnaryRequestBuilder<>(updateDoctorDescriptor, channel, options, settings, ec);
+      }
+    
+  
 
       
 
@@ -104,6 +110,25 @@ public abstract class DoctorServiceClient extends DoctorServiceClientPowerApi im
         }
       
 
+        /**
+         * For access to method metadata use the parameterless version of updateDoctor
+         */
+        public java.util.concurrent.CompletionStage<com.google.protobuf.Empty> updateDoctor(io.users.doctor.api.DoctorApi.Doctor request) {
+          return updateDoctor().invoke(request);
+        }
+
+        /**
+         * Lower level "lifted" version of the method, giving access to request metadata etc.
+         * prefer updateDoctor(io.users.doctor.api.DoctorApi.Doctor) if possible.
+         */
+        
+          public SingleResponseRequestBuilder<io.users.doctor.api.DoctorApi.Doctor, com.google.protobuf.Empty> updateDoctor()
+        
+        {
+          return updateDoctorRequestBuilder(clientState.internalChannel());
+        }
+      
+
       
         private static MethodDescriptor<io.users.doctor.api.DoctorApi.Doctor, com.google.protobuf.Empty> createDoctorDescriptor =
           MethodDescriptor.<io.users.doctor.api.DoctorApi.Doctor, com.google.protobuf.Empty>newBuilder()
@@ -130,6 +155,20 @@ public abstract class DoctorServiceClient extends DoctorServiceClientPowerApi im
             .setFullMethodName(MethodDescriptor.generateFullMethodName("io.users.doctor.api.DoctorService", "GetDoctor"))
             .setRequestMarshaller(new ProtoMarshaller<io.users.doctor.api.DoctorApi.GetDoctorRequest>(GetDoctorRequestSerializer))
             .setResponseMarshaller(new ProtoMarshaller<io.users.doctor.api.DoctorApi.Doctor>(DoctorSerializer))
+            .setSampledToLocalTracing(true)
+            .build();
+        
+        private static MethodDescriptor<io.users.doctor.api.DoctorApi.Doctor, com.google.protobuf.Empty> updateDoctorDescriptor =
+          MethodDescriptor.<io.users.doctor.api.DoctorApi.Doctor, com.google.protobuf.Empty>newBuilder()
+            .setType(
+   MethodDescriptor.MethodType.UNARY 
+  
+  
+  
+)
+            .setFullMethodName(MethodDescriptor.generateFullMethodName("io.users.doctor.api.DoctorService", "UpdateDoctor"))
+            .setRequestMarshaller(new ProtoMarshaller<io.users.doctor.api.DoctorApi.Doctor>(DoctorSerializer))
+            .setResponseMarshaller(new ProtoMarshaller<com.google.protobuf.Empty>(EmptySerializer))
             .setSampledToLocalTracing(true)
             .build();
         

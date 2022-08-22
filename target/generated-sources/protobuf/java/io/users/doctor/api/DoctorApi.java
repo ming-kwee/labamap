@@ -3608,24 +3608,27 @@ public final class DoctorApi {
       "\n$io/users/doctor/api/doctor_api.proto\022\023" +
       "io.users.doctor.api\032\034google/api/annotati" +
       "ons.proto\032\033google/protobuf/empty.proto\032\027" +
-      "kalix/annotations.proto\"\300\002\n\006Doctor\022\n\n\002id" +
-      "\030\001 \001(\t\022\024\n\005email\030\002 \001(\tB\005\302C\002\010\001\022\020\n\010password" +
-      "\030\003 \001(\t\022\022\n\nfirst_name\030\004 \001(\t\022\021\n\tlast_name\030" +
-      "\005 \001(\t\022\014\n\004role\030\006 \001(\t\022\016\n\006gender\030\007 \001(\t\022\016\n\006m" +
-      "obile\030\010 \001(\t\022\023\n\013designation\030\t \001(\t\022\022\n\ndepa" +
-      "rtment\030\n \001(\t\022\017\n\007address\030\013 \001(\t\022\025\n\rdate_of" +
-      "_birth\030\014 \001(\t\022\021\n\teducation\030\r \001(\t\022\013\n\003img\030\016" +
-      " \001(\t\022\026\n\016specialization\030\017 \001(\t\022\016\n\006degree\030\020" +
-      " \001(\t\022\024\n\014joining_date\030\021 \001(\t\"(\n\020GetDoctorR" +
-      "equest\022\024\n\005email\030\001 \001(\tB\005\302C\002\010\0012\253\002\n\rDoctorS" +
-      "ervice\022^\n\014CreateDoctor\022\033.io.users.doctor" +
-      ".api.Doctor\032\026.google.protobuf.Empty\"\031\202\323\344" +
-      "\223\002\023\"\016/create_doctor:\001*\022g\n\tGetDoctor\022%.io" +
-      ".users.doctor.api.GetDoctorRequest\032\033.io." +
-      "users.doctor.api.Doctor\"\026\202\323\344\223\002\020\"\013/get_do" +
-      "ctor:\001*\032Q\312CN\022L\n\035io.users.doctor.domain.D" +
-      "octor\022\007doctors\032\"io.users.doctor.domain.D" +
-      "octorStateB\013B\tDoctorApib\006proto3"
+      "kalix/annotations.proto\032*io/users/doctor" +
+      "/domain/doctor_domain.proto\"\300\002\n\006Doctor\022\n" +
+      "\n\002id\030\001 \001(\t\022\024\n\005email\030\002 \001(\tB\005\302C\002\010\001\022\020\n\010pass" +
+      "word\030\003 \001(\t\022\022\n\nfirst_name\030\004 \001(\t\022\021\n\tlast_n" +
+      "ame\030\005 \001(\t\022\014\n\004role\030\006 \001(\t\022\016\n\006gender\030\007 \001(\t\022" +
+      "\016\n\006mobile\030\010 \001(\t\022\023\n\013designation\030\t \001(\t\022\022\n\n" +
+      "department\030\n \001(\t\022\017\n\007address\030\013 \001(\t\022\025\n\rdat" +
+      "e_of_birth\030\014 \001(\t\022\021\n\teducation\030\r \001(\t\022\013\n\003i" +
+      "mg\030\016 \001(\t\022\026\n\016specialization\030\017 \001(\t\022\016\n\006degr" +
+      "ee\030\020 \001(\t\022\024\n\014joining_date\030\021 \001(\t\"(\n\020GetDoc" +
+      "torRequest\022\024\n\005email\030\001 \001(\tB\005\302C\002\010\0012\360\002\n\rDoc" +
+      "torService\022^\n\014CreateDoctor\022\033.io.users.do" +
+      "ctor.api.Doctor\032\026.google.protobuf.Empty\"" +
+      "\031\202\323\344\223\002\023\"\016/create_doctor:\001*\022g\n\tGetDoctor\022" +
+      "%.io.users.doctor.api.GetDoctorRequest\032\033" +
+      ".io.users.doctor.api.Doctor\"\026\202\323\344\223\002\020\"\013/ge" +
+      "t_doctor:\001*\022C\n\014UpdateDoctor\022\033.io.users.d" +
+      "octor.api.Doctor\032\026.google.protobuf.Empty" +
+      "\032Q\312CN\022L\n\035io.users.doctor.domain.Doctor\022\007" +
+      "doctors\032\"io.users.doctor.domain.DoctorSt" +
+      "ateB\013B\tDoctorApib\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3633,6 +3636,7 @@ public final class DoctorApi {
           com.google.api.AnnotationsProto.getDescriptor(),
           com.google.protobuf.EmptyProto.getDescriptor(),
           kalix.Annotations.getDescriptor(),
+          io.users.doctor.domain.DoctorDomain.getDescriptor(),
         });
     internal_static_io_users_doctor_api_Doctor_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3656,6 +3660,7 @@ public final class DoctorApi {
     com.google.api.AnnotationsProto.getDescriptor();
     com.google.protobuf.EmptyProto.getDescriptor();
     kalix.Annotations.getDescriptor();
+    io.users.doctor.domain.DoctorDomain.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

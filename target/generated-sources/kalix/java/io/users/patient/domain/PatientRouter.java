@@ -31,6 +31,9 @@ public class PatientRouter extends ValueEntityRouter<PatientDomain.PatientState,
       case "GetPatient":
         return entity().getPatient(state, (PatientApi.GetPatientRequest) command);
 
+      case "UpdatePatient":
+        return entity().updatePatient(state, (PatientApi.Patient) command);
+
       default:
         throw new ValueEntityRouter.CommandHandlerNotFound(commandName);
     }

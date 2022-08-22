@@ -65,6 +65,16 @@ public final class ComponentsImpl implements Components {
         () -> getGrpcClient(io.users.auth.action.AuthAction.class).register(auth)
       );
     }
+    @Override
+    public DeferredCall<io.users.auth.action.AuthActionApi.Auth, io.users.auth.action.AuthActionApi.Auth> updateUser(io.users.auth.action.AuthActionApi.Auth auth) {
+      return new DeferredCallImpl<>(
+        auth,
+        MetadataImpl.Empty(),
+        "io.users.auth.action.AuthAction",
+        "UpdateUser",
+        () -> getGrpcClient(io.users.auth.action.AuthAction.class).updateUser(auth)
+      );
+    }
   }
   private final class DoctorCallsImpl implements Components.DoctorCalls {
      @Override
@@ -85,6 +95,16 @@ public final class ComponentsImpl implements Components {
         "io.users.doctor.api.DoctorService",
         "GetDoctor",
         () -> getGrpcClient(io.users.doctor.api.DoctorService.class).getDoctor(getDoctorRequest)
+      );
+    }
+    @Override
+    public DeferredCall<io.users.doctor.api.DoctorApi.Doctor, com.google.protobuf.Empty> updateDoctor(io.users.doctor.api.DoctorApi.Doctor doctor) {
+      return new DeferredCallImpl<>(
+        doctor,
+        MetadataImpl.Empty(),
+        "io.users.doctor.api.DoctorService",
+        "UpdateDoctor",
+        () -> getGrpcClient(io.users.doctor.api.DoctorService.class).updateDoctor(doctor)
       );
     }
   }
@@ -119,6 +139,16 @@ public final class ComponentsImpl implements Components {
         "io.users.patient.api.PatientService",
         "GetPatient",
         () -> getGrpcClient(io.users.patient.api.PatientService.class).getPatient(getPatientRequest)
+      );
+    }
+    @Override
+    public DeferredCall<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty> updatePatient(io.users.patient.api.PatientApi.Patient patient) {
+      return new DeferredCallImpl<>(
+        patient,
+        MetadataImpl.Empty(),
+        "io.users.patient.api.PatientService",
+        "UpdatePatient",
+        () -> getGrpcClient(io.users.patient.api.PatientService.class).updatePatient(patient)
       );
     }
   }
@@ -175,6 +205,16 @@ public final class ComponentsImpl implements Components {
         "io.users.auth.api.AuthService",
         "Login",
         () -> getGrpcClient(io.users.auth.api.AuthService.class).login(getLoginRequest)
+      );
+    }
+    @Override
+    public DeferredCall<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> updateUser(io.users.auth.action.AuthActionApi.Auth auth) {
+      return new DeferredCallImpl<>(
+        auth,
+        MetadataImpl.Empty(),
+        "io.users.auth.api.AuthService",
+        "UpdateUser",
+        () -> getGrpcClient(io.users.auth.api.AuthService.class).updateUser(auth)
       );
     }
   }

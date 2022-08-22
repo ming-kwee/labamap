@@ -20,11 +20,15 @@ public interface Components {
 
   interface AuthActionImplCalls {
     DeferredCall<io.users.auth.action.AuthActionApi.Auth, io.users.auth.action.AuthActionApi.Auth> register(io.users.auth.action.AuthActionApi.Auth auth);
+
+    DeferredCall<io.users.auth.action.AuthActionApi.Auth, io.users.auth.action.AuthActionApi.Auth> updateUser(io.users.auth.action.AuthActionApi.Auth auth);
   }
   interface DoctorCalls {
     DeferredCall<io.users.doctor.api.DoctorApi.Doctor, com.google.protobuf.Empty> createDoctor(io.users.doctor.api.DoctorApi.Doctor doctor);
 
     DeferredCall<io.users.doctor.api.DoctorApi.GetDoctorRequest, io.users.doctor.api.DoctorApi.Doctor> getDoctor(io.users.doctor.api.DoctorApi.GetDoctorRequest getDoctorRequest);
+
+    DeferredCall<io.users.doctor.api.DoctorApi.Doctor, com.google.protobuf.Empty> updateDoctor(io.users.doctor.api.DoctorApi.Doctor doctor);
   }
   interface DoctorStateSubscriptionActionCalls {
     DeferredCall<io.users.doctor.domain.DoctorDomain.DoctorState, io.users.doctor.api.DoctorApi.Doctor> onStateChange(io.users.doctor.domain.DoctorDomain.DoctorState doctorState);
@@ -33,6 +37,8 @@ public interface Components {
     DeferredCall<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty> createPatient(io.users.patient.api.PatientApi.Patient patient);
 
     DeferredCall<io.users.patient.api.PatientApi.GetPatientRequest, io.users.patient.api.PatientApi.Patient> getPatient(io.users.patient.api.PatientApi.GetPatientRequest getPatientRequest);
+
+    DeferredCall<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty> updatePatient(io.users.patient.api.PatientApi.Patient patient);
   }
   interface PatientStateSubscriptionActionCalls {
     DeferredCall<io.users.patient.domain.PatientDomain.PatientState, io.users.patient.api.PatientApi.Patient> onStateChange(io.users.patient.domain.PatientDomain.PatientState patientState);
@@ -46,5 +52,7 @@ public interface Components {
     DeferredCall<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> register(io.users.auth.action.AuthActionApi.Auth auth);
 
     DeferredCall<io.users.auth.api.AuthApi.GetLoginRequest, io.users.auth.action.AuthActionApi.Auth> login(io.users.auth.api.AuthApi.GetLoginRequest getLoginRequest);
+
+    DeferredCall<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> updateUser(io.users.auth.action.AuthActionApi.Auth auth);
   }
 }

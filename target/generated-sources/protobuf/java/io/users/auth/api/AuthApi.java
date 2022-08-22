@@ -2264,14 +2264,16 @@ public final class AuthApi {
       "\n\nfirst_name\030\004 \001(\t\022\021\n\tlast_name\030\005 \001(\t\022\014\n" +
       "\004role\030\006 \001(\t\022\035\n\014access_token\030\007 \001(\tB\007\302C\004\022\002" +
       "\030\001\"9\n\017GetLoginRequest\022\024\n\005email\030\001 \001(\tB\005\302C" +
-      "\002\010\001\022\020\n\010password\030\002 \001(\t2\202\002\n\013AuthService\022>\n" +
+      "\002\010\001\022\020\n\010password\030\002 \001(\t2\304\002\n\013AuthService\022>\n" +
       "\010Register\022\032.io.users.auth.action.Auth\032\026." +
       "google.protobuf.Empty\022b\n\005Login\022\".io.user" +
       "s.auth.api.GetLoginRequest\032\032.io.users.au" +
       "th.action.Auth\"\031\202\323\344\223\002\013\"\006/login:\001*\302C\005\032\003\022\001" +
-      "\002\032O\312CL\022J\n\031io.users.auth.domain.Auth\022\raut" +
-      "horization\032\036io.users.auth.domain.AuthSta" +
-      "teB\tB\007AuthApib\006proto3"
+      "\002\022@\n\nUpdateUser\022\032.io.users.auth.action.A" +
+      "uth\032\026.google.protobuf.Empty\032O\312CL\022J\n\031io.u" +
+      "sers.auth.domain.Auth\022\rauthorization\032\036io" +
+      ".users.auth.domain.AuthStateB\tB\007AuthApib" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

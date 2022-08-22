@@ -3537,16 +3537,17 @@ public final class PatientApi {
       "ddress\030\014 \001(\t\022\023\n\013blood_group\030\r \001(\t\022\026\n\016blo" +
       "od_pressure\030\016 \001(\t\022\016\n\006sugger\030\017 \001(\t\022\016\n\006inj" +
       "ury\030\020 \001(\t\022\013\n\003img\030\021 \001(\t\")\n\021GetPatientRequ" +
-      "est\022\024\n\005email\030\001 \001(\tB\005\302C\002\010\0012\273\002\n\016PatientSer" +
+      "est\022\024\n\005email\030\001 \001(\tB\005\302C\002\010\0012\203\003\n\016PatientSer" +
       "vice\022b\n\rCreatePatient\022\035.io.users.patient" +
       ".api.Patient\032\026.google.protobuf.Empty\"\032\202\323" +
       "\344\223\002\024\"\017/create_patient:\001*\022m\n\nGetPatient\022\'" +
       ".io.users.patient.api.GetPatientRequest\032" +
       "\035.io.users.patient.api.Patient\"\027\202\323\344\223\002\021\"\014" +
-      "/get_patient:\001*\032V\312CS\022Q\n\037io.users.patient" +
-      ".domain.Patient\022\010patients\032$io.users.pati" +
-      "ent.domain.PatientStateB\014B\nPatientApib\006p" +
-      "roto3"
+      "/get_patient:\001*\022F\n\rUpdatePatient\022\035.io.us" +
+      "ers.patient.api.Patient\032\026.google.protobu" +
+      "f.Empty\032V\312CS\022Q\n\037io.users.patient.domain." +
+      "Patient\022\010patients\032$io.users.patient.doma" +
+      "in.PatientStateB\014B\nPatientApib\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

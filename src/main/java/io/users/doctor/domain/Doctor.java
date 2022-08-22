@@ -5,6 +5,9 @@ import io.users.doctor.api.DoctorApi;
 import kalix.javasdk.valueentity.ValueEntityContext;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 // This class was initially generated based on the .proto definition by Kalix tooling.
 // This is the implementation for the Value Entity Service described in your io/users/doctor/api/doctor_api.proto file.
 //
@@ -12,6 +15,7 @@ import java.util.Optional;
 // or delete it so it is regenerated as needed.
 
 public class Doctor extends AbstractDoctor {
+  static final Logger log = LoggerFactory.getLogger(Doctor.class);
   @SuppressWarnings("unused")
   private final String entityId;
 
@@ -29,18 +33,15 @@ public class Doctor extends AbstractDoctor {
     DoctorDomain.DoctorState state = convertToDomain(command);
     return reject(currentState, command).orElseGet(() -> handle(state, command));
   }
-
   private Optional<Effect<Empty>> reject(DoctorDomain.DoctorState currentState, DoctorApi.Doctor command) {
     if (currentState.getEmail().equals(command.getEmail())) {
       return Optional.of(effects().error("Email is already exists!"));
     }
     return Optional.empty();
   }
-
   private Effect<Empty> handle(DoctorDomain.DoctorState state, DoctorApi.Doctor command) {
     return effects().updateState(state).thenReply(Empty.getDefaultInstance());
   }
-
   private DoctorDomain.DoctorState convertToDomain(DoctorApi.Doctor doctor) {
     return DoctorDomain.DoctorState.newBuilder()
         .setId(doctor.getId())
@@ -73,7 +74,6 @@ public class Doctor extends AbstractDoctor {
       return effects().error("Doctor " + command.getEmail() + " has not been created.");
     }
   }
-
   private DoctorApi.Doctor convertToApi(DoctorDomain.DoctorState state) {
     return DoctorApi.Doctor.newBuilder()
         .setId(state.getId())
@@ -95,4 +95,15 @@ public class Doctor extends AbstractDoctor {
         .setJoiningDate(state.getJoiningDate())
         .build();
   }
+
+  @Override
+  public Effect<Empty> updateDoctor(DoctorDomain.DoctorState currentState, DoctorApi.Doctor command) {
+    // if (currentState.getId().equals(command.getId())) {
+      DoctorDomain.DoctorState updatedDoctor = convertToDomain(command);
+      return effects().updateState(updatedDoctor).thenReply(Empty.getDefaultInstance());
+    // } else {
+    //   return effects().error("User " + command.getId() + " not found.");
+    // }
+  }
+
 }

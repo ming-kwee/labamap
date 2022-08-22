@@ -52,8 +52,18 @@ public final class AuthActionImplTestKit {
     return interpretEffects(effect);
   }
 
+  public ActionResult<AuthActionApi.Auth> updateUser(AuthActionApi.Auth auth, Metadata metadata) {
+    TestKitActionContext context = new TestKitActionContext(metadata, mockRegistry);
+    Effect<AuthActionApi.Auth> effect = createAction(context).updateUser(auth);
+    return interpretEffects(effect);
+  }
+
   public ActionResult<AuthActionApi.Auth> register(AuthActionApi.Auth auth) {
     return register(auth, Metadata.EMPTY);
+  }
+
+  public ActionResult<AuthActionApi.Auth> updateUser(AuthActionApi.Auth auth) {
+    return updateUser(auth, Metadata.EMPTY);
   }
 
 }

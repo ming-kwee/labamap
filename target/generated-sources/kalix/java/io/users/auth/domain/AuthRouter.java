@@ -32,6 +32,9 @@ public class AuthRouter extends ValueEntityRouter<AuthDomain.AuthState, Auth> {
       case "Login":
         return entity().login(state, (AuthApi.GetLoginRequest) command);
 
+      case "UpdateUser":
+        return entity().updateUser(state, (AuthActionApi.Auth) command);
+
       default:
         throw new ValueEntityRouter.CommandHandlerNotFound(commandName);
     }

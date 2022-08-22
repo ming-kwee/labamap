@@ -87,6 +87,12 @@ public final class AuthTestKit {
     return interpretEffects(effect);
   }
 
+  public ValueEntityResult<Empty> updateUser(AuthActionApi.Auth auth, Metadata metadata) {
+    entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, metadata)));
+    ValueEntity.Effect<Empty> effect = entity.updateUser(state, auth);
+    return interpretEffects(effect);
+  }
+
   public ValueEntityResult<Empty> register(AuthActionApi.Auth auth) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
     ValueEntity.Effect<Empty> effect = entity.register(state, auth);
@@ -96,6 +102,12 @@ public final class AuthTestKit {
   public ValueEntityResult<AuthActionApi.Auth> login(AuthApi.GetLoginRequest getLoginRequest) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
     ValueEntity.Effect<AuthActionApi.Auth> effect = entity.login(state, getLoginRequest);
+    return interpretEffects(effect);
+  }
+
+  public ValueEntityResult<Empty> updateUser(AuthActionApi.Auth auth) {
+    entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
+    ValueEntity.Effect<Empty> effect = entity.updateUser(state, auth);
     return interpretEffects(effect);
   }
 }

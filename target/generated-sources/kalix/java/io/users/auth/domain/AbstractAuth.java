@@ -21,4 +21,6 @@ public abstract class AbstractAuth extends ValueEntity<AuthDomain.AuthState> {
 
   public abstract Effect<AuthActionApi.Auth> login(AuthDomain.AuthState currentState, AuthApi.GetLoginRequest getLoginRequest);
 
+  public abstract Effect<Empty> updateUser(AuthDomain.AuthState currentState, AuthActionApi.Auth auth);
+
 }

@@ -7,6 +7,7 @@ option java_outer_classname = "DoctorApi";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "kalix/annotations.proto";
+import "io/users/doctor/domain/doctor_domain.proto";
 
 service DoctorService {
     option (kalix.codegen) = {
@@ -30,6 +31,8 @@ service DoctorService {
             body: "*"
         };
     }
+
+    rpc UpdateDoctor(doctor.api.Doctor) returns (google.protobuf.Empty);
 }
 
 message Doctor {
@@ -56,3 +59,22 @@ message Doctor {
 message GetDoctorRequest {
     string email = 1 [(kalix.field).entity_key = true];
 }
+
+// message UpdateDoctorRequest {
+//     string id = 1 [(kalix.field).entity_key = true];
+//     string first_name = 2;
+//     string last_name = 3;
+//     string role = 4;
+//     // Doctor
+//     string gender = 5;
+//     string mobile = 6;
+//     string designation = 7;
+//     string department = 8;
+//     string address = 9;
+//     string date_of_birth = 10;
+//     string education = 11;
+//     string img = 12;
+//     string specialization = 13;
+//     string degree = 14;
+//     string joining_date = 15;
+// }

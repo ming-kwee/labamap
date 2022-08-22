@@ -30,6 +30,8 @@ service PatientService {
             body: "*"
         };
     }
+
+    rpc UpdatePatient(patient.api.Patient) returns (google.protobuf.Empty);
 }
 
 message Patient {

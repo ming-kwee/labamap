@@ -16,6 +16,9 @@ public interface DoctorService {
   
   java.util.concurrent.CompletionStage<io.users.doctor.api.DoctorApi.Doctor> getDoctor(io.users.doctor.api.DoctorApi.GetDoctorRequest in);
   
+  
+  java.util.concurrent.CompletionStage<com.google.protobuf.Empty> updateDoctor(io.users.doctor.api.DoctorApi.Doctor in);
+  
 
   static String name = "io.users.doctor.api.DoctorService";
   static akka.grpc.ServiceDescription description = new akka.grpc.internal.ServiceDescriptionImpl(name, DoctorApi.getDescriptor());

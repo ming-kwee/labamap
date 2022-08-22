@@ -20,4 +20,6 @@ public abstract class AbstractPatient extends ValueEntity<PatientDomain.PatientS
 
   public abstract Effect<PatientApi.Patient> getPatient(PatientDomain.PatientState currentState, PatientApi.GetPatientRequest getPatientRequest);
 
+  public abstract Effect<Empty> updatePatient(PatientDomain.PatientState currentState, PatientApi.Patient patient);
+
 }

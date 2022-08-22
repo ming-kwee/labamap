@@ -86,6 +86,12 @@ public final class PatientTestKit {
     return interpretEffects(effect);
   }
 
+  public ValueEntityResult<Empty> updatePatient(PatientApi.Patient patient, Metadata metadata) {
+    entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, metadata)));
+    ValueEntity.Effect<Empty> effect = entity.updatePatient(state, patient);
+    return interpretEffects(effect);
+  }
+
   public ValueEntityResult<Empty> createPatient(PatientApi.Patient patient) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
     ValueEntity.Effect<Empty> effect = entity.createPatient(state, patient);
@@ -95,6 +101,12 @@ public final class PatientTestKit {
   public ValueEntityResult<PatientApi.Patient> getPatient(PatientApi.GetPatientRequest getPatientRequest) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
     ValueEntity.Effect<PatientApi.Patient> effect = entity.getPatient(state, getPatientRequest);
+    return interpretEffects(effect);
+  }
+
+  public ValueEntityResult<Empty> updatePatient(PatientApi.Patient patient) {
+    entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
+    ValueEntity.Effect<Empty> effect = entity.updatePatient(state, patient);
     return interpretEffects(effect);
   }
 }

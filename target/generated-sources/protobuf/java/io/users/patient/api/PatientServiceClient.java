@@ -63,6 +63,12 @@ public abstract class PatientServiceClient extends PatientServiceClientPowerApi 
       }
     
   
+    
+      private final SingleResponseRequestBuilder<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty> updatePatientRequestBuilder(akka.grpc.internal.InternalChannel channel){
+        return new JavaUnaryRequestBuilder<>(updatePatientDescriptor, channel, options, settings, ec);
+      }
+    
+  
 
       
 
@@ -104,6 +110,25 @@ public abstract class PatientServiceClient extends PatientServiceClientPowerApi 
         }
       
 
+        /**
+         * For access to method metadata use the parameterless version of updatePatient
+         */
+        public java.util.concurrent.CompletionStage<com.google.protobuf.Empty> updatePatient(io.users.patient.api.PatientApi.Patient request) {
+          return updatePatient().invoke(request);
+        }
+
+        /**
+         * Lower level "lifted" version of the method, giving access to request metadata etc.
+         * prefer updatePatient(io.users.patient.api.PatientApi.Patient) if possible.
+         */
+        
+          public SingleResponseRequestBuilder<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty> updatePatient()
+        
+        {
+          return updatePatientRequestBuilder(clientState.internalChannel());
+        }
+      
+
       
         private static MethodDescriptor<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty> createPatientDescriptor =
           MethodDescriptor.<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty>newBuilder()
@@ -130,6 +155,20 @@ public abstract class PatientServiceClient extends PatientServiceClientPowerApi 
             .setFullMethodName(MethodDescriptor.generateFullMethodName("io.users.patient.api.PatientService", "GetPatient"))
             .setRequestMarshaller(new ProtoMarshaller<io.users.patient.api.PatientApi.GetPatientRequest>(GetPatientRequestSerializer))
             .setResponseMarshaller(new ProtoMarshaller<io.users.patient.api.PatientApi.Patient>(PatientSerializer))
+            .setSampledToLocalTracing(true)
+            .build();
+        
+        private static MethodDescriptor<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty> updatePatientDescriptor =
+          MethodDescriptor.<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty>newBuilder()
+            .setType(
+   MethodDescriptor.MethodType.UNARY 
+  
+  
+  
+)
+            .setFullMethodName(MethodDescriptor.generateFullMethodName("io.users.patient.api.PatientService", "UpdatePatient"))
+            .setRequestMarshaller(new ProtoMarshaller<io.users.patient.api.PatientApi.Patient>(PatientSerializer))
+            .setResponseMarshaller(new ProtoMarshaller<com.google.protobuf.Empty>(EmptySerializer))
             .setSampledToLocalTracing(true)
             .build();
         

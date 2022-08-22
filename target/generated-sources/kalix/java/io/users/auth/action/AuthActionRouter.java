@@ -22,6 +22,10 @@ public class AuthActionRouter extends ActionRouter<AuthActionImpl> {
       case "Register":
         return action()
                  .register((AuthActionApi.Auth) message.payload());
+
+      case "UpdateUser":
+        return action()
+                 .updateUser((AuthActionApi.Auth) message.payload());
       default:
         throw new ActionRouter.HandlerNotFound(commandName);
     }

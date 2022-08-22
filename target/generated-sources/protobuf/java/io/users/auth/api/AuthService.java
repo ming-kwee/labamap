@@ -16,6 +16,9 @@ public interface AuthService {
   
   java.util.concurrent.CompletionStage<io.users.auth.action.AuthActionApi.Auth> login(io.users.auth.api.AuthApi.GetLoginRequest in);
   
+  
+  java.util.concurrent.CompletionStage<com.google.protobuf.Empty> updateUser(io.users.auth.action.AuthActionApi.Auth in);
+  
 
   static String name = "io.users.auth.api.AuthService";
   static akka.grpc.ServiceDescription description = new akka.grpc.internal.ServiceDescriptionImpl(name, AuthApi.getDescriptor());

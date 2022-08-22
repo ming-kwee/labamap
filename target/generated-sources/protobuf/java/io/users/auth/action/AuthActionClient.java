@@ -57,6 +57,12 @@ public abstract class AuthActionClient extends AuthActionClientPowerApi implemen
       }
     
   
+    
+      private final SingleResponseRequestBuilder<io.users.auth.action.AuthActionApi.Auth, io.users.auth.action.AuthActionApi.Auth> updateUserRequestBuilder(akka.grpc.internal.InternalChannel channel){
+        return new JavaUnaryRequestBuilder<>(updateUserDescriptor, channel, options, settings, ec);
+      }
+    
+  
 
       
 
@@ -79,6 +85,25 @@ public abstract class AuthActionClient extends AuthActionClientPowerApi implemen
         }
       
 
+        /**
+         * For access to method metadata use the parameterless version of updateUser
+         */
+        public java.util.concurrent.CompletionStage<io.users.auth.action.AuthActionApi.Auth> updateUser(io.users.auth.action.AuthActionApi.Auth request) {
+          return updateUser().invoke(request);
+        }
+
+        /**
+         * Lower level "lifted" version of the method, giving access to request metadata etc.
+         * prefer updateUser(io.users.auth.action.AuthActionApi.Auth) if possible.
+         */
+        
+          public SingleResponseRequestBuilder<io.users.auth.action.AuthActionApi.Auth, io.users.auth.action.AuthActionApi.Auth> updateUser()
+        
+        {
+          return updateUserRequestBuilder(clientState.internalChannel());
+        }
+      
+
       
         private static MethodDescriptor<io.users.auth.action.AuthActionApi.Auth, io.users.auth.action.AuthActionApi.Auth> registerDescriptor =
           MethodDescriptor.<io.users.auth.action.AuthActionApi.Auth, io.users.auth.action.AuthActionApi.Auth>newBuilder()
@@ -89,6 +114,20 @@ public abstract class AuthActionClient extends AuthActionClientPowerApi implemen
   
 )
             .setFullMethodName(MethodDescriptor.generateFullMethodName("io.users.auth.action.AuthAction", "Register"))
+            .setRequestMarshaller(new ProtoMarshaller<io.users.auth.action.AuthActionApi.Auth>(AuthSerializer))
+            .setResponseMarshaller(new ProtoMarshaller<io.users.auth.action.AuthActionApi.Auth>(AuthSerializer))
+            .setSampledToLocalTracing(true)
+            .build();
+        
+        private static MethodDescriptor<io.users.auth.action.AuthActionApi.Auth, io.users.auth.action.AuthActionApi.Auth> updateUserDescriptor =
+          MethodDescriptor.<io.users.auth.action.AuthActionApi.Auth, io.users.auth.action.AuthActionApi.Auth>newBuilder()
+            .setType(
+   MethodDescriptor.MethodType.UNARY 
+  
+  
+  
+)
+            .setFullMethodName(MethodDescriptor.generateFullMethodName("io.users.auth.action.AuthAction", "UpdateUser"))
             .setRequestMarshaller(new ProtoMarshaller<io.users.auth.action.AuthActionApi.Auth>(AuthSerializer))
             .setResponseMarshaller(new ProtoMarshaller<io.users.auth.action.AuthActionApi.Auth>(AuthSerializer))
             .setSampledToLocalTracing(true)

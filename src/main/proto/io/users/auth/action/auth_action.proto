@@ -18,6 +18,13 @@ service AuthAction {
           body: "*"
       };
     }
+
+    rpc UpdateUser(Auth) returns (Auth) {
+      option (google.api.http) = {
+          put: "/user/{id}"
+          body: "*"
+      };
+    }
 }
 
   message Auth {

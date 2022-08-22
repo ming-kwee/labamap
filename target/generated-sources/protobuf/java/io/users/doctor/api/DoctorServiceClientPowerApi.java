@@ -33,4 +33,15 @@ public abstract class DoctorServiceClientPowerApi {
         throw new java.lang.UnsupportedOperationException();
     }
   
+    /**
+     * Lower level "lifted" version of the method, giving access to request metadata etc.
+     * prefer updateDoctor(io.users.doctor.api.DoctorApi.Doctor) if possible.
+     */
+    
+      public SingleResponseRequestBuilder<io.users.doctor.api.DoctorApi.Doctor, com.google.protobuf.Empty> updateDoctor()
+    
+    {
+        throw new java.lang.UnsupportedOperationException();
+    }
+  
 }

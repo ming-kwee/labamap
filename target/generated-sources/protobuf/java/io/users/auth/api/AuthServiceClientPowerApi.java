@@ -33,4 +33,15 @@ public abstract class AuthServiceClientPowerApi {
         throw new java.lang.UnsupportedOperationException();
     }
   
+    /**
+     * Lower level "lifted" version of the method, giving access to request metadata etc.
+     * prefer updateUser(io.users.auth.action.AuthActionApi.Auth) if possible.
+     */
+    
+      public SingleResponseRequestBuilder<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> updateUser()
+    
+    {
+        throw new java.lang.UnsupportedOperationException();
+    }
+  
 }

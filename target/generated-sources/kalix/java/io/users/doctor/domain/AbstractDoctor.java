@@ -20,4 +20,6 @@ public abstract class AbstractDoctor extends ValueEntity<DoctorDomain.DoctorStat
 
   public abstract Effect<DoctorApi.Doctor> getDoctor(DoctorDomain.DoctorState currentState, DoctorApi.GetDoctorRequest getDoctorRequest);
 
+  public abstract Effect<Empty> updateDoctor(DoctorDomain.DoctorState currentState, DoctorApi.Doctor doctor);
+
 }

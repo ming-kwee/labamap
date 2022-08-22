@@ -4037,10 +4037,13 @@ public final class AuthActionApi {
       "joining_date\030\022 \001(\t\022\013\n\003age\030\023 \001(\005\022\026\n\016marit" +
       "al_status\030\024 \001(\t\022\023\n\013blood_group\030\025 \001(\t\022\026\n\016" +
       "blood_pressure\030\026 \001(\t\022\016\n\006sugger\030\027 \001(\t\022\016\n\006" +
-      "injury\030\030 \001(\t2m\n\nAuthAction\022X\n\010Register\022\032" +
-      ".io.users.auth.action.Auth\032\032.io.users.au" +
-      "th.action.Auth\"\024\202\323\344\223\002\016\"\t/register:\001*\032\005\312C" +
-      "\002\"\000B\017B\rAuthActionApib\006proto3"
+      "injury\030\030 \001(\t2\312\001\n\nAuthAction\022X\n\010Register\022" +
+      "\032.io.users.auth.action.Auth\032\032.io.users.a" +
+      "uth.action.Auth\"\024\202\323\344\223\002\016\"\t/register:\001*\022[\n" +
+      "\nUpdateUser\022\032.io.users.auth.action.Auth\032" +
+      "\032.io.users.auth.action.Auth\"\025\202\323\344\223\002\017\032\n/us" +
+      "er/{id}:\001*\032\005\312C\002\"\000B\017B\rAuthActionApib\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

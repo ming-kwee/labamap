@@ -94,4 +94,14 @@ public class Patient extends AbstractPatient {
         .setImg(state.getImg())
         .build();
   }
+
+  @Override
+  public Effect<Empty> updatePatient(PatientDomain.PatientState currentState, PatientApi.Patient command) {
+    // if (currentState.getId().equals(command.getId())) {
+      PatientDomain.PatientState updatedDoctor = convertToDomain(command);
+      return effects().updateState(updatedDoctor).thenReply(Empty.getDefaultInstance());
+    // } else {
+    //   return effects().error("User " + command.getId() + " not found.");
+    // }
+  }
 }

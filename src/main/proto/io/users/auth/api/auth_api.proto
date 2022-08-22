@@ -19,7 +19,7 @@ service AuthService {
     };
   
     rpc Register(auth.action.Auth) returns (google.protobuf.Empty);
-
+    
     rpc Login(GetLoginRequest) returns (auth.action.Auth) {
         option (google.api.http) = {
             post: "/login"
@@ -29,6 +29,8 @@ service AuthService {
             sign: MESSAGE
         };
     }
+    
+    rpc UpdateUser(auth.action.Auth) returns (google.protobuf.Empty);
   
 }
 

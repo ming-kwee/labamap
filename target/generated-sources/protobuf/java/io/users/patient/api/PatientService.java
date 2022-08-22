@@ -16,6 +16,9 @@ public interface PatientService {
   
   java.util.concurrent.CompletionStage<io.users.patient.api.PatientApi.Patient> getPatient(io.users.patient.api.PatientApi.GetPatientRequest in);
   
+  
+  java.util.concurrent.CompletionStage<com.google.protobuf.Empty> updatePatient(io.users.patient.api.PatientApi.Patient in);
+  
 
   static String name = "io.users.patient.api.PatientService";
   static akka.grpc.ServiceDescription description = new akka.grpc.internal.ServiceDescriptionImpl(name, PatientApi.getDescriptor());

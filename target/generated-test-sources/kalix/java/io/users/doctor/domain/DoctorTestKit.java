@@ -86,6 +86,12 @@ public final class DoctorTestKit {
     return interpretEffects(effect);
   }
 
+  public ValueEntityResult<Empty> updateDoctor(DoctorApi.Doctor doctor, Metadata metadata) {
+    entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, metadata)));
+    ValueEntity.Effect<Empty> effect = entity.updateDoctor(state, doctor);
+    return interpretEffects(effect);
+  }
+
   public ValueEntityResult<Empty> createDoctor(DoctorApi.Doctor doctor) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
     ValueEntity.Effect<Empty> effect = entity.createDoctor(state, doctor);
@@ -95,6 +101,12 @@ public final class DoctorTestKit {
   public ValueEntityResult<DoctorApi.Doctor> getDoctor(DoctorApi.GetDoctorRequest getDoctorRequest) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
     ValueEntity.Effect<DoctorApi.Doctor> effect = entity.getDoctor(state, getDoctorRequest);
+    return interpretEffects(effect);
+  }
+
+  public ValueEntityResult<Empty> updateDoctor(DoctorApi.Doctor doctor) {
+    entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
+    ValueEntity.Effect<Empty> effect = entity.updateDoctor(state, doctor);
     return interpretEffects(effect);
   }
 }

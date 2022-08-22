@@ -22,4 +22,15 @@ public abstract class AuthActionClientPowerApi {
         throw new java.lang.UnsupportedOperationException();
     }
   
+    /**
+     * Lower level "lifted" version of the method, giving access to request metadata etc.
+     * prefer updateUser(io.users.auth.action.AuthActionApi.Auth) if possible.
+     */
+    
+      public SingleResponseRequestBuilder<io.users.auth.action.AuthActionApi.Auth, io.users.auth.action.AuthActionApi.Auth> updateUser()
+    
+    {
+        throw new java.lang.UnsupportedOperationException();
+    }
+  
 }

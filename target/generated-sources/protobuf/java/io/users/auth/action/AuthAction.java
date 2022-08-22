@@ -13,6 +13,9 @@ public interface AuthAction {
   
   java.util.concurrent.CompletionStage<io.users.auth.action.AuthActionApi.Auth> register(io.users.auth.action.AuthActionApi.Auth in);
   
+  
+  java.util.concurrent.CompletionStage<io.users.auth.action.AuthActionApi.Auth> updateUser(io.users.auth.action.AuthActionApi.Auth in);
+  
 
   static String name = "io.users.auth.action.AuthAction";
   static akka.grpc.ServiceDescription description = new akka.grpc.internal.ServiceDescriptionImpl(name, AuthActionApi.getDescriptor());

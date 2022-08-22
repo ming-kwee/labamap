@@ -63,6 +63,12 @@ public abstract class AuthServiceClient extends AuthServiceClientPowerApi implem
       }
     
   
+    
+      private final SingleResponseRequestBuilder<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> updateUserRequestBuilder(akka.grpc.internal.InternalChannel channel){
+        return new JavaUnaryRequestBuilder<>(updateUserDescriptor, channel, options, settings, ec);
+      }
+    
+  
 
       
 
@@ -104,6 +110,25 @@ public abstract class AuthServiceClient extends AuthServiceClientPowerApi implem
         }
       
 
+        /**
+         * For access to method metadata use the parameterless version of updateUser
+         */
+        public java.util.concurrent.CompletionStage<com.google.protobuf.Empty> updateUser(io.users.auth.action.AuthActionApi.Auth request) {
+          return updateUser().invoke(request);
+        }
+
+        /**
+         * Lower level "lifted" version of the method, giving access to request metadata etc.
+         * prefer updateUser(io.users.auth.action.AuthActionApi.Auth) if possible.
+         */
+        
+          public SingleResponseRequestBuilder<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> updateUser()
+        
+        {
+          return updateUserRequestBuilder(clientState.internalChannel());
+        }
+      
+
       
         private static MethodDescriptor<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> registerDescriptor =
           MethodDescriptor.<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty>newBuilder()
@@ -130,6 +155,20 @@ public abstract class AuthServiceClient extends AuthServiceClientPowerApi implem
             .setFullMethodName(MethodDescriptor.generateFullMethodName("io.users.auth.api.AuthService", "Login"))
             .setRequestMarshaller(new ProtoMarshaller<io.users.auth.api.AuthApi.GetLoginRequest>(GetLoginRequestSerializer))
             .setResponseMarshaller(new ProtoMarshaller<io.users.auth.action.AuthActionApi.Auth>(AuthSerializer))
+            .setSampledToLocalTracing(true)
+            .build();
+        
+        private static MethodDescriptor<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> updateUserDescriptor =
+          MethodDescriptor.<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty>newBuilder()
+            .setType(
+   MethodDescriptor.MethodType.UNARY 
+  
+  
+  
+)
+            .setFullMethodName(MethodDescriptor.generateFullMethodName("io.users.auth.api.AuthService", "UpdateUser"))
+            .setRequestMarshaller(new ProtoMarshaller<io.users.auth.action.AuthActionApi.Auth>(AuthSerializer))
+            .setResponseMarshaller(new ProtoMarshaller<com.google.protobuf.Empty>(EmptySerializer))
             .setSampledToLocalTracing(true)
             .build();
         

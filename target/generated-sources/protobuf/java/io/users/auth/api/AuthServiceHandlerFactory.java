@@ -166,6 +166,12 @@ public class AuthServiceHandlerFactory {
               .thenApply(e -> GrpcMarshalling.marshal(e, AuthSerializer, writer, system, eHandler));
             break;
           
+          case "UpdateUser":
+            response = GrpcMarshalling.unmarshal(request.entity(), AuthSerializer, mat, reader)
+              .thenCompose(e -> implementation.updateUser(e))
+              .thenApply(e -> GrpcMarshalling.marshal(e, EmptySerializer, writer, system, eHandler));
+            break;
+          
           default:
             CompletableFuture<akka.http.javadsl.model.HttpResponse> result = new CompletableFuture<>();
             result.completeExceptionally(new UnsupportedOperationException("Not implemented: " + method));

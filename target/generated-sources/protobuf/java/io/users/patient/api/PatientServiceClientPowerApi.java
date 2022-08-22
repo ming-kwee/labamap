@@ -33,4 +33,15 @@ public abstract class PatientServiceClientPowerApi {
         throw new java.lang.UnsupportedOperationException();
     }
   
+    /**
+     * Lower level "lifted" version of the method, giving access to request metadata etc.
+     * prefer updatePatient(io.users.patient.api.PatientApi.Patient) if possible.
+     */
+    
+      public SingleResponseRequestBuilder<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty> updatePatient()
+    
+    {
+        throw new java.lang.UnsupportedOperationException();
+    }
+  
 }

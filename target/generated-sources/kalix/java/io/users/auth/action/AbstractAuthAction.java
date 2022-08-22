@@ -14,4 +14,5 @@ public abstract class AbstractAuthAction extends kalix.javasdk.action.Action {
   }
 
   public abstract Effect<AuthActionApi.Auth> register(AuthActionApi.Auth auth);
+  public abstract Effect<AuthActionApi.Auth> updateUser(AuthActionApi.Auth auth);
 }

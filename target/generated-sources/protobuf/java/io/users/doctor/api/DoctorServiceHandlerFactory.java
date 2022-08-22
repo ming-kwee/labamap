@@ -166,6 +166,12 @@ public class DoctorServiceHandlerFactory {
               .thenApply(e -> GrpcMarshalling.marshal(e, DoctorSerializer, writer, system, eHandler));
             break;
           
+          case "UpdateDoctor":
+            response = GrpcMarshalling.unmarshal(request.entity(), DoctorSerializer, mat, reader)
+              .thenCompose(e -> implementation.updateDoctor(e))
+              .thenApply(e -> GrpcMarshalling.marshal(e, EmptySerializer, writer, system, eHandler));
+            break;
+          
           default:
             CompletableFuture<akka.http.javadsl.model.HttpResponse> result = new CompletableFuture<>();
             result.completeExceptionally(new UnsupportedOperationException("Not implemented: " + method));
