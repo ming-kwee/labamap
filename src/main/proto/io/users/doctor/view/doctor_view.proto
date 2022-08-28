@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package io.users.doctor.view;
+option java_outer_classname = "DoctorViewModel";
+
+// import "io/users/doctor/api/doctor_api.proto";
+import "io/users/doctor/domain/doctor_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+
+service DoctorByRole {
+    option (kalix.codegen) = {
+      view: {}
+    };
+
+    rpc GetDoctors(ByRoleRequest) returns (ByRoleResponse) {
+      option (kalix.method).view.query = {
+        query: "SELECT * AS doctors FROM doctors"
+      };
+      option (google.api.http) = {
+        post: "/doctors",
+        body: "*"
+      };
+    }
+
+    rpc UpdateDoctor(domain.DoctorState) returns (domain.DoctorState) {
+      option (kalix.method).eventing.in = {
+        value_entity: "doctors"
+      };
+      option (kalix.method).view.update = {
+        table: "doctors"
+        // transform_updates: true
+      };
+    }
+  }
+  
+  message ByRoleRequest {
+    string role = 1;
+  }
+
+  message ByRoleResponse {
+    repeated domain.DoctorState doctors = 1;
+  }
+

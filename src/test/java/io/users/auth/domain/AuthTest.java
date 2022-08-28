@@ -49,4 +49,13 @@ public class AuthTest {
     // ValueEntityResult<Auth> result = service.login(command);
   }
 
+
+  @Test
+  @Ignore("to be implemented")
+  public void updateUserTest() {
+    AuthTestKit service = AuthTestKit.of(Auth::new);
+    // Auth command = Auth.newBuilder()...build();
+    // ValueEntityResult<Empty> result = service.updateUser(command);
+  }
+
 }

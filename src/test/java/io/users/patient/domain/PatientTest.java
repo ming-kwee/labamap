@@ -48,4 +48,13 @@ public class PatientTest {
     // ValueEntityResult<Patient> result = service.getPatient(command);
   }
 
+
+  @Test
+  @Ignore("to be implemented")
+  public void updatePatientTest() {
+    PatientTestKit service = PatientTestKit.of(Patient::new);
+    // Patient command = Patient.newBuilder()...build();
+    // ValueEntityResult<Empty> result = service.updatePatient(command);
+  }
+
 }

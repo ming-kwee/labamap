@@ -5,6 +5,7 @@ import io.users.Main;
 import io.users.doctor.domain.DoctorDomain;
 import kalix.javasdk.testkit.junit.KalixTestKitResource;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static java.util.concurrent.TimeUnit.*;
@@ -35,6 +36,7 @@ public class DoctorIntegrationTest {
   }
 
   @Test
+  @Ignore("to be implemented")
   public void createDoctorOnNonExistingEntity() throws Exception {
     // TODO: set fields in command, and provide assertions to match replies
     // client.createDoctor(DoctorApi.Doctor.newBuilder().build())
@@ -42,9 +44,18 @@ public class DoctorIntegrationTest {
   }
 
   @Test
+  @Ignore("to be implemented")
   public void getDoctorOnNonExistingEntity() throws Exception {
     // TODO: set fields in command, and provide assertions to match replies
     // client.getDoctor(DoctorApi.GetDoctorRequest.newBuilder().build())
+    //         .toCompletableFuture().get(5, SECONDS);
+  }
+
+  @Test
+  @Ignore("to be implemented")
+  public void updateDoctorOnNonExistingEntity() throws Exception {
+    // TODO: set fields in command, and provide assertions to match replies
+    // client.updateDoctor(DoctorApi.Doctor.newBuilder().build())
     //         .toCompletableFuture().get(5, SECONDS);
   }
 }

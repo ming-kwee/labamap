@@ -5,6 +5,7 @@ import io.users.Main;
 import io.users.patient.domain.PatientDomain;
 import kalix.javasdk.testkit.junit.KalixTestKitResource;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static java.util.concurrent.TimeUnit.*;
@@ -35,6 +36,7 @@ public class PatientIntegrationTest {
   }
 
   @Test
+  @Ignore("to be implemented")
   public void createPatientOnNonExistingEntity() throws Exception {
     // TODO: set fields in command, and provide assertions to match replies
     // client.createPatient(PatientApi.Patient.newBuilder().build())
@@ -42,9 +44,18 @@ public class PatientIntegrationTest {
   }
 
   @Test
+  @Ignore("to be implemented")
   public void getPatientOnNonExistingEntity() throws Exception {
     // TODO: set fields in command, and provide assertions to match replies
     // client.getPatient(PatientApi.GetPatientRequest.newBuilder().build())
+    //         .toCompletableFuture().get(5, SECONDS);
+  }
+
+  @Test
+  @Ignore("to be implemented")
+  public void updatePatientOnNonExistingEntity() throws Exception {
+    // TODO: set fields in command, and provide assertions to match replies
+    // client.updatePatient(PatientApi.Patient.newBuilder().build())
     //         .toCompletableFuture().get(5, SECONDS);
   }
 }

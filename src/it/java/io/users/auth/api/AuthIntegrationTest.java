@@ -6,6 +6,7 @@ import io.users.auth.action.AuthActionApi;
 import io.users.auth.domain.AuthDomain;
 import kalix.javasdk.testkit.junit.KalixTestKitResource;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static java.util.concurrent.TimeUnit.*;
@@ -36,6 +37,7 @@ public class AuthIntegrationTest {
   }
 
   @Test
+  @Ignore("to be implemented")
   public void registerOnNonExistingEntity() throws Exception {
     // TODO: set fields in command, and provide assertions to match replies
     // client.register(AuthActionApi.Auth.newBuilder().build())
@@ -43,9 +45,18 @@ public class AuthIntegrationTest {
   }
 
   @Test
+  @Ignore("to be implemented")
   public void loginOnNonExistingEntity() throws Exception {
     // TODO: set fields in command, and provide assertions to match replies
     // client.login(AuthApi.GetLoginRequest.newBuilder().build())
+    //         .toCompletableFuture().get(5, SECONDS);
+  }
+
+  @Test
+  @Ignore("to be implemented")
+  public void updateUserOnNonExistingEntity() throws Exception {
+    // TODO: set fields in command, and provide assertions to match replies
+    // client.updateUser(AuthActionApi.Auth.newBuilder().build())
     //         .toCompletableFuture().get(5, SECONDS);
   }
 }

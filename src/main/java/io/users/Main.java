@@ -4,8 +4,10 @@ import io.users.admin.domain.Admin;
 import io.users.auth.action.AuthActionImpl;
 import io.users.auth.domain.Auth;
 import io.users.doctor.action.DoctorStateSubscriptionAction;
+import io.users.doctor.view.DoctorByRoleView;
 import io.users.doctor.domain.Doctor;
 import io.users.patient.action.PatientStateSubscriptionAction;
+import io.users.patient.view.PatientByRoleView;
 import io.users.patient.domain.Patient;
 import kalix.javasdk.Kalix;
 import org.slf4j.Logger;
@@ -31,8 +33,11 @@ public final class Main {
       Doctor::new,
       Patient::new,
       AuthActionImpl::new,
+      DoctorByRoleView::new,
       DoctorStateSubscriptionAction::new,
-      PatientStateSubscriptionAction::new);
+      PatientByRoleView::new,
+      PatientStateSubscriptionAction::new
+    );
   }
 
   public static void main(String[] args) throws Exception {

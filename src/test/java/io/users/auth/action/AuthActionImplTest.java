@@ -35,4 +35,11 @@ public class AuthActionImplTest {
     // ActionResult<AuthActionApi.Auth> result = testKit.register(AuthActionApi.Auth.newBuilder()...build());
   }
 
+  @Test
+  @Ignore("to be implemented")
+  public void updateUserTest() {
+    AuthActionImplTestKit testKit = AuthActionImplTestKit.of(AuthActionImpl::new);
+    // ActionResult<AuthActionApi.Auth> result = testKit.updateUser(AuthActionApi.Auth.newBuilder()...build());
+  }
+
 }

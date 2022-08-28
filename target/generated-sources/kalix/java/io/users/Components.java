@@ -13,10 +13,12 @@ public interface Components {
   AuthActionImplCalls authActionImpl();
   DoctorCalls doctor();
   DoctorStateSubscriptionActionCalls doctorStateSubscriptionAction();
+  DoctorByRoleViewCalls doctorByRoleView();
   PatientCalls patient();
   PatientStateSubscriptionActionCalls patientStateSubscriptionAction();
   AdminCalls admin();
   AuthCalls auth();
+  PatientByRoleViewCalls patientByRoleView();
 
   interface AuthActionImplCalls {
     DeferredCall<io.users.auth.action.AuthActionApi.Auth, io.users.auth.action.AuthActionApi.Auth> register(io.users.auth.action.AuthActionApi.Auth auth);
@@ -32,6 +34,9 @@ public interface Components {
   }
   interface DoctorStateSubscriptionActionCalls {
     DeferredCall<io.users.doctor.domain.DoctorDomain.DoctorState, io.users.doctor.api.DoctorApi.Doctor> onStateChange(io.users.doctor.domain.DoctorDomain.DoctorState doctorState);
+  }
+  interface DoctorByRoleViewCalls {
+    DeferredCall<io.users.doctor.view.DoctorViewModel.ByRoleRequest, io.users.doctor.view.DoctorViewModel.ByRoleResponse> getDoctors(io.users.doctor.view.DoctorViewModel.ByRoleRequest byRoleRequest);
   }
   interface PatientCalls {
     DeferredCall<io.users.patient.api.PatientApi.Patient, com.google.protobuf.Empty> createPatient(io.users.patient.api.PatientApi.Patient patient);
@@ -54,5 +59,8 @@ public interface Components {
     DeferredCall<io.users.auth.api.AuthApi.GetLoginRequest, io.users.auth.action.AuthActionApi.Auth> login(io.users.auth.api.AuthApi.GetLoginRequest getLoginRequest);
 
     DeferredCall<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> updateUser(io.users.auth.action.AuthActionApi.Auth auth);
+  }
+  interface PatientByRoleViewCalls {
+    DeferredCall<io.users.patient.view.PatientViewModel.ByRoleRequest, io.users.patient.view.PatientViewModel.ByRoleResponse> getPatients(io.users.patient.view.PatientViewModel.ByRoleRequest byRoleRequest);
   }
 }

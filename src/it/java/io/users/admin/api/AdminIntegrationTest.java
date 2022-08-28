@@ -5,6 +5,7 @@ import io.users.Main;
 import io.users.admin.domain.AdminDomain;
 import kalix.javasdk.testkit.junit.KalixTestKitResource;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static java.util.concurrent.TimeUnit.*;
@@ -35,6 +36,7 @@ public class AdminIntegrationTest {
   }
 
   @Test
+  @Ignore("to be implemented")
   public void createAdminOnNonExistingEntity() throws Exception {
     // TODO: set fields in command, and provide assertions to match replies
     // client.createAdmin(AdminApi.Admin.newBuilder().build())
@@ -42,6 +44,7 @@ public class AdminIntegrationTest {
   }
 
   @Test
+  @Ignore("to be implemented")
   public void getAdminOnNonExistingEntity() throws Exception {
     // TODO: set fields in command, and provide assertions to match replies
     // client.getAdmin(AdminApi.GetAdminRequest.newBuilder().build())

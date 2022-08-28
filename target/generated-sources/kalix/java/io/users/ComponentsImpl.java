@@ -38,6 +38,10 @@ public final class ComponentsImpl implements Components {
     return new DoctorStateSubscriptionActionCallsImpl();
   }
   @Override
+  public Components.DoctorByRoleViewCalls doctorByRoleView() {
+    return new DoctorByRoleViewCallsImpl();
+  }
+  @Override
   public Components.PatientCalls patient() {
     return new PatientCallsImpl();
   }
@@ -52,6 +56,10 @@ public final class ComponentsImpl implements Components {
   @Override
   public Components.AuthCalls auth() {
     return new AuthCallsImpl();
+  }
+  @Override
+  public Components.PatientByRoleViewCalls patientByRoleView() {
+    return new PatientByRoleViewCallsImpl();
   }
 
   private final class AuthActionImplCallsImpl implements Components.AuthActionImplCalls {
@@ -117,6 +125,18 @@ public final class ComponentsImpl implements Components {
         "io.users.doctor.action.DoctorStateSubscription",
         "OnStateChange",
         () -> getGrpcClient(io.users.doctor.action.DoctorStateSubscription.class).onStateChange(doctorState)
+      );
+    }
+  }
+  private final class DoctorByRoleViewCallsImpl implements Components.DoctorByRoleViewCalls {
+     @Override
+    public DeferredCall<io.users.doctor.view.DoctorViewModel.ByRoleRequest, io.users.doctor.view.DoctorViewModel.ByRoleResponse> getDoctors(io.users.doctor.view.DoctorViewModel.ByRoleRequest byRoleRequest) {
+      return new DeferredCallImpl<>(
+        byRoleRequest,
+        MetadataImpl.Empty(),
+        "io.users.doctor.view.DoctorByRole",
+        "GetDoctors",
+        () -> getGrpcClient(io.users.doctor.view.DoctorByRole.class).getDoctors(byRoleRequest)
       );
     }
   }
@@ -215,6 +235,18 @@ public final class ComponentsImpl implements Components {
         "io.users.auth.api.AuthService",
         "UpdateUser",
         () -> getGrpcClient(io.users.auth.api.AuthService.class).updateUser(auth)
+      );
+    }
+  }
+  private final class PatientByRoleViewCallsImpl implements Components.PatientByRoleViewCalls {
+     @Override
+    public DeferredCall<io.users.patient.view.PatientViewModel.ByRoleRequest, io.users.patient.view.PatientViewModel.ByRoleResponse> getPatients(io.users.patient.view.PatientViewModel.ByRoleRequest byRoleRequest) {
+      return new DeferredCallImpl<>(
+        byRoleRequest,
+        MetadataImpl.Empty(),
+        "io.users.patient.view.PatientByRole",
+        "GetPatients",
+        () -> getGrpcClient(io.users.patient.view.PatientByRole.class).getPatients(byRoleRequest)
       );
     }
   }

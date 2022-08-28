@@ -15,15 +15,22 @@ import io.users.doctor.action.DoctorStateSubscriptionActionProvider;
 import io.users.doctor.api.DoctorApi;
 import io.users.doctor.domain.Doctor;
 import io.users.doctor.domain.DoctorProvider;
+import io.users.doctor.view.DoctorByRoleView;
+import io.users.doctor.view.DoctorByRoleViewProvider;
+import io.users.doctor.view.DoctorViewModel;
 import io.users.patient.action.PatientAction;
 import io.users.patient.action.PatientStateSubscriptionAction;
 import io.users.patient.action.PatientStateSubscriptionActionProvider;
 import io.users.patient.api.PatientApi;
 import io.users.patient.domain.Patient;
 import io.users.patient.domain.PatientProvider;
+import io.users.patient.view.PatientByRoleView;
+import io.users.patient.view.PatientByRoleViewProvider;
+import io.users.patient.view.PatientViewModel;
 import kalix.javasdk.Kalix;
 import kalix.javasdk.action.ActionCreationContext;
 import kalix.javasdk.valueentity.ValueEntityContext;
+import kalix.javasdk.view.ViewCreationContext;
 
 import java.util.function.Function;
 
@@ -39,15 +46,19 @@ public final class KalixFactory {
       Function<ValueEntityContext, Doctor> createDoctor,
       Function<ValueEntityContext, Patient> createPatient,
       Function<ActionCreationContext, AuthActionImpl> createAuthActionImpl,
+      Function<ViewCreationContext, DoctorByRoleView> createDoctorByRoleView,
       Function<ActionCreationContext, DoctorStateSubscriptionAction> createDoctorStateSubscriptionAction,
+      Function<ViewCreationContext, PatientByRoleView> createPatientByRoleView,
       Function<ActionCreationContext, PatientStateSubscriptionAction> createPatientStateSubscriptionAction) {
     Kalix kalix = new Kalix();
     return kalix
       .register(AdminProvider.of(createAdmin))
       .register(AuthActionProvider.of(createAuthActionImpl))
       .register(AuthProvider.of(createAuth))
+      .register(DoctorByRoleViewProvider.of(createDoctorByRoleView))
       .register(DoctorProvider.of(createDoctor))
       .register(DoctorStateSubscriptionActionProvider.of(createDoctorStateSubscriptionAction))
+      .register(PatientByRoleViewProvider.of(createPatientByRoleView))
       .register(PatientProvider.of(createPatient))
       .register(PatientStateSubscriptionActionProvider.of(createPatientStateSubscriptionAction));
   }
