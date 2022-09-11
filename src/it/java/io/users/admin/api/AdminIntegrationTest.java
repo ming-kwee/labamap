@@ -50,4 +50,12 @@ public class AdminIntegrationTest {
     // client.getAdmin(AdminApi.GetAdminRequest.newBuilder().build())
     //         .toCompletableFuture().get(5, SECONDS);
   }
+
+  @Test
+  @Ignore("to be implemented")
+  public void updateAdminOnNonExistingEntity() throws Exception {
+    // TODO: set fields in command, and provide assertions to match replies
+    // client.updateAdmin(AdminApi.Admin.newBuilder().build())
+    //         .toCompletableFuture().get(5, SECONDS);
+  }
 }

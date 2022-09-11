@@ -72,4 +72,14 @@ public class Admin extends AbstractAdmin {
         .setRole(state.getRole())
         .build();
   }
+
+  @Override
+  public Effect<Empty> updateAdmin(AdminDomain.AdminState currentState, AdminApi.Admin command) {
+    // if (currentState.getId().equals(command.getId())) {
+      AdminDomain.AdminState updatedAdmin = convertToDomain(command);
+      return effects().updateState(updatedAdmin).thenReply(Empty.getDefaultInstance());
+    // } else {
+    //   return effects().error("User " + command.getId() + " not found.");
+    // }
+  }
 }

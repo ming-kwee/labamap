@@ -16,6 +16,9 @@ public interface AdminService {
   
   java.util.concurrent.CompletionStage<io.users.admin.api.AdminApi.Admin> getAdmin(io.users.admin.api.AdminApi.GetAdminRequest in);
   
+  
+  java.util.concurrent.CompletionStage<com.google.protobuf.Empty> updateAdmin(io.users.admin.api.AdminApi.Admin in);
+  
 
   static String name = "io.users.admin.api.AdminService";
   static akka.grpc.ServiceDescription description = new akka.grpc.internal.ServiceDescriptionImpl(name, AdminApi.getDescriptor());

@@ -1926,15 +1926,16 @@ public final class AdminApi {
       "\t\022\024\n\005email\030\002 \001(\tB\005\302C\002\010\001\022\020\n\010password\030\003 \001(" +
       "\t\022\022\n\nfirst_name\030\004 \001(\t\022\021\n\tlast_name\030\005 \001(\t" +
       "\022\014\n\004role\030\006 \001(\t\"\'\n\017GetAdminRequest\022\024\n\005ema" +
-      "il\030\001 \001(\tB\005\302C\002\010\0012\233\002\n\014AdminService\022Z\n\013Crea" +
+      "il\030\001 \001(\tB\005\302C\002\010\0012\335\002\n\014AdminService\022Z\n\013Crea" +
       "teAdmin\022\031.io.users.admin.api.Admin\032\026.goo" +
       "gle.protobuf.Empty\"\030\202\323\344\223\002\022\"\r/create_admi" +
       "n:\001*\022a\n\010GetAdmin\022#.io.users.admin.api.Ge" +
       "tAdminRequest\032\031.io.users.admin.api.Admin" +
-      "\"\025\202\323\344\223\002\017\"\n/get_admin:\001*\032L\312CI\022G\n\033io.users" +
-      ".admin.domain.Admin\022\006admins\032 io.users.ad" +
-      "min.domain.AdminStateB\nB\010AdminApib\006proto" +
-      "3"
+      "\"\025\202\323\344\223\002\017\"\n/get_admin:\001*\022@\n\013UpdateAdmin\022\031" +
+      ".io.users.admin.api.Admin\032\026.google.proto" +
+      "buf.Empty\032L\312CI\022G\n\033io.users.admin.domain." +
+      "Admin\022\006admins\032 io.users.admin.domain.Adm" +
+      "inStateB\nB\010AdminApib\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

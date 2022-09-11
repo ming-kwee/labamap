@@ -30,6 +30,8 @@ service AdminService {
             body: "*"
         };
     }
+
+    rpc UpdateAdmin(admin.api.Admin) returns (google.protobuf.Empty);
 }
 
 message Admin {

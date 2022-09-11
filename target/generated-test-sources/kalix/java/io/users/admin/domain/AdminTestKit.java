@@ -86,6 +86,12 @@ public final class AdminTestKit {
     return interpretEffects(effect);
   }
 
+  public ValueEntityResult<Empty> updateAdmin(AdminApi.Admin admin, Metadata metadata) {
+    entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, metadata)));
+    ValueEntity.Effect<Empty> effect = entity.updateAdmin(state, admin);
+    return interpretEffects(effect);
+  }
+
   public ValueEntityResult<Empty> createAdmin(AdminApi.Admin admin) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
     ValueEntity.Effect<Empty> effect = entity.createAdmin(state, admin);
@@ -95,6 +101,12 @@ public final class AdminTestKit {
   public ValueEntityResult<AdminApi.Admin> getAdmin(AdminApi.GetAdminRequest getAdminRequest) {
     entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
     ValueEntity.Effect<AdminApi.Admin> effect = entity.getAdmin(state, getAdminRequest);
+    return interpretEffects(effect);
+  }
+
+  public ValueEntityResult<Empty> updateAdmin(AdminApi.Admin admin) {
+    entity ._internalSetCommandContext(Optional.of(new TestKitValueEntityCommandContext(entityId, Metadata.EMPTY)));
+    ValueEntity.Effect<Empty> effect = entity.updateAdmin(state, admin);
     return interpretEffects(effect);
   }
 }

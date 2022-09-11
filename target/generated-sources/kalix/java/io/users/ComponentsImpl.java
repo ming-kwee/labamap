@@ -205,6 +205,16 @@ public final class ComponentsImpl implements Components {
         () -> getGrpcClient(io.users.admin.api.AdminService.class).getAdmin(getAdminRequest)
       );
     }
+    @Override
+    public DeferredCall<io.users.admin.api.AdminApi.Admin, com.google.protobuf.Empty> updateAdmin(io.users.admin.api.AdminApi.Admin admin) {
+      return new DeferredCallImpl<>(
+        admin,
+        MetadataImpl.Empty(),
+        "io.users.admin.api.AdminService",
+        "UpdateAdmin",
+        () -> getGrpcClient(io.users.admin.api.AdminService.class).updateAdmin(admin)
+      );
+    }
   }
   private final class AuthCallsImpl implements Components.AuthCalls {
      @Override

@@ -52,6 +52,8 @@ public interface Components {
     DeferredCall<io.users.admin.api.AdminApi.Admin, com.google.protobuf.Empty> createAdmin(io.users.admin.api.AdminApi.Admin admin);
 
     DeferredCall<io.users.admin.api.AdminApi.GetAdminRequest, io.users.admin.api.AdminApi.Admin> getAdmin(io.users.admin.api.AdminApi.GetAdminRequest getAdminRequest);
+
+    DeferredCall<io.users.admin.api.AdminApi.Admin, com.google.protobuf.Empty> updateAdmin(io.users.admin.api.AdminApi.Admin admin);
   }
   interface AuthCalls {
     DeferredCall<io.users.auth.action.AuthActionApi.Auth, com.google.protobuf.Empty> register(io.users.auth.action.AuthActionApi.Auth auth);

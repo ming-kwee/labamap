@@ -48,4 +48,13 @@ public class AdminTest {
     // ValueEntityResult<Admin> result = service.getAdmin(command);
   }
 
+
+  @Test
+  @Ignore("to be implemented")
+  public void updateAdminTest() {
+    AdminTestKit service = AdminTestKit.of(Admin::new);
+    // Admin command = Admin.newBuilder()...build();
+    // ValueEntityResult<Empty> result = service.updateAdmin(command);
+  }
+
 }

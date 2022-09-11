@@ -118,19 +118,20 @@ public class AuthActionImpl extends AbstractAuthAction {
       CompletionStage<AuthActionApi.Auth> reply = patientUpdated.thenApply(empty -> auth);
       return effects().asyncReply(reply);
     } else {
-      // None
+      // Update Admin
+      CompletionStage<Empty> adminUpdated = authCreated.thenCompose(empty -> {
+        return components().admin().updateAdmin(convertToAdminApi(auth, null))
+            .execute();
+      });
 
-      // CompletionStage<AuthActionApi.Auth> reply = authCreated
-      // .thenApply(empty -> AuthActionApi.Auth.newBuilder()
-      // .setEmail(auth.getEmail()).build());
-
-      return effects().reply(auth);
+      CompletionStage<AuthActionApi.Auth> reply = adminUpdated.thenApply(empty -> auth);
+      return effects().asyncReply(reply);
     }
   }
 
   private AdminApi.Admin convertToAdminApi(AuthActionApi.Auth admin, String id) {
     return AdminApi.Admin.newBuilder()
-        .setId(id)
+        .setId(id != null ? id : admin.getId())
         .setEmail(admin.getEmail())
         .setFirstName(admin.getFirstName())
         .setLastName(admin.getLastName())

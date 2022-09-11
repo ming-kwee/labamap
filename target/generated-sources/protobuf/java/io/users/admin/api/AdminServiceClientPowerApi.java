@@ -33,4 +33,15 @@ public abstract class AdminServiceClientPowerApi {
         throw new java.lang.UnsupportedOperationException();
     }
   
+    /**
+     * Lower level "lifted" version of the method, giving access to request metadata etc.
+     * prefer updateAdmin(io.users.admin.api.AdminApi.Admin) if possible.
+     */
+    
+      public SingleResponseRequestBuilder<io.users.admin.api.AdminApi.Admin, com.google.protobuf.Empty> updateAdmin()
+    
+    {
+        throw new java.lang.UnsupportedOperationException();
+    }
+  
 }

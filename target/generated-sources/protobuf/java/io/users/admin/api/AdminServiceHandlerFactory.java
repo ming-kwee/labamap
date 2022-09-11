@@ -166,6 +166,12 @@ public class AdminServiceHandlerFactory {
               .thenApply(e -> GrpcMarshalling.marshal(e, AdminSerializer, writer, system, eHandler));
             break;
           
+          case "UpdateAdmin":
+            response = GrpcMarshalling.unmarshal(request.entity(), AdminSerializer, mat, reader)
+              .thenCompose(e -> implementation.updateAdmin(e))
+              .thenApply(e -> GrpcMarshalling.marshal(e, EmptySerializer, writer, system, eHandler));
+            break;
+          
           default:
             CompletableFuture<akka.http.javadsl.model.HttpResponse> result = new CompletableFuture<>();
             result.completeExceptionally(new UnsupportedOperationException("Not implemented: " + method));

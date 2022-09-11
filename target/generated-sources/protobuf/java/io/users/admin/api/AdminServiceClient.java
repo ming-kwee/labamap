@@ -63,6 +63,12 @@ public abstract class AdminServiceClient extends AdminServiceClientPowerApi impl
       }
     
   
+    
+      private final SingleResponseRequestBuilder<io.users.admin.api.AdminApi.Admin, com.google.protobuf.Empty> updateAdminRequestBuilder(akka.grpc.internal.InternalChannel channel){
+        return new JavaUnaryRequestBuilder<>(updateAdminDescriptor, channel, options, settings, ec);
+      }
+    
+  
 
       
 
@@ -104,6 +110,25 @@ public abstract class AdminServiceClient extends AdminServiceClientPowerApi impl
         }
       
 
+        /**
+         * For access to method metadata use the parameterless version of updateAdmin
+         */
+        public java.util.concurrent.CompletionStage<com.google.protobuf.Empty> updateAdmin(io.users.admin.api.AdminApi.Admin request) {
+          return updateAdmin().invoke(request);
+        }
+
+        /**
+         * Lower level "lifted" version of the method, giving access to request metadata etc.
+         * prefer updateAdmin(io.users.admin.api.AdminApi.Admin) if possible.
+         */
+        
+          public SingleResponseRequestBuilder<io.users.admin.api.AdminApi.Admin, com.google.protobuf.Empty> updateAdmin()
+        
+        {
+          return updateAdminRequestBuilder(clientState.internalChannel());
+        }
+      
+
       
         private static MethodDescriptor<io.users.admin.api.AdminApi.Admin, com.google.protobuf.Empty> createAdminDescriptor =
           MethodDescriptor.<io.users.admin.api.AdminApi.Admin, com.google.protobuf.Empty>newBuilder()
@@ -130,6 +155,20 @@ public abstract class AdminServiceClient extends AdminServiceClientPowerApi impl
             .setFullMethodName(MethodDescriptor.generateFullMethodName("io.users.admin.api.AdminService", "GetAdmin"))
             .setRequestMarshaller(new ProtoMarshaller<io.users.admin.api.AdminApi.GetAdminRequest>(GetAdminRequestSerializer))
             .setResponseMarshaller(new ProtoMarshaller<io.users.admin.api.AdminApi.Admin>(AdminSerializer))
+            .setSampledToLocalTracing(true)
+            .build();
+        
+        private static MethodDescriptor<io.users.admin.api.AdminApi.Admin, com.google.protobuf.Empty> updateAdminDescriptor =
+          MethodDescriptor.<io.users.admin.api.AdminApi.Admin, com.google.protobuf.Empty>newBuilder()
+            .setType(
+   MethodDescriptor.MethodType.UNARY 
+  
+  
+  
+)
+            .setFullMethodName(MethodDescriptor.generateFullMethodName("io.users.admin.api.AdminService", "UpdateAdmin"))
+            .setRequestMarshaller(new ProtoMarshaller<io.users.admin.api.AdminApi.Admin>(AdminSerializer))
+            .setResponseMarshaller(new ProtoMarshaller<com.google.protobuf.Empty>(EmptySerializer))
             .setSampledToLocalTracing(true)
             .build();
         

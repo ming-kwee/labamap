@@ -31,6 +31,9 @@ public class AdminRouter extends ValueEntityRouter<AdminDomain.AdminState, Admin
       case "GetAdmin":
         return entity().getAdmin(state, (AdminApi.GetAdminRequest) command);
 
+      case "UpdateAdmin":
+        return entity().updateAdmin(state, (AdminApi.Admin) command);
+
       default:
         throw new ValueEntityRouter.CommandHandlerNotFound(commandName);
     }

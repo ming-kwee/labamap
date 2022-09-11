@@ -20,4 +20,6 @@ public abstract class AbstractAdmin extends ValueEntity<AdminDomain.AdminState> 
 
   public abstract Effect<AdminApi.Admin> getAdmin(AdminDomain.AdminState currentState, AdminApi.GetAdminRequest getAdminRequest);
 
+  public abstract Effect<Empty> updateAdmin(AdminDomain.AdminState currentState, AdminApi.Admin admin);
+
 }
