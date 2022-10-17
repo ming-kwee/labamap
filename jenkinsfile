@@ -4,8 +4,8 @@ pipeline {
     stage("verify tooling") {
       steps {
         sh '''
-          sudo groupadd docker
-          sudo usermod -aG docker $USER
+          groupadd docker
+          usermod -aG docker $USER
           docker version
           docker info
           docker compose version
