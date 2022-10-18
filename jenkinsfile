@@ -1,10 +1,11 @@
 pipeline {
   // Assign to docker agent(s) label, could also be 'any'
   
+  agent {
+    docker { image 'node:16.13.1-alpine' }
+  }
+
   stages {
-    agent {
-        docker { image 'node:16.13.1-alpine' }
-    }
 
     stage('Docker node test') {
       agent {
