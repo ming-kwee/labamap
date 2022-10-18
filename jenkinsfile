@@ -1,14 +1,15 @@
 pipeline {
-  // Assign to docker agent(s) label, could also be 'any'
-  
-  agent {
-    docker { image 'node:16.13.1-alpine' }
-  }
-
+  agent any 
     stages {
-        stage('Test') {
+        stage('verify tooling') {
             steps {
-                sh 'node --version'
+              sh '''
+                docker version
+                docker info
+                docker compose version
+                curl --version
+                jq --version
+              '''
             }
         }
     }
