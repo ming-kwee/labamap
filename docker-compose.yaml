@@ -1,7 +1,7 @@
 version: "3"
 services:
   kalix-proxy1:
-    image: gcr.io/kalix-public/kalix-proxy:1.0.16
+    image: gcr.io/kalix-public/kalix-proxy:latest
     command: -Dconfig.resource=dev-mode.conf -Dkalix.proxy.eventing.support=google-pubsub-emulator
     ports:
       - "9000:9000"
@@ -12,7 +12,7 @@ services:
       USER_FUNCTION_PORT: ${USER_FUNCTION_PORT:-8080}
       PUBSUB_EMULATOR_HOST: gcloud-pubsub-emulator
   kalix-proxy2:
-    image: gcr.io/kalix-public/kalix-proxy:1.0.16
+    image: gcr.io/kalix-public/kalix-proxy:latest
     command: -Dconfig.resource=dev-mode.conf -Dkalix.proxy.eventing.support=google-pubsub-emulator
     ports:
       - "9001:9000"
@@ -23,7 +23,7 @@ services:
       USER_FUNCTION_PORT: ${USER_FUNCTION_PORT:-8081}
       PUBSUB_EMULATOR_HOST: gcloud-pubsub-emulator      
   gcloud-pubsub-emulator:
-    image: gcr.io/google.com/cloudsdktool/cloud-sdk:341.0.0
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
     command: gcloud beta emulators pubsub start --project=test --host-port=0.0.0.0:8085
     ports:
       - 8085:8085

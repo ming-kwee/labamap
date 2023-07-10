@@ -14,12 +14,12 @@
     <dockerImage>sonnywirawan/${project.artifactId}</dockerImage>
     <dockerTag>${project.version}-${build.timestamp}</dockerTag>
     <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-    <mainClass>io.users.Main</mainClass>
+    <mainClass>io.products.Main</mainClass>
 
-    <jdk.target>11</jdk.target>
+    <jdk.target>17</jdk.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <kalix-sdk.version>1.0.5</kalix-sdk.version>
-    <akka-grpc.version>2.1.4</akka-grpc.version>
+    <kalix-sdk.version>1.1.7</kalix-sdk.version>
+    <akka-grpc.version>2.3.2</akka-grpc.version>
   </properties>
 
   <build>
@@ -314,5 +314,8 @@
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
+
+
+
   </dependencies>
 </project>

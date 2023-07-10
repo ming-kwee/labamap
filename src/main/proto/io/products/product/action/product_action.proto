@@ -1,0 +1,46 @@
+syntax = "proto3";
+package io.products.product.action;
+
+option java_outer_classname = "ProductActionApi";
+
+import "kalix/annotations.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+// import "io/products/product/api/product_domain.proto";
+
+service ProductAction {
+    option (kalix.codegen) = {
+      action: {}
+    };
+  
+    rpc CreateProduct(Product) returns (google.protobuf.Empty)  {
+      option (google.api.http) = {
+          post: "/create_product_impl"
+          body: "*"
+      };
+    }
+
+    // rpc UpdateProduct(ProductApi.Product) returns (Product) {
+    //   option (google.api.http) = {
+    //       put: "/product/{id}"
+    //       body: "*"
+    //   };
+    // }
+
+    // rpc DeleteProduct(ProductApi.Product) returns (Product) {
+    //   option (google.api.http) = {
+    //       put: "/product/{id}/delete"
+    //       body: "*"
+    //   };
+    // }
+
+}
+
+message Product {
+  string id = 1 [(kalix.field).entity_key = true];
+  string item_name = 2;
+  string category_id = 3;
+  // string access_token = 4 [(kalix.field).jwt = {
+  //     token: true
+  // }];
+}

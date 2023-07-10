@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package io.products.product.domain;
+
+option java_outer_classname = "ProductDomain";
+
+
+message ProductState {
+    string id = 1;
+    string item_name = 2;
+    string category_id = 3;
+}
