@@ -46,6 +46,8 @@ public class ChannelProduct extends AbstractChannelProduct {
   public Effect<Empty> createChannelProduct(ChannelProductDomain.ChannelProductState currentState,
       ChannelProductApi.ChannelProduct channelProduct) {
 
+
+        
             ActorSystem actorSystem = ActorSystem.create("MyActorSystem");
     // Create an instance of Http using the ActorSystem
     Http http = Http.get(actorSystem);
