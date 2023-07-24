@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package io.products.productAttribute.domain;
+
+option java_outer_classname = "ProductAttributeDomain";
+
+message ProductAttributeState {
+    string attribute_id = 1;
+    string attribute_name = 2;
+    string attribute_type = 3;
+}

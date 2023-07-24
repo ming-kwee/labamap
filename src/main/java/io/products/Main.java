@@ -14,14 +14,18 @@ import akka.actor.ActorSystem;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
-import io.products.channel_product.domain.ChannelProduct;
+import io.products.productAttribute.domain.ProductAttribute;
+import io.products.productAttribute.view.ProductAttributeViewImpl;
+import io.products.productAttributeValue.action.ProductAttributeValueActionImpl;
+import io.products.productAttributeValue.domain.ProductAttributeValue;
+import io.products.productAttributeValue.view.ProductAttributeValueView;
+import io.products.productAttributeValue.view.ProductAttributeValueViewImpl;
+import io.products.channelPlatform.domain.ChannelPlatform;
+import io.products.channelPlatform.view.ChannelPlatformViewImpl;
+import io.products.channelProduct.domain.ChannelProduct;
 import io.products.product.action.ProductActionImpl;
 import io.products.product.domain.Product;
-// This class was initially generated based on the .proto definition by Kalix tooling.
-//
-// As long as this file exists it will not be overwritten: you can maintain it yourself,
-// or delete it so it is regenerated as needed.
-import io.products.product.view.product_view.ProductViewImpl;
+import io.products.product.view.ProductViewImpl;
 
 public final class Main {
 
@@ -35,12 +39,20 @@ public final class Main {
     // a
     // `new Kalix()` instance.
     return KalixFactory.withComponents(
+        ChannelPlatform::new,
         ChannelProduct::new,
         Product::new,
+        ProductAttribute::new,
+        ProductAttributeValue::new,
+        ChannelPlatformViewImpl::new,
         ProductActionImpl::new,
+        ProductAttributeValueActionImpl::new,
+        ProductAttributeValueViewImpl::new,
+        ProductAttributeViewImpl::new,
         ProductViewImpl::new);
   }
 
+  //
   public static void main(String[] args) throws Exception {
 
     LOG.info("starting the Kalix service");

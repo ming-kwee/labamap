@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package io.products.productAttributeValue.domain;
+
+option java_outer_classname = "ProductAttributeValueDomain";
+
+message ProductAttributeValueState {
+    string value_id = 1;
+    string attribute_id = 2;
+    string channel_id = 3;
+    string value = 4;
+}

@@ -1,4 +1,4 @@
-package io.products.channel_product.domain;
+package io.products.channelProduct.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.protobuf.Empty;
+import kalix.javasdk.action.Action.Effect;
 
 import akka.actor.ActorSystem;
-import io.products.channel_product.api.ChannelProductApi;
+import io.products.channelProduct.api.ChannelProductApi;
+import io.products.channelProduct.domain.ChannelProductDomain;
 import io.products.product.action.ProductActionImpl;
 import io.products.product.domain.ProductDomain;
-import kalix.javasdk.action.Action.Effect;
 import kalix.javasdk.valueentity.ValueEntityContext;
-import akka.actor.ActorSystem;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.ContentTypes;
 import akka.http.javadsl.model.HttpRequest;

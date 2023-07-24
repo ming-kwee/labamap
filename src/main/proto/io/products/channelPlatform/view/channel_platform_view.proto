@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package io.products.channelPlatform.view;
+option java_outer_classname = "ChannelPlatformViewModel";
+
+// import "io/users/doctor/api/doctor_api.proto";
+import "io/products/channelPlatform/domain/channel_platform_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service ChannelPlatformView {
+    option (kalix.codegen) = {
+      view: {}
+    };
+
+
+    rpc GetChannelPlatforms(ByRoleRequest) returns (ByRoleResponse) {
+      option (kalix.method).view.query = {
+        query: "SELECT * AS channelplatforms FROM channelplatforms"
+      };
+      option (google.api.http) = {
+        post: "/channelplatforms",
+        body: "*"
+      };
+    }
+
+    rpc UpdateChannelPlatform(domain.ChannelPlatformState) returns (domain.ChannelPlatformState) {
+      option (kalix.method).eventing.in = {
+        value_entity: "channel_platforms"
+      };
+      option (kalix.method).view.update = {
+        table: "channelplatforms"
+        // transform_updates: true
+      };
+    }
+
+    // rpc DeleteProduct(google.protobuf.Empty) returns (domain.ProductState) {
+    //   option (kalix.method).eventing.in = {
+    //     value_entity: "products"
+    //     handle_deletes: true
+    //   };
+    //   option (kalix.method).view.update = {
+    //     table: "products"
+    //   };
+    // }
+  
+
+  }
+  
+  message ByRoleRequest {
+  }
+
+  message ByRoleResponse {
+    repeated domain.ChannelPlatformState channelplatforms = 1;
+  }
+

@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package io.products.product.view;
+option java_outer_classname = "ProductViewModel";
+
+import "io/products/product/domain/product_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service ProductView {
+    option (kalix.codegen) = {
+      view: {}
+    };
+
+
+    rpc GetProducts(ByRoleRequest) returns (ByRoleResponse) {
+      option (kalix.method).view.query = {
+        query: "SELECT * AS products FROM products"
+      };
+      option (google.api.http) = {
+        post: "/products",
+        body: "*"
+      };
+    }
+
+    rpc UpdateProduct(domain.ProductState) returns (domain.ProductState) {
+      option (kalix.method).eventing.in = {
+        value_entity: "products"
+      };
+      option (kalix.method).view.update = {
+        table: "products"
+        // transform_updates: true
+      };
+    }
+
+    // rpc DeleteProduct(google.protobuf.Empty) returns (domain.ProductState) {
+    //   option (kalix.method).eventing.in = {
+    //     value_entity: "products"
+    //     handle_deletes: true
+    //   };
+    //   option (kalix.method).view.update = {
+    //     table: "products"
+    //   };
+    // }
+  
+
+  }
+  
+  message ByRoleRequest {
+  }
+
+  message ByRoleResponse {
+    repeated domain.ProductState products = 1;
+  }
+

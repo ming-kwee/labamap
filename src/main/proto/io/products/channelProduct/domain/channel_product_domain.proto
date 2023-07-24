@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package io.products.channel_product.domain;
+package io.products.channelProduct.domain;
 
 option java_outer_classname = "ChannelProductDomain";
 
 message ChannelProductState {
     string id = 1;
-    string central_product_id = 2;
+    string product_id = 2;
     string platform_id = 3;
 }

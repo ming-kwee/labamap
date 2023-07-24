@@ -3,7 +3,7 @@ package io.products.product.action;
 import com.google.protobuf.Empty;
 
 import io.grpc.Status;
-import io.products.channel_product.api.ChannelProductApi;
+import io.products.channelProduct.api.ChannelProductApi;
 
 import java.util.function.Function;
 import kalix.javasdk.DeferredCall;
@@ -65,7 +65,7 @@ public class ProductActionImpl extends AbstractProductAction {
   return ChannelProductApi.ChannelProduct.newBuilder()
   .setId(id != null ? id : product.getId())
   .setPlatformId("id")
-  .setCentralProductId("id")
+  .setProductId("id")
   .build();
   }
 
