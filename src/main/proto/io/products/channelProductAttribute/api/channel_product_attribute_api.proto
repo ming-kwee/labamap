@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package io.products.channelProductAttribute.api;
+
+option java_outer_classname = "ChannelProductAttributeApi";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "kalix/annotations.proto";
+import "io/products/channelProductAttribute/domain/channel_product_attribute_domain.proto";
+
+service ChannelProductAttributeService {
+  option (kalix.codegen) = {
+    value_entity: {
+      name: "io.products.channelProductAttribute.domain.ChannelProductAttribute"
+      entity_type: "channel_product_attributes"
+      state: "io.products.channelProductAttribute.domain.ChannelProductAttributeState"
+    }
+  };
+
+  rpc CreateChannelProductAttribute(ChannelProductAttribute) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/create_channel_product_attribute"
+      body: "*"
+    };
+  };
+
+  rpc GetChannelProductAttribute(GetChannelProductAttributeRequest) returns (ChannelProductAttribute);
+
+  rpc UpdateChannelProductAttribute(ChannelProductAttribute) returns (google.protobuf.Empty);
+
+  rpc DeleteChannelProductAttribute(DeleteChannelProductAttributeRequest) returns (google.protobuf.Empty);
+
+}
+
+message ChannelProductAttribute {
+  string channel_product_attribute_id = 1  [(kalix.field).entity_key = true];
+  string attribute_id = 2;
+  string value_id = 3;
+  string variant_id = 4;
+}
+
+message GetChannelProductAttributeRequest {
+  string channel_product_attribute_id = 1 [(kalix.field).entity_key = true];
+}
+message DeleteChannelProductAttributeRequest {
+  string channel_product_attribute_id = 1 [(kalix.field).entity_key = true];
+}

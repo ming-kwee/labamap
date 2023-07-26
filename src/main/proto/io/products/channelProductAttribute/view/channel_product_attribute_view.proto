@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package io.products.channelProductAttribute.view;
+option java_outer_classname = "ChannelProductAttributeViewModel";
+
+import "io/products/channelProductAttribute/domain/channel_product_attribute_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service ChannelProductAttributeView {
+  option (kalix.codegen) = {
+    view: {}
+  };
+
+
+  rpc GetChannelProductAttributes(ByRoleRequest) returns (ByRoleResponse) {
+    option (kalix.method).view.query = {
+      query: "SELECT * AS channel_product_attributes FROM channel_product_attributes"
+    };
+    option (google.api.http) = {
+      post: "/channel_product_attributes",
+      body: "*"
+    };
+  }
+
+  rpc UpdateProductAttributes(domain.ChannelProductAttributeState) returns (domain.ChannelProductAttributeState) {
+    option (kalix.method).eventing.in = {
+      value_entity: "channel_product_attributes"
+    };
+    option (kalix.method).view.update = {
+      table: "channel_product_attributes"
+      // transform_updates: true
+    };
+  }
+
+  // rpc DeleteProduct(google.protobuf.Empty) returns (domain.ProductState) {
+  //   option (kalix.method).eventing.in = {
+  //     value_entity: "products"
+  //     handle_deletes: true
+  //   };
+  //   option (kalix.method).view.update = {
+  //     table: "products"
+  //   };
+  // }
+
+
+}
+
+message ByRoleRequest {
+}
+
+message ByRoleResponse {
+  repeated domain.ChannelProductAttributeState channel_product_attributes = 1;
+}
+
