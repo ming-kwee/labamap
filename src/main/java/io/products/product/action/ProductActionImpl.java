@@ -36,8 +36,11 @@ public class ProductActionImpl extends AbstractProductAction {
     CompletionStage<Empty> create_product = components().product()
         .createProduct(io.products.product.api.ProductApi.Product.newBuilder()
             .setId(product.getId())
-            .setCategoryId(product.getCategoryId())
-            .setItemName(product.getItemName())
+            .setBodyHtml(product.getBodyHtml())
+            .setProductType(product.getProductType())
+            .setStatus(product.getStatus())
+            .setTitle(product.getTitle())
+            .setVendor(product.getVendor())
             .build())
         .execute();
     // return effects().reply(Empty.getDefaultInstance());
@@ -46,11 +49,13 @@ public class ProductActionImpl extends AbstractProductAction {
       // /* ---- jika melewati ini artinya product sudah dicreate ------- */
       // /* ------------------------------------------------------------- */
 
+
+      LOG.info("HAHAHA".concat(product.getBodyHtml()));
       // /* -------------------------------------------------------------------- */
       // /* - #2 memanggil service hitChannelapi utk mencreate channel product - */
       // /* -------------------------------------------------------------------- */
       DeferredCall<ChannelProductApi.ChannelProduct, Empty> call = components().channelProduct()
-      .createChannelProduct(convertToChannelProductApi(product, product.getId()));
+          .createChannelProduct(convertToChannelProductApi(product, product.getId()));
 
       return effects().forward(call);
       // return effects().reply(Empty.getDefaultInstance());
@@ -62,21 +67,33 @@ public class ProductActionImpl extends AbstractProductAction {
   }
 
   private ChannelProductApi.ChannelProduct convertToChannelProductApi(ProductActionApi.Product product, String id) {
-  return ChannelProductApi.ChannelProduct.newBuilder()
-  .setId(id != null ? id : product.getId())
-  .setPlatformId("id")
-  .setProductId("id")
-  .build();
+    return ChannelProductApi.ChannelProduct.newBuilder()
+        .setId(id != null ? id : product.getId())
+        .setPlatformId("id")
+        .setProductId("id")
+        .build();
   }
-
 
   private Function<Throwable, ? extends Effect<Empty>> NotEmptyAuth() {
     /* --- jika kesini artinya ada error saat mencreate product ---- */
     /* ------------------------------------------------------------- */
-    
-    return (e) -> effects().error(      
-      e.getMessage().split(":")[2],
-        Status.Code.valueOf(e.getMessage().split(":")[1].trim().toUpperCase())); 
-        
+
+    return (e) -> effects().error(
+        e.getMessage().split(":")[2],
+        Status.Code.valueOf(e.getMessage().split(":")[1].trim().toUpperCase()));
+
   }
+
+
+
+
+
+
+  //   private ChannelProductApi.ChannelProduct convertToChannelProductApi(ProductActionApi.Product product, String id) {
+  //   return ChannelProductApi.ChannelProduct.newBuilder()
+  //       .setId(id != null ? id : product.getId())
+  //       .setPlatformId("id")
+  //       .setProductId("id")
+  //       .build();
+  // }
 }

@@ -54,7 +54,7 @@ public class ChannelProduct extends AbstractChannelProduct {
     LOG.info("starting the actorSystem service");
     // Define the HTTP POST endpoints
     List<String> postEndpoints = List.of(
-        "https://labamap.myshopify.com/admin/api/2023-04/products.json",
+        "https://labamap.myshopify.com/admin/api/2023-04/products.jso",
         "https://labamap.myshopify.com/admin/api/2023-0/products.jso");
         // "https://example.com/endpoint3");
 

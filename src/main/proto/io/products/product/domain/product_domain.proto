@@ -6,7 +6,10 @@ option java_outer_classname = "ProductDomain";
 
 
 message ProductState {
-    string id = 1;
-    string item_name = 2;
-    string category_id = 3;
+        string id = 1;
+        string title = 2;
+        string body_html = 3;
+        string vendor = 4;
+        string product_type = 5;
+        string status = 6;
 }

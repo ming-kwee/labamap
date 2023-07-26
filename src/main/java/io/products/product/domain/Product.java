@@ -44,7 +44,7 @@ public class Product extends AbstractProduct {
 
   private Optional<Effect<Empty>> reject(ProductDomain.ProductState currentState, io.products.product.api.ProductApi.Product command) {
 
-    if (currentState.getItemName().equals(command.getItemName())) {
+    if (currentState.getTitle().equals(command.getTitle())) {
       return Optional.of(effects().error("Product is already exists!!", Status.Code.NOT_FOUND));
 
     } else {
@@ -56,8 +56,11 @@ public class Product extends AbstractProduct {
   private ProductDomain.ProductState convertToDomain(io.products.product.api.ProductApi.Product product) {
     return ProductDomain.ProductState.newBuilder()
         .setId(product.getId())
-        .setCategoryId(product.getCategoryId())
-        .setItemName(product.getItemName())
+        .setBodyHtml(product.getBodyHtml())
+        .setProductType(product.getProductType())
+        .setStatus(product.getStatus())
+        .setTitle(product.getTitle())
+        .setVendor(product.getVendor())
         .build();
   }
 
