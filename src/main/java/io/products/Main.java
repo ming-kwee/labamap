@@ -26,7 +26,8 @@ import io.products.channelProduct.domain.ChannelProduct;
 import io.products.product.action.ProductActionImpl;
 import io.products.product.domain.Product;
 import io.products.product.view.ProductViewImpl;
-
+import io.products.channelProductAttribute.domain.ChannelProductAttribute;
+import io.products.channelProductAttribute.view.ChannelProductAttributeViewImpl;
 public final class Main {
 
   private static final Logger LOG = LoggerFactory.getLogger(Main.class);
@@ -41,15 +42,18 @@ public final class Main {
     return KalixFactory.withComponents(
         ChannelPlatform::new,
         ChannelProduct::new,
+        ChannelProductAttribute::new,
         Product::new,
         ProductAttribute::new,
         ProductAttributeValue::new,
         ChannelPlatformViewImpl::new,
+        ChannelProductAttributeViewImpl::new,
         ProductActionImpl::new,
         ProductAttributeValueActionImpl::new,
         ProductAttributeValueViewImpl::new,
         ProductAttributeViewImpl::new,
-        ProductViewImpl::new);
+        ProductViewImpl::new
+    );
   }
 
   //

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package io.products.channelProductAttribute.domain;
+
+option java_outer_classname = "ChannelProductAttributeDomain";
+
+message ChannelProductAttributeState {
+  string channel_product_attribute_id = 1;
+  string attribute_id = 2;
+  string value_id = 3;
+  string variant_id = 4;
+}
