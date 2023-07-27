@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package io.products.channelProductVariant.view;
+option java_outer_classname = "ChannelProductVariantViewModel";
+
+import "io/products/channelProductVariant/domain/channel_product_variant_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service ChannelProductVariantView {
+  option (kalix.codegen) = {
+    view: {}
+  };
+
+
+  rpc GetChannelProductVariants(ByRoleRequest) returns (ByRoleResponse) {
+    option (kalix.method).view.query = {
+      query: "SELECT * AS channel_product_variant FROM channel_product_variant"
+    };
+    option (google.api.http) = {
+      post: "/channel_product_variants",
+      body: "*"
+    };
+  }
+
+  rpc UpdateProductVariants(domain.ChannelProductVariantState) returns (domain.ChannelProductVariantState) {
+    option (kalix.method).eventing.in = {
+      value_entity: "channel_product_variant"
+    };
+    option (kalix.method).view.update = {
+      table: "channel_product_variant"
+      // transform_updates: true
+    };
+  }
+
+  // rpc DeleteProduct(google.protobuf.Empty) returns (domain.ProductState) {
+  //   option (kalix.method).eventing.in = {
+  //     value_entity: "products"
+  //     handle_deletes: true
+  //   };
+  //   option (kalix.method).view.update = {
+  //     table: "products"
+  //   };
+  // }
+
+
+}
+
+message ByRoleRequest {
+}
+
+message ByRoleResponse {
+  repeated domain.ChannelProductVariantState channel_product_variant = 1;
+}
+

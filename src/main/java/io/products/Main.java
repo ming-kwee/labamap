@@ -1,5 +1,9 @@
 package io.products;
 
+import io.products.channelProductVariant.domain.ChannelProductVariant;
+import io.products.channelProductVariant.view.ChannelProductVariantViewImpl;
+import io.products.variant.domain.Variant;
+import io.products.variant.view.VariantViewImpl;
 import kalix.javasdk.Kalix;
 
 import java.util.ArrayList;
@@ -43,16 +47,20 @@ public final class Main {
         ChannelPlatform::new,
         ChannelProduct::new,
         ChannelProductAttribute::new,
+        ChannelProductVariant::new,
         Product::new,
         ProductAttribute::new,
         ProductAttributeValue::new,
+        Variant::new,
         ChannelPlatformViewImpl::new,
         ChannelProductAttributeViewImpl::new,
+        ChannelProductVariantViewImpl::new,
         ProductActionImpl::new,
         ProductAttributeValueActionImpl::new,
         ProductAttributeValueViewImpl::new,
         ProductAttributeViewImpl::new,
-        ProductViewImpl::new
+        ProductViewImpl::new,
+        VariantViewImpl::new
     );
   }
 

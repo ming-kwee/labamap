@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package io.products.variant.view;
+option java_outer_classname = "VariantViewModel";
+
+import "io/products/variant/domain/variant_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service VariantView {
+  option (kalix.codegen) = {
+    view: {}
+  };
+
+
+  rpc GetVariants(ByRoleRequest) returns (ByRoleResponse) {
+    option (kalix.method).view.query = {
+      query: "SELECT * AS variants FROM variants"
+    };
+    option (google.api.http) = {
+      post: "/variants",
+      body: "*"
+    };
+  }
+
+  rpc UpdateVariant(domain.VariantState) returns (domain.VariantState) {
+    option (kalix.method).eventing.in = {
+      value_entity: "variants"
+    };
+    option (kalix.method).view.update = {
+      table: "variants"
+      // transform_updates: true
+    };
+  }
+
+  // rpc DeleteProduct(google.protobuf.Empty) returns (domain.ProductState) {
+  //   option (kalix.method).eventing.in = {
+  //     value_entity: "products"
+  //     handle_deletes: true
+  //   };
+  //   option (kalix.method).view.update = {
+  //     table: "products"
+  //   };
+  // }
+
+
+}
+
+message ByRoleRequest {
+}
+
+message ByRoleResponse {
+  repeated domain.VariantState variants = 1;
+}
+

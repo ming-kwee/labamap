@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package io.products.variant.domain;
+
+option java_outer_classname = "VariantDomain";
+
+
+message VariantState {
+  string variant_id = 1;
+  string product_id = 2;
+  string variant_title = 3;
+  double price = 4;
+  float weight = 5;
+}
