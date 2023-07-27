@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package io.products.variant.api;
+
+option java_outer_classname = "VariantApi";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "kalix/annotations.proto";
+import "io/products/variant/domain/variant_domain.proto";
+
+service VariantService {
+  option (kalix.codegen) = {
+    value_entity: {
+      name: "io.products.variant.domain.Variant"
+      entity_type: "variants"
+      state: "io.products.variant.domain.VariantState"
+    }
+  };
+
+  rpc CreateVariant(Variant) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/create_variant"
+      body: "*"
+    };
+  };
+
+  rpc GetVariant(GetVariantRequest) returns (Variant);
+
+  rpc UpdateVariant(Variant) returns (google.protobuf.Empty);
+
+  rpc DeleteVariant(DeleteVariantRequest) returns (google.protobuf.Empty);
+
+}
+
+message Variant {
+  string variant_id = 1  [(kalix.field).entity_key = true];
+  string product_id = 2;
+  string variant_title = 3;
+  double price = 4;
+  float weight = 5;
+}
+
+message GetVariantRequest {
+  string variant_id = 1 [(kalix.field).entity_key = true];
+}
+message DeleteVariantRequest {
+  string variant_id = 1 [(kalix.field).entity_key = true];
+}

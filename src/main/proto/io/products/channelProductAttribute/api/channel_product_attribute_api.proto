@@ -35,9 +35,10 @@ service ChannelProductAttributeService {
 
 message ChannelProductAttribute {
   string channel_product_attribute_id = 1  [(kalix.field).entity_key = true];
-  string attribute_id = 2;
-  string value_id = 3;
-  string variant_id = 4;
+  string product_id = 2;
+  string channel_id = 3;
+  string attribute_id = 4;
+  string value_id = 5;
 }
 
 message GetChannelProductAttributeRequest {

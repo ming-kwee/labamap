@@ -47,9 +47,10 @@ public class ChannelProductAttribute extends AbstractChannelProductAttribute {
   private ChannelProductAttributeDomain.ChannelProductAttributeState convertToDomain(io.products.channelProductAttribute.api.ChannelProductAttributeApi.ChannelProductAttribute channelProductAttribute) {
     return ChannelProductAttributeDomain.ChannelProductAttributeState.newBuilder()
             .setChannelProductAttributeId(channelProductAttribute.getChannelProductAttributeId())
+            .setProductId(channelProductAttribute.getProductId())
+            .setChannelId(channelProductAttribute.getChannelId())
             .setAttributeId(channelProductAttribute.getAttributeId())
             .setValueId(channelProductAttribute.getValueId())
-            .setVariantId(channelProductAttribute.getVariantId())
             .build();
   }
 
