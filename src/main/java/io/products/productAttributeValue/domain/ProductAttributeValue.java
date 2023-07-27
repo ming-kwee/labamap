@@ -59,7 +59,6 @@ public class ProductAttributeValue extends AbstractProductAttributeValue {
     return ProductAttributeValueDomain.ProductAttributeValueState.newBuilder()
     .setValueId(command.getValueId())
     .setAttributeId(command.getAttributeId())
-    .setChannelId(command.getChannelId())
     .setValue(command.getValue())
     .build();
   }

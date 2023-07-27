@@ -64,7 +64,6 @@ public class ProductAttributeValueActionImpl extends AbstractProductAttributeVal
     return ProductAttributeValueApi.ProductAttributeValue.newBuilder()
         .setValueId(id)
         .setAttributeId(productAttributeValue.getAttributeId())
-        .setChannelId(productAttributeValue.getChannelId())
         .setValue(productAttributeValue.getValue())
         .build();
   }

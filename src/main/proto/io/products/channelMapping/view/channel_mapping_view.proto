@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package io.products.channelMapping.view;
+option java_outer_classname = "ChannelMappingViewModel";
+
+// import "io/users/doctor/api/doctor_api.proto";
+import "io/products/channelMapping/domain/channel_mapping_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service ChannelMappingView {
+  option (kalix.codegen) = {
+    view: {}
+  };
+
+
+  rpc GetChannelMappings(ByRoleRequest) returns (ByRoleResponse) {
+    option (kalix.method).view.query = {
+      query: "SELECT * AS channelmappings FROM channelmappings"
+    };
+    option (google.api.http) = {
+      post: "/channelmappings",
+      body: "*"
+    };
+  }
+
+  rpc UpdateChannelMapping(domain.ChannelMappingState) returns (domain.ChannelMappingState) {
+    option (kalix.method).eventing.in = {
+      value_entity: "channel_mapping"
+    };
+    option (kalix.method).view.update = {
+      table: "channelmappings"
+      // transform_updates: true
+    };
+  }
+
+  // rpc DeleteProduct(google.protobuf.Empty) returns (domain.ProductState) {
+  //   option (kalix.method).eventing.in = {
+  //     value_entity: "products"
+  //     handle_deletes: true
+  //   };
+  //   option (kalix.method).view.update = {
+  //     table: "products"
+  //   };
+  // }
+
+
+}
+
+message ByRoleRequest {
+}
+
+message ByRoleResponse {
+  repeated domain.ChannelMappingState channelmappings = 1;
+}
+

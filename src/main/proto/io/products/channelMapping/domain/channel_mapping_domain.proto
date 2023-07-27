@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package io.products.channelMapping.domain;
+
+option java_outer_classname = "ChannelMappingDomain";
+
+message ChannelMappingState {
+  string channel_map_id = 1;
+  string product_id = 2;
+  string channel_id = 3;
+}

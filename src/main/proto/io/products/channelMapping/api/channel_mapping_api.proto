@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package io.products.channelMapping.api;
+
+option java_outer_classname = "ChannelMappingApi";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "kalix/annotations.proto";
+import "io/products/channelMapping/domain/channel_mapping_domain.proto";
+
+service ChannelMappingService {
+  option (kalix.codegen) = {
+    value_entity: {
+      name: "io.products.channelMapping.domain.ChannelMapping"
+      entity_type: "channel_mapping"
+      state: "io.products.channelMapping.domain.ChannelMappingState"
+    }
+  };
+
+  rpc CreateChannelMapping(ChannelMapping) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/create_channel_mapping"
+      body: "*"
+    };
+  };
+
+  rpc GetChannelMapping(GetChannelMappingRequest) returns (ChannelMapping);
+
+  rpc UpdateChannelMapping(ChannelMapping) returns (google.protobuf.Empty);
+
+  rpc DeleteChannelMapping(DeleteChannelMappingRequest) returns (google.protobuf.Empty);
+
+}
+
+message ChannelMapping {
+  string channel_map_id = 1 [(kalix.field).entity_key = true];
+  string product_id = 2 ;
+  string channel_id = 3;
+}
+
+message GetChannelMappingRequest {
+  string channel_map_id = 1 [(kalix.field).entity_key = true];
+}
+message DeleteChannelMappingRequest {
+  string channel_map_id = 1 [(kalix.field).entity_key = true];
+}

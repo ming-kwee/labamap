@@ -1,5 +1,11 @@
 package io.products;
 
+import io.products.channelAttributeMapping.domain.ChannelAttributeMapping;
+import io.products.channelAttributeMapping.view.ChannelAttributeMappingViewImpl;
+import io.products.channelAttributeValueMapping.domain.ChannelAttributeValueMapping;
+import io.products.channelAttributeValueMapping.view.ChannelAttributeValueMappingViewImpl;
+import io.products.channelMapping.domain.ChannelMapping;
+import io.products.channelMapping.view.ChannelMappingViewImpl;
 import io.products.channelProductVariant.domain.ChannelProductVariant;
 import io.products.channelProductVariant.view.ChannelProductVariantViewImpl;
 import io.products.variant.domain.Variant;
@@ -44,6 +50,9 @@ public final class Main {
     // a
     // `new Kalix()` instance.
     return KalixFactory.withComponents(
+        ChannelAttributeMapping::new,
+        ChannelAttributeValueMapping::new,
+        ChannelMapping::new,
         ChannelPlatform::new,
         ChannelProduct::new,
         ChannelProductAttribute::new,
@@ -52,6 +61,9 @@ public final class Main {
         ProductAttribute::new,
         ProductAttributeValue::new,
         Variant::new,
+        ChannelAttributeMappingViewImpl::new,
+        ChannelAttributeValueMappingViewImpl::new,
+        ChannelMappingViewImpl::new,
         ChannelPlatformViewImpl::new,
         ChannelProductAttributeViewImpl::new,
         ChannelProductVariantViewImpl::new,
