@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package io.products.channelAttributeValueMapping.domain;
+
+option java_outer_classname = "ChannelAttributeValueMappingDomain";
+
+message ChannelAttributeValueMappingState {
+  string channel_attribute_value_map_id = 1;
+  string value_id = 2;
+  string channel_id = 3;
+  string value = 4;
+}
