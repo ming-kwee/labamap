@@ -1,0 +1,77 @@
+syntax = "proto3";
+package io.products.channelProduct.action;
+
+option java_outer_classname = "ChannelProductActionApi";
+
+import "kalix/annotations.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service ChannelProductAction {
+    option (kalix.codegen) = {
+      action: {}
+    };
+  
+    rpc CreateChannelProduct(ChannelProduct) returns (google.protobuf.Empty)  {
+      option (google.api.http) = {
+          post: "/create_channel_product_impl"
+          body: "*"
+      };
+    }
+
+    // rpc UpdateChannelProduct(ChannelProductApi.ChannelProduct) returns (ChannelProduct) {
+    //   option (google.api.http) = {
+    //       put: "/channel_product/{id}"
+    //       body: "*"
+    //   };
+    // }
+
+    // rpc DeleteChannelProduct(ChannelProductApi.ChannelProduct) returns (ChannelProduct) {
+    //   option (google.api.http) = {
+    //       put: "/channel_product/{id}/delete"
+    //       body: "*"
+    //   };
+    // }
+
+}
+
+
+message ChannelProduct {
+  repeated ChannelAttribute channel_attributes = 1;
+  repeated VariantGroup variant_groups = 2;
+  repeated OptionGroup option_groups = 3;
+}
+
+
+message ChannelAttribute {  
+  string attr_id = 1;
+  string chnl_attr_name = 2;
+  string chnl_attr_value = 3;
+  string chnl_attr_type = 4;
+  bool is_common = 5;
+
+}
+
+
+message VariantGroup {
+  repeated ChannelVariant channel_variant = 1;
+}
+
+message ChannelVariant {
+  string vrnt_id = 1;
+  string chnl_vrnt_name = 2;
+  string chnl_vrnt_value = 3;
+  string chnl_vrnt_type = 4;
+}
+
+message OptionGroup {
+  repeated ChannelOption channel_option = 1;
+}
+
+
+message ChannelOption {
+  string optn_id = 1;
+  string chnl_optn_name = 2;
+  string chnl_optn_value = 3;
+  string chnl_optn_type = 4;
+}

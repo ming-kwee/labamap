@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package io.products.attribute.api;
+
+option java_outer_classname = "AttributeApi";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "kalix/annotations.proto";
+import "io/products/attribute/domain/attribute_domain.proto";
+
+service AttributeService {
+    option (kalix.codegen) = {
+      value_entity: {
+        name: "io.products.attribute.domain.Attribute"
+        entity_type: "attributes"
+        state: "io.products.attribute.domain.AttributeState"
+      }
+    };
+  
+    rpc CreateAttribute(Attribute) returns (google.protobuf.Empty){
+      option (google.api.http) = {
+        post: "/create_attribute"
+        body: "*"
+    };
+    };
+    
+    rpc GetAttribute(GetAttributeRequest) returns (Attribute);
+
+    rpc UpdateAttribute(Attribute) returns (google.protobuf.Empty);
+
+    rpc DeleteAttribute(DeleteAttributeRequest) returns (google.protobuf.Empty);
+
+}
+
+message Attribute {
+    string attribute_id = 1  [(kalix.field).entity_key = true];
+    string attribute_name = 2;
+    string attribute_type = 3;
+    bool is_common = 4;
+}
+
+message GetAttributeRequest {
+    string attribute_id = 1 [(kalix.field).entity_key = true];
+}
+message DeleteAttributeRequest {
+    string attribute_id = 1 [(kalix.field).entity_key = true];
+}

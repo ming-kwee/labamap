@@ -38,11 +38,10 @@ message DeleteProductRequest {
 
   message Product {
     string id = 1 [(kalix.field).entity_key = true];
-    string title = 2;
-    string body_html = 3;
-    string vendor = 4;
-    string product_type = 5;
-    string status = 6;
+    string nama_produk = 2;
+    string deskripsi_pendek = 3;
+
+    repeated ProductAttribute product_attribute = 4;
     // string access_token = 4 [(kalix.field).jwt = {
     //     token: true
     // }];
@@ -51,3 +50,10 @@ message DeleteProductRequest {
 message ProductResponse {
   string message = 1; 
 } 
+
+message ProductAttribute {
+  string attr_id = 1  [(kalix.field).entity_key = true];
+  string attr_name = 2;
+  string value = 3;
+  bool is_common = 4;
+}

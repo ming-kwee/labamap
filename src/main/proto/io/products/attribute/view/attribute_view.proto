@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package io.products.attribute.view;
+option java_outer_classname = "AttributeViewModel";
+
+import "io/products/attribute/domain/attribute_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service AttributeView {
+    option (kalix.codegen) = {
+      view: {}
+    };
+
+
+    rpc GetAttributes(ByRoleRequest) returns (ByRoleResponse) {
+      option (kalix.method).view.query = {
+        query: "SELECT * AS attributes FROM attributes"
+      };
+      option (google.api.http) = {
+        post: "/attributes",
+        body: "*"
+      };
+    }
+
+    rpc UpdateAttributes(domain.AttributeState) returns (domain.AttributeState) {
+      option (kalix.method).eventing.in = {
+        value_entity: "attributes"
+      };
+      option (kalix.method).view.update = {
+        table: "attributes"
+        // transform_updates: true
+      };
+    }
+
+    // rpc DeleteProduct(google.protobuf.Empty) returns (domain.ProductState) {
+    //   option (kalix.method).eventing.in = {
+    //     value_entity: "products"
+    //     handle_deletes: true
+    //   };
+    //   option (kalix.method).view.update = {
+    //     table: "products"
+    //   };
+    // }
+  
+
+  }
+  
+  message ByRoleRequest {
+  }
+
+  message ByRoleResponse {
+    repeated domain.AttributeState attributes = 1;
+  }
+

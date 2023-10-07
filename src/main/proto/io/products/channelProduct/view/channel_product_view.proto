@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package io.products.channelProduct.view;
+option java_outer_classname = "ChannelProductViewModel";
+
+import "io/products/channelProduct/domain/channel_product_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service ChannelProductView {
+    option (kalix.codegen) = {
+      view: {}
+    };
+
+
+    rpc GetChannelProducts(ByRoleRequest) returns (ByRoleResponse) {
+      option (kalix.method).view.query = {
+        query: "SELECT * AS channel_products FROM channel_products"
+      };
+      option (google.api.http) = {
+        post: "/channel_products",
+        body: "*"
+      };
+    }
+
+    rpc UpdateChannelProduct(domain.ChannelProductState) returns (domain.ChannelProductState) {
+      option (kalix.method).eventing.in = {
+        value_entity: "channel_products"
+      };
+      option (kalix.method).view.update = {
+        table: "channel_products"
+        // transform_updates: true
+      };
+    }
+
+    // rpc DeleteChannelProduct(google.protobuf.Empty) returns (domain.ChannelProductState) {
+    //   option (kalix.method).eventing.in = {
+    //     value_entity: "channel_products"
+    //     handle_deletes: true
+    //   };
+    //   option (kalix.method).view.update = {
+    //     table: "channel_products"
+    //   };
+    // }
+  
+
+  }
+  
+  message ByRoleRequest {
+  }
+
+  message ByRoleResponse {
+    repeated domain.ChannelProductState channel_products = 1;
+  }
+

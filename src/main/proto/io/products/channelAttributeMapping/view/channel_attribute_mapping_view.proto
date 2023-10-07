@@ -15,12 +15,12 @@ service ChannelAttributeMappingView {
   };
 
 
-  rpc GetChannelAttributeMappings(ByRoleRequest) returns (ByRoleResponse) {
+  rpc GetChannelAttributeMappings(ByChannelIdRequest) returns (ByChannelIdResponse) {
     option (kalix.method).view.query = {
       query: "SELECT * AS channelattributemappings FROM channelattributemappings"
     };
     option (google.api.http) = {
-      post: "/channelattributemappings",
+      post: "/channel_attribute_mappings",
       body: "*"
     };
   }
@@ -35,23 +35,14 @@ service ChannelAttributeMappingView {
     };
   }
 
-  // rpc DeleteProduct(google.protobuf.Empty) returns (domain.ProductState) {
-  //   option (kalix.method).eventing.in = {
-  //     value_entity: "products"
-  //     handle_deletes: true
-  //   };
-  //   option (kalix.method).view.update = {
-  //     table: "products"
-  //   };
-  // }
-
 
 }
 
-message ByRoleRequest {
+message ByChannelIdRequest {
+  string ProductId = 1;
 }
 
-message ByRoleResponse {
+message ByChannelIdResponse {
   repeated domain.ChannelAttributeMappingState channelattributemappings = 1;
 }
 

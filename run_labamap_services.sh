@@ -26,24 +26,30 @@ lsof -ti tcp:8080 | xargs kill
 lsof -ti tcp:8081 | xargs kill
 
 
-cd /Users/admin/work/Akka/labamap && docker compose down &
+cd /Users/admin/MyKalix/labamap && docker compose down &
 
 echo "===> Starting Docker Compose Up"
-cd /Users/admin/work/Akka/labamap && docker compose up &
+cd /Users/admin/MyKalix/labamap && docker compose up &
 
 sleep 30
 
 echo "===> Starting Labamap Service"
-cd /Users/admin/work/Akka/labamap && mvn compile exec:exec &
+cd /Users/admin/MyKalix/labamap && mvn compile exec:exec &
 labamap_pid=$!
 
 
 
 sleep 30
 
-bash set_central_attributes.sh
+bash set_attributes.sh
 
+bash set_product.sh
 
+bash set_product_attributes.sh
+
+bash set_channel_product_attributes.sh
+
+bash set_channel_attributes_mapping.sh
 
 # sleep 30
 # open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security

@@ -6,7 +6,6 @@ option java_outer_classname = "ProductActionApi";
 import "kalix/annotations.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
-// import "io/products/product/api/product_domain.proto";
 
 service ProductAction {
     option (kalix.codegen) = {
@@ -36,30 +35,16 @@ service ProductAction {
 
 }
 
-// message Product {
-//   string id = 1 [(kalix.field).entity_key = true];
-//   string item_name = 2;
-//   string category_id = 3;
-//   // string access_token = 4 [(kalix.field).jwt = {
-//   //     token: true
-//   // }];
-// }
 
 message Product {
-  string id = 1 [(kalix.field).entity_key = true];
-  string title = 2;
-  string body_html = 3;
-  string vendor = 4;
-  string product_type = 5;
-  string status = 6;
-  // string access_token = 4 [(kalix.field).jwt = {
-  //     token: true
-  // }];
+  repeated Attribute attributes = 1;
 }
 
-// "{\"product\":{
-  // \"title\":\"Burton Custom Freestyle 151\",
-  // \"body_html\":\"<strong>Good snowboard!</strong>\",
-  // \"vendor\":\"Burton\",
-  // \"product_type\":\"Snowboard\",
-  // \"status\":\"draft\"}}";
+
+message Attribute {  
+  string attr_id = 1;
+  string attr_name = 2;
+  string attr_value = 3;
+  bool is_common = 4;
+}
+

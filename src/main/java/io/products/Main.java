@@ -1,13 +1,11 @@
 package io.products;
 
+import io.products.attribute.domain.Attribute;
+import io.products.attribute.view.AttributeViewImpl;
 import io.products.channelAttributeMapping.domain.ChannelAttributeMapping;
 import io.products.channelAttributeMapping.view.ChannelAttributeMappingViewImpl;
-import io.products.channelAttributeValueMapping.domain.ChannelAttributeValueMapping;
-import io.products.channelAttributeValueMapping.view.ChannelAttributeValueMappingViewImpl;
 import io.products.channelMapping.domain.ChannelMapping;
 import io.products.channelMapping.view.ChannelMappingViewImpl;
-import io.products.channelProductVariant.domain.ChannelProductVariant;
-import io.products.channelProductVariant.view.ChannelProductVariantViewImpl;
 import io.products.variant.domain.Variant;
 import io.products.variant.view.VariantViewImpl;
 import kalix.javasdk.Kalix;
@@ -24,20 +22,14 @@ import akka.actor.ActorSystem;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
-import io.products.productAttribute.domain.ProductAttribute;
-import io.products.productAttribute.view.ProductAttributeViewImpl;
-import io.products.productAttributeValue.action.ProductAttributeValueActionImpl;
-import io.products.productAttributeValue.domain.ProductAttributeValue;
-import io.products.productAttributeValue.view.ProductAttributeValueView;
-import io.products.productAttributeValue.view.ProductAttributeValueViewImpl;
 import io.products.channelPlatform.domain.ChannelPlatform;
 import io.products.channelPlatform.view.ChannelPlatformViewImpl;
+import io.products.channelProduct.action.ChannelProductActionImpl;
 import io.products.channelProduct.domain.ChannelProduct;
+import io.products.channelProduct.view.ChannelProductViewImpl;
 import io.products.product.action.ProductActionImpl;
 import io.products.product.domain.Product;
 import io.products.product.view.ProductViewImpl;
-import io.products.channelProductAttribute.domain.ChannelProductAttribute;
-import io.products.channelProductAttribute.view.ChannelProductAttributeViewImpl;
 public final class Main {
 
   private static final Logger LOG = LoggerFactory.getLogger(Main.class);
@@ -50,27 +42,20 @@ public final class Main {
     // a
     // `new Kalix()` instance.
     return KalixFactory.withComponents(
+        Attribute::new,
         ChannelAttributeMapping::new,
-        ChannelAttributeValueMapping::new,
         ChannelMapping::new,
         ChannelPlatform::new,
         ChannelProduct::new,
-        ChannelProductAttribute::new,
-        ChannelProductVariant::new,
         Product::new,
-        ProductAttribute::new,
-        ProductAttributeValue::new,
         Variant::new,
+        AttributeViewImpl::new,
         ChannelAttributeMappingViewImpl::new,
-        ChannelAttributeValueMappingViewImpl::new,
         ChannelMappingViewImpl::new,
         ChannelPlatformViewImpl::new,
-        ChannelProductAttributeViewImpl::new,
-        ChannelProductVariantViewImpl::new,
+        ChannelProductActionImpl::new,
+        ChannelProductViewImpl::new,       
         ProductActionImpl::new,
-        ProductAttributeValueActionImpl::new,
-        ProductAttributeValueViewImpl::new,
-        ProductAttributeViewImpl::new,
         ProductViewImpl::new,
         VariantViewImpl::new
     );

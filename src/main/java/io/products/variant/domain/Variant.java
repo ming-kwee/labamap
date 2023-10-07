@@ -2,7 +2,6 @@ package io.products.variant.domain;
 
 import com.google.protobuf.Empty;
 import io.grpc.Status;
-import io.products.channelProductAttribute.domain.ChannelProductAttributeDomain;
 import io.products.variant.api.VariantApi;
 import kalix.javasdk.valueentity.ValueEntityContext;
 

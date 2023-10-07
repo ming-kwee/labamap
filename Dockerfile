@@ -1,4 +1,4 @@
-FROM java:11
+FROM java:17
 FROM maven:alpine
 
 # image layer
