@@ -73,7 +73,7 @@ public class ChannelPlatform extends AbstractChannelPlatform {
   }
 
   @Override
-  public Effect<Empty> deleteChannelPlatform(ChannelPlatformDomain.ChannelPlatformState currentState, ChannelPlatformApi.DeleteChannelProductRequest deleteChannelProductRequest) {
+  public Effect<Empty> deleteChannelPlatform(ChannelPlatformDomain.ChannelPlatformState currentState, ChannelPlatformApi.ChannelPlatformRequest deleteChannelPlatformRequest) {
     return effects().error("The command handler for `DeleteChannelPlatform` is not implemented, yet");
   }
 }

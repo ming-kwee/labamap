@@ -46,3 +46,4 @@ message GetChannelAttributeMappingRequest {
 message DeleteChannelAttributeMappingRequest {
   string channel_attribute_mapping_id = 1 [(kalix.field).entity_key = true];
 }
+

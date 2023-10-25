@@ -33,45 +33,52 @@ service ChannelProductAction {
     //   };
     // }
 
+    // rpc OnDeleteState (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    //   option (kalix.method).eventing.in = {
+    //     value_entity: "channel_products"
+    //     handle_deletes: true // <4>
+    //   };
+    // }
+
 }
 
 
 message ChannelProduct {
-  repeated ChannelAttribute channel_attributes = 1;
-  repeated VariantGroup variant_groups = 2;
-  repeated OptionGroup option_groups = 3;
+  repeated ChannelAttribute channelAttributes = 1;
+  repeated VariantGroup variantGroups = 2;
+  repeated OptionGroup optionGroups = 3;
 }
 
 
 message ChannelAttribute {  
-  string attr_id = 1;
-  string chnl_attr_name = 2;
-  string chnl_attr_value = 3;
-  string chnl_attr_type = 4;
-  bool is_common = 5;
+  string attrId = 1;
+  string chnlAttrName = 2;
+  string chnlAttrValue = 3;
+  string chnlAttrType = 4;
+  bool isCommon = 5;
 
 }
 
 
 message VariantGroup {
-  repeated ChannelVariant channel_variant = 1;
+  repeated ChannelVariant channelVariant = 1;
 }
 
 message ChannelVariant {
-  string vrnt_id = 1;
-  string chnl_vrnt_name = 2;
-  string chnl_vrnt_value = 3;
-  string chnl_vrnt_type = 4;
+  string vrntId = 1;
+  string chnlVrntName = 2;
+  string chnlVrntValue = 3;
+  string chnlVrntType = 4;
 }
 
 message OptionGroup {
-  repeated ChannelOption channel_option = 1;
+  repeated ChannelOption channelOption = 1;
 }
 
 
 message ChannelOption {
-  string optn_id = 1;
-  string chnl_optn_name = 2;
-  string chnl_optn_value = 3;
-  string chnl_optn_type = 4;
+  string optnId = 1;
+  string chnlOptnName = 2;
+  string chnlOptnValue = 3;
+  string chnlOptnType = 4;
 }

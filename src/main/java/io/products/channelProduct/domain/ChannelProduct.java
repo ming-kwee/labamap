@@ -6,19 +6,16 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.google.protobuf.Empty;
 import kalix.javasdk.action.Action.Effect;
-
 import akka.actor.ActorSystem;
 import io.grpc.Status;
 import io.products.channelProduct.action.ChannelProductActionApi.ChannelAttribute;
 import io.products.channelProduct.action.ChannelProductActionApi.ChannelVariant;
 import io.products.channelProduct.api.ChannelProductApi;
-// import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
+import io.products.channelProduct.api.ChannelProductApi.DeleteChannelProductRequest;
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductVariantGroup;
 import io.products.channelProduct.domain.ChannelProductDomain;
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductAttribute;
@@ -26,10 +23,7 @@ import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductOpti
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductOptionGroup;
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductState;
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductVariant;
-// import io.products.product.action.ProductActionImpl;
-// import io.products.product.domain.ProductDomain;
-// import io.products.product.domain.ProductDomain.ProductAttribute;
-import kalix.javasdk.valueentity.ValueEntityContext;
+import kalix.javasdk.eventsourcedentity.EventSourcedEntityContext;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.ContentTypes;
 import akka.http.javadsl.model.HttpRequest;
@@ -46,7 +40,7 @@ public class ChannelProduct extends AbstractChannelProduct {
   @SuppressWarnings("unused")
   private final String entityId;
 
-  public ChannelProduct(ValueEntityContext context) {
+  public ChannelProduct(EventSourcedEntityContext context) {
     this.entityId = context.entityId();
   }
 
@@ -55,19 +49,23 @@ public class ChannelProduct extends AbstractChannelProduct {
     return ChannelProductDomain.ChannelProductState.getDefaultInstance();
   }
 
+  /***********************************************************
+   * CREATE CHANNEL PRODUCT & convertToDomain & handleCreation
+   ***********************************************************/
+
   @Override
   public Effect<Empty> createChannelProduct(ChannelProductDomain.ChannelProductState currentState,
       ChannelProductApi.ChannelProduct command) {
 
     ChannelProductDomain.ChannelProductState state = convertToDomain(currentState, command);
 
-    return reject(currentState, command).orElseGet(() -> handle(state, command));
+    return reject(currentState, command).orElseGet(() -> handleCreation(state, command));
   }
 
   private Optional<Effect<Empty>> reject(ChannelProductState currentState,
       io.products.channelProduct.api.ChannelProductApi.ChannelProduct command) {
 
-    if (currentState.getId().equals(command.getId())) {
+    if (currentState.getId().equals(command.getId()) && currentState.getIsDeleted() == false) {
       return Optional.of(effects().error("Channel Product is already exists!!!", Status.Code.NOT_FOUND));
 
     } else {
@@ -129,8 +127,6 @@ public class ChannelProduct extends AbstractChannelProduct {
       domChnlProdVariantGroupList.add(domChnlProdVariantGroup);
     }
 
-
-
     /* ------------------------------------------ */
     // Convert Channel Options from Api to State
     /* ------------------------------------------ */
@@ -161,15 +157,11 @@ public class ChannelProduct extends AbstractChannelProduct {
       domChnlProdOptionGroupList.add(domChnlProdOptionGroup);
     }
 
-
-
-
-
-
     stateBuilder
         .setId(apiChannelProduct.getId())
         .setChannelId(apiChannelProduct.getChannelId())
         .setProductId(apiChannelProduct.getProductId())
+        .setIsDeleted(apiChannelProduct.getIsDeleted())
         .clearChannelProductAttribute().addAllChannelProductAttribute(domChnlProdAttributeList)
         .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(domChnlProdVariantGroupList)
         .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(domChnlProdOptionGroupList);
@@ -177,9 +169,205 @@ public class ChannelProduct extends AbstractChannelProduct {
     return stateBuilder.build();
   }
 
-  private Effect<Empty> handle(ChannelProductDomain.ChannelProductState state,
+  private Effect<Empty> handleCreation(ChannelProductDomain.ChannelProductState state,
       io.products.channelProduct.api.ChannelProductApi.ChannelProduct command) {
-    return effects().updateState(state).thenReply(Empty.getDefaultInstance());
+    ChannelProductDomain.ChannelProductCreated event = ChannelProductDomain.ChannelProductCreated.newBuilder()
+        .setChannelProduct(state).build();
+    return effects().emitEvent(event).thenReply(__ -> Empty.getDefaultInstance());
+    // return effects().updateState(state).thenReply(Empty.getDefaultInstance());
+  }
+
+  /***********************************************
+   * DELETE CHANNEL PRODUCT & handleDeletion
+   ***********************************************/
+  @Override
+  public Effect<Empty> deleteChannelProduct(ChannelProductDomain.ChannelProductState currentState,
+      ChannelProductApi.DeleteChannelProductRequest command) {
+    LOG.info("deletedelete " + currentState.getChannelId() + ", " +
+        currentState.getId() + ", " + command.getId());
+
+    return handleDeletion(currentState, command);
+  }
+
+  private Effect<Empty> handleDeletion(ChannelProductDomain.ChannelProductState state,
+      ChannelProductApi.DeleteChannelProductRequest command) {
+
+    ChannelProductDomain.ChannelProductState deletedState = ChannelProductDomain.ChannelProductState.newBuilder()
+        .setIsDeleted(true)
+        .setChannelId(state.getChannelId())
+        .setProductId(state.getProductId())
+        .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(state.getChannelProductVariantGroupList())
+        .clearChannelProductAttribute().addAllChannelProductAttribute(state.getChannelProductAttributeList())
+        .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(state.getChannelProductOptionGroupList())
+        .setId(state.getId()).build();
+
+    ChannelProductDomain.ChannelProductDeleted event = ChannelProductDomain.ChannelProductDeleted.newBuilder()
+        .setChannelProduct(deletedState).build();
+
+    return effects().emitEvent(event).thenReply(__ -> Empty.getDefaultInstance());
+    // return effects().updateState(state).thenReply(Empty.getDefaultInstance());
+  }
+
+  /************************************************
+   * GET CHANNEL PRODUCT & convertToApi
+   ************************************************/
+  @Override
+  public Effect<ChannelProductApi.ChannelProduct> getChannelProduct(
+      ChannelProductDomain.ChannelProductState currentState,
+      ChannelProductApi.GetChannelProductRequest command) {
+    if (currentState.getId().equals(command.getId())) {
+      return effects().reply(convertToApi(currentState));
+    } else {
+      return effects().error("Channel Patient " + command.getId() + " has not been created.");
+    }
+  }
+
+  private ChannelProductApi.ChannelProduct convertToApi(ChannelProductDomain.ChannelProductState channelProductState) {
+
+    ChannelProductApi.ChannelProduct.Builder apiChannelProduct = ChannelProductApi.ChannelProduct.newBuilder();
+
+    /* ------------------------------------------ */
+    // Convert Channel Attributes from Domain to Api
+    /* ------------------------------------------ */
+    List<ChannelProductAttribute> domChnlProdAttributeList = channelProductState.getChannelProductAttributeList();
+
+    List<io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute> apiChnlProdAttributeList = new ArrayList<>();
+    for (ChannelProductAttribute domChnlProdAttribute : domChnlProdAttributeList) {
+      io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute apiChnlProdAttribute = io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute
+          .newBuilder()
+          .setAttrId(domChnlProdAttribute.getAttrId())
+          .setChnlAttrName(domChnlProdAttribute.getChnlAttrName())
+          .setChnlAttrType(domChnlProdAttribute.getChnlAttrType())
+          .setValue(domChnlProdAttribute.getValue())
+          .setIsCommon(domChnlProdAttribute.getIsCommon())
+          .build();
+      apiChnlProdAttributeList.add(apiChnlProdAttribute);
+    }
+
+    /* ------------------------------------------ */
+    // Convert Channel Variants from Domain to Api
+    /* ------------------------------------------ */
+    List<ChannelProductVariantGroup> domChnlProdVariantGroupList = channelProductState
+        .getChannelProductVariantGroupList();
+    List<io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup> apiChnlProdVariantGroupList = new ArrayList<>();
+
+    for (ChannelProductVariantGroup domChnlProdVariantGroup : domChnlProdVariantGroupList) {
+
+      List<ChannelProductVariant> domChnlProdVariantList = domChnlProdVariantGroup
+          .getChannelProductVariantList().stream()
+          .collect(Collectors.toList());
+      List<io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant> apiChnlProdVariantList = new ArrayList<>();
+
+      for (ChannelProductVariant domChnlProdVariant : domChnlProdVariantList) {
+        io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant apiChnlProdVariant = io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant
+            .newBuilder()
+            .setVrntId(domChnlProdVariant.getVrntId())
+            .setChnlVrntName(domChnlProdVariant.getChnlVrntName())
+            .setChnlVrntType(domChnlProdVariant.getChnlVrntType())
+            .setValue(domChnlProdVariant.getValue())
+            .build();
+        apiChnlProdVariantList.add(apiChnlProdVariant);
+      }
+
+      io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup apiChnlProdVariantGroup = io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup
+          .newBuilder()
+          .addAllChannelProductVariant(apiChnlProdVariantList)
+          .build();
+      apiChnlProdVariantGroupList.add(apiChnlProdVariantGroup);
+    }
+
+    /* ------------------------------------------ */
+    // Convert Channel Options from Api to State
+    /* ------------------------------------------ */
+    List<ChannelProductOptionGroup> domChnlProdOptionGroupList = channelProductState
+        .getChannelProductOptionGroupList();
+    List<io.products.channelProduct.api.ChannelProductApi.ChannelProductOptionGroup> apiChnlProdOptionGroupList = new ArrayList<>();
+
+    for (ChannelProductOptionGroup domChnlProdOptionGroup : domChnlProdOptionGroupList) {
+
+      List<ChannelProductOption> domChnlProdOptionList = domChnlProdOptionGroup
+          .getChannelProductOptionList().stream()
+          .collect(Collectors.toList());
+      List<io.products.channelProduct.api.ChannelProductApi.ChannelProductOption> apiChnlProdOptionList = new ArrayList<>();
+
+      for (ChannelProductOption domChnlProdOption : domChnlProdOptionList) {
+        io.products.channelProduct.api.ChannelProductApi.ChannelProductOption apiChnlProdOption = io.products.channelProduct.api.ChannelProductApi.ChannelProductOption
+            .newBuilder()
+            .setOptnId(domChnlProdOption.getOptnId())
+            .setChnlOptnName(domChnlProdOption.getChnlOptnName())
+            .setChnlOptnType(domChnlProdOption.getChnlOptnType())
+            .setValue(domChnlProdOption.getValue())
+            .build();
+        apiChnlProdOptionList.add(apiChnlProdOption);
+      }
+
+      io.products.channelProduct.api.ChannelProductApi.ChannelProductOptionGroup apiChnlProdOptionGroup = io.products.channelProduct.api.ChannelProductApi.ChannelProductOptionGroup
+          .newBuilder()
+          .addAllChannelProductOption(apiChnlProdOptionList)
+          .build();
+      apiChnlProdOptionGroupList.add(apiChnlProdOptionGroup);
+    }
+
+    apiChannelProduct
+        .setId(channelProductState.getId())
+        .setChannelId(channelProductState.getChannelId())
+        .setProductId(channelProductState.getProductId())
+        .setIsDeleted(channelProductState.getIsDeleted())
+        .clearChannelProductAttribute().addAllChannelProductAttribute(apiChnlProdAttributeList)
+        .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(apiChnlProdVariantGroupList)
+        .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(apiChnlProdOptionGroupList);
+
+    return apiChannelProduct.build();
+
+  }
+
+  /* ___________________________ */
+  /* --------------------------- */
+  // event done event done event 
+  /* ___________________________ */
+  /* --------------------------- */
+
+  @Override
+  public ChannelProductDomain.ChannelProductState channelProductCreated(
+      ChannelProductDomain.ChannelProductState currentState, ChannelProductDomain.ChannelProductCreated event) {
+
+    ChannelProductDomain.ChannelProductState.Builder stateBuilder = currentState.toBuilder();
+
+    stateBuilder
+        .setId(event.getChannelProduct().getId())
+        .setChannelId(event.getChannelProduct().getChannelId())
+        .setProductId(event.getChannelProduct().getProductId())
+        .setIsDeleted(event.getChannelProduct().getIsDeleted())
+        .clearChannelProductAttribute()
+        .addAllChannelProductAttribute(event.getChannelProduct().getChannelProductAttributeList())
+        .clearChannelProductVariantGroup()
+        .addAllChannelProductVariantGroup(event.getChannelProduct().getChannelProductVariantGroupList())
+        .clearChannelProductOptionGroup()
+        .addAllChannelProductOptionGroup(event.getChannelProduct().getChannelProductOptionGroupList());
+
+    LOG.info("VVVC " + stateBuilder.getIsDeleted());
+
+    return stateBuilder.build();
+  }
+
+  @Override
+  public ChannelProductDomain.ChannelProductState channelProductDeleted(
+      ChannelProductDomain.ChannelProductState currentState, ChannelProductDomain.ChannelProductDeleted event) {
+
+    ChannelProductDomain.ChannelProductState.Builder stateBuilder = currentState.toBuilder();
+    stateBuilder
+        .setId(event.getChannelProduct().getId())
+        .setChannelId(event.getChannelProduct().getChannelId())
+        .setProductId(event.getChannelProduct().getProductId())
+        .setIsDeleted(event.getChannelProduct().getIsDeleted())
+        .clearChannelProductAttribute()
+        .addAllChannelProductAttribute(event.getChannelProduct().getChannelProductAttributeList())
+        .clearChannelProductVariantGroup()
+        .addAllChannelProductVariantGroup(event.getChannelProduct().getChannelProductVariantGroupList())
+        .clearChannelProductOptionGroup()
+        .addAllChannelProductOptionGroup(event.getChannelProduct().getChannelProductOptionGroupList());
+
+    return stateBuilder.build();
   }
 
 }

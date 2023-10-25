@@ -1,115 +1,95 @@
 package io.products.channelProduct.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.Empty;
-
 import akka.actor.ActorSystem;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.ContentTypes;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
+import akka.http.javadsl.model.StatusCodes;
 import akka.http.javadsl.model.headers.RawHeader;
-import io.products.channelProduct.action.ChannelProductActionImpl;
+import io.grpc.Status;
+import io.grpc.StatusException;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProduct;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute;
+import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOption;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOptionGroup;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup;
-import kalix.javasdk.action.Action.Effect;
 import io.products.shared.utils;
 
 public class ChannelProductService {
-
   private static final Logger LOG = LoggerFactory.getLogger(ChannelProductService.class);
 
-  public static Empty createChannelProduct(ChannelProduct channelProduct) {
-
+  
+  public static ChannelProductHttpResponse createChannelProduct(ChannelProduct channelProduct) throws StatusException {
     ActorSystem actorSystem = ActorSystem.create("MyActorSystem");
-    // Create an instance of Http using the ActorSystem
     Http http = Http.get(actorSystem);
-    LOG.info("starting the actorSystem service");
-    // Define the HTTP POST endpoints
-    // List<String> postEndpoints =
-    // List.of("https://labamap.myshopify.com/admin/api/2023-04/products.json");
-    List<String> postEndpoints = List.of("https://asia-southeast2-labamap-ab9a2.cloudfunctions.net/insertDataChannel",
-        "https://labamap.myshopify.com/admin/api/2023-04/products.son");
+    LOG.info("Starting the actorSystem service");
+    String postEndpoint = "https://labamap.myshopify.com/admin/api/2023-04/products.jsn";
 
-    // "https://example.com/endpoint3");
+    String accessToken = "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";
+    String requestBody = transformAttributeToJson(channelProduct);
+    LOG.info("transformAttributeToJson " + requestBody);
 
-    // Create a list to store the results
-    List<CompletionStage<HttpResponse>> postResults = new ArrayList<>();
+    HttpRequest request = HttpRequest.POST(postEndpoint)
+        .addHeader(RawHeader.create("X-Shopify-Access-Token", accessToken))
+        .addHeader(RawHeader.create("Content-Type", "application/json"))
+        .withEntity(ContentTypes.APPLICATION_JSON, requestBody);
 
-    // Begin the transaction
-    // Start the HTTP POST calls
+    CompletionStage<HttpResponse> responseStage = http.singleRequest(request)
+        .thenApply(response -> {
+          return response;
+        })
+        .exceptionally(ex -> {
+          return HttpResponse.create().withStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+        });
+
     try {
-      for (String endpoint : postEndpoints) {
-        // Create the HTTP POST request
-        LOG.info("transformAttributeToJson " + transformAttributeToJson(channelProduct));
-        String accessToken = "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";
 
-        String requestBody = transformAttributeToJson(channelProduct);
-        // "{\"product\":{\"title\":\"Burton Custom Freestyle
-        // 151\",\"body_html\":\"<strong>Good
-        // snowboard!</strong>\",\"vendor\":\"Burton\",\"product_type\":\"Snowboard\",\"status\":\"draft\"}}";
+      HttpResponse response = responseStage.toCompletableFuture().get();
 
-        HttpRequest request = HttpRequest.POST(endpoint)
-            .addHeader(RawHeader.create("X-Shopify-Access-Token", accessToken))
-            .addHeader(RawHeader.create("Content-Type", "application/json"))
-            .withEntity(ContentTypes.APPLICATION_JSON, requestBody);
+      LOG.info("LOH " + response.status().intValue());
 
-        // Send the HTTP POST request asynchronously
-        CompletionStage<HttpResponse> responseStage = http.singleRequest(request);
-
-        // Store the completion stage in the list
-        postResults.add(responseStage);
+      if (response.status().intValue() >= 400) {
+        ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
+            .setStatus("FAIL")
+            .setDescription("Gagal simpan")
+            .build();
+        return cpHttpResponse;
+      } else {
+        ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
+            .setStatus("OK")
+            .setDescription("Berhasil simpan")
+            .build();
+        return cpHttpResponse;
       }
 
-      // Wait for all the HTTP POST calls to complete
-      CompletableFuture<Void> allRequests = CompletableFuture.allOf(
-          postResults.toArray(new CompletableFuture[0]));
+    } catch (Exception e) {
 
-      // Handle the completion of all requests
-      allRequests.thenAccept(ignore -> {
-        // Check if any of the requests failed
-        boolean anyFailed = postResults.stream()
-            .anyMatch(stage -> stage.toCompletableFuture().isCompletedExceptionally());
-
-        if (anyFailed) {
-          System.err.println("An error occurred. Rolling back the transaction.");
-
-          // Rollback the transaction if any HTTP POST call fails
-          // Perform any necessary rollback logic or operations
-        } else {
-          System.out.println("All HTTP POST calls succeeded. Committing the transaction.");
-          // Perform any additional logic or operations for a successful transaction
-        }
-      }).toCompletableFuture().join();
-    } finally {
-      // Cleanup resources, close connections, etc.
+      ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
+          .setStatus("EXCEPTION")
+          .setDescription(e.getLocalizedMessage())
+          .build();
+      LOG.info("StatusCodes Exception LOH");
+      return cpHttpResponse;
     }
-
-    return Empty.getDefaultInstance();
-
   }
 
   private static String transformAttributeToJson(ChannelProduct channelProduct) {
     ObjectMapper objectMapper = new ObjectMapper();
-
     try {
-
       // Create a map to store the attributes dynamically
       Map<String, Object> parentMap = new HashMap<>();
 
@@ -139,18 +119,17 @@ public class ChannelProductService {
         optionsGroupList.add(groupMap);
       }
 
-      Map<String, Object> result =  parentMap;//new HashMap<>();
+      Map<String, Object> result = parentMap;// new HashMap<>();
       if (variantsGroupList.size() > 0) {
         int deepLevel = 0;
         for (ChannelProductVariant variant : channelProduct.getChannelProductVariantGroupList().get(0)
             .getChannelProductVariantList()) {
           if (!variant.getChnlVrntType().trim().substring(variant.getChnlVrntType().trim().length() - 2).equals("[]")) {
             int lengthOfArray = variant.getChnlVrntName().split("\\.").length;
-            deepLevel = lengthOfArray > 0 ? lengthOfArray - 1: 0; 
+            deepLevel = lengthOfArray > 0 ? lengthOfArray - 1 : 0;
             break;
           }
         }
-        // result = utils.finalMergeMaps(parentMap, utils.mergeMaps(variantsGroupList, deepLevel));
         result = utils.finalMergeMaps(result, utils.mergeMaps(variantsGroupList, deepLevel));
       }
       if (optionsGroupList.size() > 0) {
@@ -159,7 +138,7 @@ public class ChannelProductService {
             .getChannelProductOptionList()) {
           if (!option.getChnlOptnType().trim().substring(option.getChnlOptnType().trim().length() - 2).equals("[]")) {
             int lengthOfArray = option.getChnlOptnName().split("\\.").length;
-            deepLevel = lengthOfArray > 0 ? lengthOfArray - 1: 0; 
+            deepLevel = lengthOfArray > 0 ? lengthOfArray - 1 : 0;
             break;
           }
         }
@@ -172,8 +151,27 @@ public class ChannelProductService {
       return json;
     } catch (JsonProcessingException e) {
       e.printStackTrace(); // Handle the exception as needed
-      return "";
+      return e.getMessage();
+
     }
   }
 
 }
+
+// class FailedResponse {
+// private HttpResponse response;
+// private Exception exception;
+
+// public FailedResponse(HttpResponse response, Exception exception) {
+// this.response = response;
+// this.exception = exception;
+// }
+
+// public HttpResponse getResponse() {
+// return response;
+// }
+
+// public Exception getException() {
+// return exception;
+// }
+// }

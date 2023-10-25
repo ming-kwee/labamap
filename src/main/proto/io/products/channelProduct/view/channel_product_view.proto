@@ -4,9 +4,11 @@ package io.products.channelProduct.view;
 option java_outer_classname = "ChannelProductViewModel";
 
 import "io/products/channelProduct/domain/channel_product_domain.proto";
+import "io/products/channelProduct/api/channel_product_api.proto";
 import "google/api/annotations.proto";
 import "kalix/annotations.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
 
 service ChannelProductView {
     option (kalix.codegen) = {
@@ -14,9 +16,9 @@ service ChannelProductView {
     };
 
 
-    rpc GetChannelProducts(ByRoleRequest) returns (ByRoleResponse) {
+    rpc GetChannelProducts(ByRoleRequest) returns (stream ByRoleResponse) {
       option (kalix.method).view.query = {
-        query: "SELECT * AS channel_products FROM channel_products"
+        query: "SELECT * AS channel_products FROM channel_products where isDeleted = false"
       };
       option (google.api.http) = {
         post: "/channel_products",
@@ -24,15 +26,37 @@ service ChannelProductView {
       };
     }
 
-    rpc UpdateChannelProduct(domain.ChannelProductState) returns (domain.ChannelProductState) {
+    rpc ProcessChannelProductCreated(domain.ChannelProductCreated) returns (api.ChannelProduct) { 
       option (kalix.method).eventing.in = {
-        value_entity: "channel_products"
+        event_sourced_entity: "channel_products" 
       };
       option (kalix.method).view.update = {
         table: "channel_products"
-        // transform_updates: true
+        transform_updates: true
       };
     }
+  
+    rpc ProcessChannelProductDeleted(domain.ChannelProductDeleted) returns (api.ChannelProduct) { 
+      option (kalix.method).eventing.in = {
+        event_sourced_entity: "channel_products" 
+      };
+      option (kalix.method).view.update = {
+        table: "channel_products"
+        transform_updates: true
+      };
+    }
+
+
+
+    rpc IgnoreOtherEvents(google.protobuf.Any) returns (api.ChannelProduct) {
+      option (kalix.method).eventing.in = {
+        event_sourced_entity: "channel_products"
+        ignore: true
+       };
+    };
+
+
+
 
     // rpc DeleteChannelProduct(google.protobuf.Empty) returns (domain.ChannelProductState) {
     //   option (kalix.method).eventing.in = {
@@ -43,6 +67,13 @@ service ChannelProductView {
     //     table: "channel_products"
     //   };
     // }
+
+    // rpc OnDeleteState (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    //   option (kalix.method).eventing.in = {
+    //     value_entity: "counter"
+    //     handle_deletes: true // <4>
+    //   };
+    // }
   
 
   }
@@ -51,6 +82,6 @@ service ChannelProductView {
   }
 
   message ByRoleResponse {
-    repeated domain.ChannelProductState channel_products = 1;
+    api.ChannelProduct channel_products = 1;
   }
 

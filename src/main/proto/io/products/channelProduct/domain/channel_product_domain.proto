@@ -6,43 +6,54 @@ option java_outer_classname = "ChannelProductDomain";
 
 message ChannelProductState {
     string id = 1;
-    string product_id = 2;
-    string channel_id = 3;
-    repeated ChannelProductAttribute channel_product_attribute = 4;
-    repeated ChannelProductVariantGroup channel_product_variant_group = 5;
-    repeated ChannelProductOptionGroup channel_product_option_group = 6;
+    string productId = 2;
+    string channelId = 3;
+    repeated ChannelProductAttribute channelProductAttribute = 4;
+    repeated ChannelProductVariantGroup channelProductVariantGroup = 5;
+    repeated ChannelProductOptionGroup channelProductOptionGroup = 6;
+    bool isDeleted = 7;
 }
     
+
+message ChannelProductCreated {
+    ChannelProductState channelProduct = 1;
+}
+
+message ChannelProductDeleted {
+    ChannelProductState channelProduct = 1;
+}
+
+
 message ChannelProductAttribute {
-    string attr_id = 1;
-    string chnl_attr_name = 2;
-    string chnl_attr_type = 3;
+    string attrId = 1;
+    string chnlAttrName = 2;
+    string chnlAttrType = 3;
     string value = 4;
-    bool is_common = 5;
+    bool isCommon = 5;
 }
   
 
 message ChannelProductVariantGroup {
-    repeated ChannelProductVariant channel_product_variant = 1;
+    repeated ChannelProductVariant channelProductVariant = 1;
 }
  
 
 message ChannelProductVariant {
-    string vrnt_id = 1;
-    string chnl_vrnt_name = 2;
-    string chnl_vrnt_type = 3;    
+    string vrntId = 1;
+    string chnlVrntName = 2;
+    string chnlVrntType = 3;    
     string value = 4;
 }
 
  
 message ChannelProductOptionGroup {
-    repeated ChannelProductOption channel_product_option = 1;
+    repeated ChannelProductOption channelProductOption = 1;
 }
 
 message ChannelProductOption {
-    string optn_id = 1;
-    string chnl_optn_name = 2;
-    string chnl_optn_type = 3;    
+    string optnId = 1;
+    string chnlOptnName = 2;
+    string chnlOptnType = 3;    
     string value = 4;
 }
 

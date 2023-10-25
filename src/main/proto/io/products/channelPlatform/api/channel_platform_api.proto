@@ -29,7 +29,7 @@ service ChannelPlatformService {
 
     rpc UpdateChannelPlatform(ChannelPlatform) returns (google.protobuf.Empty);
 
-    rpc DeleteChannelPlatform(DeleteChannelProductRequest) returns (google.protobuf.Empty);
+    rpc DeleteChannelPlatform(ChannelPlatformRequest) returns (google.protobuf.Empty);
 
 }
 
@@ -42,6 +42,6 @@ message ChannelPlatform {
 message GetChannelPlatformRequest {
     string channel_id = 1 [(kalix.field).entity_key = true];
 }
-message DeleteChannelProductRequest {
+message ChannelPlatformRequest {
     string channel_id = 1 [(kalix.field).entity_key = true];
 }
