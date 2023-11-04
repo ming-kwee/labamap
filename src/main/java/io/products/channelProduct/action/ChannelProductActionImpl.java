@@ -47,7 +47,6 @@ import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup;
 import io.products.channelProduct.api.ChannelProductApi.DeleteChannelProductRequest;
 import io.products.channelProduct.service.ChannelProductService;
-import io.products.product.api.ProductApi;
 import kalix.javasdk.DeferredCall;
 import kalix.javasdk.action.Action.Effect;
 import kalix.javasdk.action.ActionCreationContext;

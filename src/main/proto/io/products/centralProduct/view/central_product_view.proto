@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package io.products.centralProduct.view;
+option java_outer_classname = "CentralProductViewModel";
+
+import "io/products/centralProduct/domain/central_product_domain.proto";
+import "io/products/centralProduct/api/central_product_api.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
+
+service CentralProductView {
+    option (kalix.codegen) = {
+      view: {}
+    };
+
+
+    rpc GetCentralProducts(ByRoleRequest) returns (stream ByRoleResponse) {
+      option (kalix.method).view.query = {
+        query: "SELECT * AS central_products FROM central_products where isDeleted = false"
+      };
+      option (google.api.http) = {
+        post: "/central_products",
+        body: "*"
+      };
+    }
+
+    rpc ProcessCentralProductCreated(domain.CentralProductCreated) returns (api.CentralProduct) { 
+      option (kalix.method).eventing.in = {
+        event_sourced_entity: "central_products" 
+      };
+      option (kalix.method).view.update = {
+        table: "central_products"
+        transform_updates: true
+      };
+    }
+  
+    rpc ProcessCentralProductDeleted(domain.CentralProductDeleted) returns (api.CentralProduct) { 
+      option (kalix.method).eventing.in = {
+        event_sourced_entity: "central_products" 
+      };
+      option (kalix.method).view.update = {
+        table: "central_products"
+        transform_updates: true
+      };
+    }
+
+
+
+    rpc IgnoreOtherEvents(google.protobuf.Any) returns (api.CentralProduct) {
+      option (kalix.method).eventing.in = {
+        event_sourced_entity: "central_products"
+        ignore: true
+       };
+    };
+
+  
+
+  }
+  
+  message ByRoleRequest {
+  }
+
+  message ByRoleResponse {
+    api.CentralProduct central_products = 1;
+  }

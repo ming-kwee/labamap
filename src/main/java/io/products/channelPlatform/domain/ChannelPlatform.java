@@ -6,7 +6,6 @@ import com.google.protobuf.Empty;
 
 import io.grpc.Status;
 import io.products.channelPlatform.api.ChannelPlatformApi;
-import io.products.product.domain.ProductDomain;
 import kalix.javasdk.valueentity.ValueEntityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

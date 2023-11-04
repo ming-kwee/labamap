@@ -41,13 +41,13 @@ labamap_pid=$!
 
 sleep 30
 
-bash set_attributes.sh
+# bash set_attributes.sh
 
-bash set_product.sh
+# bash set_product.sh
 
-bash set_product_attributes.sh
+# bash set_product_attributes.sh
 
-bash set_channel_product_attributes.sh
+# bash set_channel_product_attributes.sh
 
 bash set_channel_attributes_mapping.sh
 

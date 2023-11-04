@@ -2,6 +2,9 @@ package io.products;
 
 import io.products.attribute.domain.Attribute;
 import io.products.attribute.view.AttributeViewImpl;
+import io.products.centralProduct.action.CentralProductActionImpl;
+import io.products.centralProduct.domain.CentralProduct;
+import io.products.centralProduct.view.CentralProductViewImpl;
 import io.products.channelAttributeMapping.domain.ChannelAttributeMapping;
 import io.products.channelAttributeMapping.view.ChannelAttributeMappingViewImpl;
 import io.products.channelMapping.domain.ChannelMapping;
@@ -27,9 +30,8 @@ import io.products.channelPlatform.view.ChannelPlatformViewImpl;
 import io.products.channelProduct.action.ChannelProductActionImpl;
 import io.products.channelProduct.domain.ChannelProduct;
 import io.products.channelProduct.view.ChannelProductViewImpl;
-import io.products.product.action.ProductActionImpl;
-import io.products.product.domain.Product;
-import io.products.product.view.ProductViewImpl;
+
+
 public final class Main {
 
   private static final Logger LOG = LoggerFactory.getLogger(Main.class);
@@ -43,22 +45,21 @@ public final class Main {
     // `new Kalix()` instance.
     return KalixFactory.withComponents(
         Attribute::new,
+        CentralProduct::new,
         ChannelAttributeMapping::new,
         ChannelMapping::new,
         ChannelPlatform::new,
         ChannelProduct::new,
-        Product::new,
         Variant::new,
         AttributeViewImpl::new,
+        CentralProductActionImpl::new,
+        CentralProductViewImpl::new,
         ChannelAttributeMappingViewImpl::new,
         ChannelMappingViewImpl::new,
         ChannelPlatformViewImpl::new,
         ChannelProductActionImpl::new,
-        ChannelProductViewImpl::new,       
-        ProductActionImpl::new,
-        ProductViewImpl::new,
-        VariantViewImpl::new
-    );
+        ChannelProductViewImpl::new,
+        VariantViewImpl::new);
   }
 
   //

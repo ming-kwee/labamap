@@ -5,10 +5,10 @@ post_attribute()
   cat <<EOF
 {
   
-    "attribute_id": "01",
-    "attribute_name": "nama_produk",
-    "attribute_type": "text",
-    "is_common": true
+    "attributeId": "01",
+    "attributeName": "nama_produk",
+    "attributeType": "text",
+    "isCommon": true
 }
 EOF
 }
@@ -26,10 +26,10 @@ post_attribute()
   cat <<EOF
 {
   
-    "attribute_id": "02",
-    "attribute_name": "deskripsi_pendek",
-    "attribute_type": "text",
-    "is_common": true
+    "attributeId": "02",
+    "attributeName": "deskripsi_pendek",
+    "attributeType": "text",
+    "isCommon": true
 }
 EOF
 }
@@ -48,10 +48,10 @@ post_attribute()
   cat <<EOF
 {
   
-    "attribute_id": "03",
-    "attribute_name": "vendor",
-    "attribute_type": "text",
-    "is_common": false
+    "attributeId": "03",
+    "attributeName": "vendor",
+    "attributeType": "text",
+    "isCommon": false
 }
 EOF
 }
@@ -72,10 +72,10 @@ post_attribute()
   cat <<EOF
 {
   
-    "attribute_id": "04",
-    "attribute_name": "tipe_produk",
-    "attribute_type": "text",
-    "is_common": false
+    "attributeId": "04",
+    "attributeName": "tipe_produk",
+    "attributeType": "text",
+    "isCommon": false
 }
 EOF
 }
@@ -95,10 +95,10 @@ post_attribute()
   cat <<EOF
 {
   
-    "attribute_id": "05",
-    "attribute_name": "status",
-    "attribute_type": "text",
-    "is_common": false
+    "attributeId": "05",
+    "attributeName": "status",
+    "attributeType": "text",
+    "isCommon": false
 }
 EOF
 }

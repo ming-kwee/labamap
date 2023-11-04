@@ -5,8 +5,8 @@ package io.products.attribute.domain;
 option java_outer_classname = "AttributeDomain";
 
 message AttributeState {
-    string attribute_id = 1;
-    string attribute_name = 2;
-    string attribute_type = 3;
-    bool is_common = 4;
+    string attributeId = 1;
+    string attributeName = 2;
+    string attributeType = 3;
+    bool isCommon = 4;
 }

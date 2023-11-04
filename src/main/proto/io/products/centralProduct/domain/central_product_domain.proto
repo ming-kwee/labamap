@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package io.products.centralProduct.domain;
+
+option java_outer_classname = "CentralProductDomain";
+
+message CentralProductState {
+    string id = 1;
+    string productId = 2;
+    string centralId = 3;
+    repeated CentralProductAttribute centralProductAttribute = 4;
+    repeated CentralProductVariantGroup centralProductVariantGroup = 5;
+    repeated CentralProductOptionGroup centralProductOptionGroup = 6;
+    bool isDeleted = 7;
+}
+    
+
+message CentralProductCreated {
+    CentralProductState centralProduct = 1;
+}
+
+message CentralProductDeleted {
+    CentralProductState centralProduct = 1;
+}
+
+
+message CentralProductAttribute {
+    string attrId = 1;
+    string cntrlAttrName = 2;
+    string cntrlAttrType = 3;
+    string value = 4;
+    bool isCommon = 5;
+}
+  
+
+message CentralProductVariantGroup {
+    repeated CentralProductVariant centralProductVariant = 1;
+}
+ 
+
+message CentralProductVariant {
+    string vrntId = 1;
+    string cntrlVrntName = 2;
+    string cntrlVrntType = 3;    
+    string value = 4;
+}
+
+ 
+message CentralProductOptionGroup {
+    repeated CentralProductOption centralProductOption = 1;
+}
+
+message CentralProductOption {
+    string optnId = 1;
+    string cntrlOptnName = 2;
+    string cntrlOptnType = 3;    
+    string value = 4;
+}
+

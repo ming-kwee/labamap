@@ -35,7 +35,7 @@ public class ChannelAttributeMapping extends AbstractChannelAttributeMapping {
   }
 
   private Optional<Effect<Empty>> reject(ChannelAttributeMappingDomain.ChannelAttributeMappingState currentState, ChannelAttributeMappingApi.ChannelAttributeMapping command) {
-    if (currentState.getChannelAttributeMappingId().equals(command.getChannelAttributeMappingId())) {
+    if (currentState.getMappingId().equals(command.getMappingId())) {
       return Optional.of(effects().error("Channel Attribute Mapping is already exists!!", Status.Code.NOT_FOUND));
     } else {
       return Optional.empty();
@@ -44,10 +44,13 @@ public class ChannelAttributeMapping extends AbstractChannelAttributeMapping {
 
   private ChannelAttributeMappingDomain.ChannelAttributeMappingState convertToDomain(ChannelAttributeMappingApi.ChannelAttributeMapping channelAttributeMapping) {
     return ChannelAttributeMappingDomain.ChannelAttributeMappingState.newBuilder()
-            .setChannelAttributeMappingId(channelAttributeMapping.getChannelAttributeMappingId())
+            .setMappingId(channelAttributeMapping.getMappingId())
             .setAttributeId(channelAttributeMapping.getAttributeId())
             .setChannelId(channelAttributeMapping.getChannelId())
-            .setChannelAttributeName(channelAttributeMapping.getChannelAttributeName())
+            .setDestinationField(channelAttributeMapping.getDestinationField())
+            .setGroup(channelAttributeMapping.getGroup())
+            .setIsCommon(channelAttributeMapping.getIsCommon())
+            .setType(channelAttributeMapping.getType())
             .build();
   }
 

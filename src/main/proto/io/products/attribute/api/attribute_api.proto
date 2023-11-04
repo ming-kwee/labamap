@@ -34,15 +34,15 @@ service AttributeService {
 }
 
 message Attribute {
-    string attribute_id = 1  [(kalix.field).entity_key = true];
-    string attribute_name = 2;
-    string attribute_type = 3;
-    bool is_common = 4;
+    string attributeId = 1  [(kalix.field).entity_key = true];
+    string attributeName = 2;
+    string attributeType = 3;
+    bool isCommon = 4;
 }
 
 message GetAttributeRequest {
-    string attribute_id = 1 [(kalix.field).entity_key = true];
+    string attributeId = 1 [(kalix.field).entity_key = true];
 }
 message DeleteAttributeRequest {
-    string attribute_id = 1 [(kalix.field).entity_key = true];
+    string attributeId = 1 [(kalix.field).entity_key = true];
 }

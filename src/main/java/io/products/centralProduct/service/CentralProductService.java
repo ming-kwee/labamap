@@ -1,4 +1,4 @@
-package io.products.channelProduct.service;
+package io.products.centralProduct.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,29 +17,27 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.StatusCodes;
 import akka.http.javadsl.model.headers.RawHeader;
 import io.grpc.StatusException;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProduct;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProductOption;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProductOptionGroup;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup;
+import io.products.centralProduct.api.CentralProductApi.CentralProduct;
+import io.products.centralProduct.api.CentralProductApi.CentralProductAttribute;
+import io.products.centralProduct.api.CentralProductApi.CentralProductHttpResponse;
+import io.products.centralProduct.api.CentralProductApi.CentralProductOption;
+import io.products.centralProduct.api.CentralProductApi.CentralProductOptionGroup;
+import io.products.centralProduct.api.CentralProductApi.CentralProductVariant;
+import io.products.centralProduct.api.CentralProductApi.CentralProductVariantGroup;
 import io.products.shared.utils;
 
-public class ChannelProductService {
-  private static final Logger LOG = LoggerFactory.getLogger(ChannelProductService.class);
+public class CentralProductService {
+  private static final Logger LOG = LoggerFactory.getLogger(CentralProductService.class);
 
   
-  public static ChannelProductHttpResponse createChannelProduct(ChannelProduct channelProduct) throws StatusException {
+  public static CentralProductHttpResponse createCentralProduct(CentralProduct centralProduct) throws StatusException {
     ActorSystem actorSystem = ActorSystem.create("MyActorSystem");
     Http http = Http.get(actorSystem);
     LOG.info("Starting the actorSystem service");
-    String postEndpoint = "https://labamap.myshopify.com/admin/api/2023-04/products.jsn";
+    String postEndpoint = "https://asia-southeast2-labamap-ab9a2.cloudfunctions.net/insertDataChannel";
 
-    // "https://labamap.myshopify.com/admin/api/2023-04/products.jsn";
-    
     String accessToken = "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";
-    String requestBody = transformAttributeToJson(channelProduct);
+    String requestBody = transformAttributeToJson(centralProduct);
     LOG.info("transformAttributeToJson " + requestBody);
 
     HttpRequest request = HttpRequest.POST(postEndpoint)
@@ -62,13 +60,13 @@ public class ChannelProductService {
       LOG.info("LOH " + response.status().intValue());
 
       if (response.status().intValue() >= 400) {
-        ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
+        CentralProductHttpResponse cpHttpResponse = CentralProductHttpResponse.newBuilder()
             .setStatus("FAIL")
             .setDescription("Gagal simpan")
             .build();
         return cpHttpResponse;
       } else {
-        ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
+        CentralProductHttpResponse cpHttpResponse = CentralProductHttpResponse.newBuilder()
             .setStatus("OK")
             .setDescription("Berhasil simpan")
             .build();
@@ -77,7 +75,7 @@ public class ChannelProductService {
 
     } catch (Exception e) {
 
-      ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
+      CentralProductHttpResponse cpHttpResponse = CentralProductHttpResponse.newBuilder()
           .setStatus("EXCEPTION")
           .setDescription(e.getLocalizedMessage())
           .build();
@@ -86,34 +84,34 @@ public class ChannelProductService {
     }
   }
 
-  private static String transformAttributeToJson(ChannelProduct channelProduct) {
+  private static String transformAttributeToJson(CentralProduct centralProduct) {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       // Create a map to store the attributes dynamically
       Map<String, Object> parentMap = new HashMap<>();
 
       // Convert attributes to a map and add to the parent map
-      for (ChannelProductAttribute attribute : channelProduct.getChannelProductAttributeList()) {
-        utils.addAttribute_toMap(parentMap, attribute.getChnlAttrName(), attribute.getValue(),
-            attribute.getChnlAttrType());
+      for (CentralProductAttribute attribute : centralProduct.getCentralProductAttributeList()) {
+        utils.addAttribute_toMap(parentMap, attribute.getCntrlAttrName(), attribute.getValue(),
+            attribute.getCntrlAttrType());
       }
 
       List<Map<String, Object>> variantsGroupList = new ArrayList<>();
-      for (ChannelProductVariantGroup variantGroup : channelProduct.getChannelProductVariantGroupList()) {
+      for (CentralProductVariantGroup variantGroup : centralProduct.getCentralProductVariantGroupList()) {
         Map<String, Object> groupMap = new HashMap<>();
-        for (ChannelProductVariant variant : variantGroup.getChannelProductVariantList()) {
-          groupMap = utils.addVariantOrOption_toGroupMap(groupMap, variant.getChnlVrntName(), variant.getValue(),
-              variant.getChnlVrntType());
+        for (CentralProductVariant variant : variantGroup.getCentralProductVariantList()) {
+          groupMap = utils.addVariantOrOption_toGroupMap(groupMap, variant.getCntrlVrntName(), variant.getValue(),
+              variant.getCntrlVrntType());
         }
         variantsGroupList.add(groupMap);
       }
 
       List<Map<String, Object>> optionsGroupList = new ArrayList<>();
-      for (ChannelProductOptionGroup optionGroup : channelProduct.getChannelProductOptionGroupList()) {
+      for (CentralProductOptionGroup optionGroup : centralProduct.getCentralProductOptionGroupList()) {
         Map<String, Object> groupMap = new HashMap<>();
-        for (ChannelProductOption option : optionGroup.getChannelProductOptionList()) {
-          groupMap = utils.addVariantOrOption_toGroupMap(groupMap, option.getChnlOptnName(), option.getValue(),
-              option.getChnlOptnType());
+        for (CentralProductOption option : optionGroup.getCentralProductOptionList()) {
+          groupMap = utils.addVariantOrOption_toGroupMap(groupMap, option.getCntrlOptnName(), option.getValue(),
+              option.getCntrlOptnType());
         }
         optionsGroupList.add(groupMap);
       }
@@ -121,10 +119,10 @@ public class ChannelProductService {
       Map<String, Object> result = parentMap;// new HashMap<>();
       if (variantsGroupList.size() > 0) {
         int deepLevel = 0;
-        for (ChannelProductVariant variant : channelProduct.getChannelProductVariantGroupList().get(0)
-            .getChannelProductVariantList()) {
-          if (!variant.getChnlVrntType().trim().substring(variant.getChnlVrntType().trim().length() - 2).equals("[]")) {
-            int lengthOfArray = variant.getChnlVrntName().split("\\.").length;
+        for (CentralProductVariant variant : centralProduct.getCentralProductVariantGroupList().get(0)
+            .getCentralProductVariantList()) {
+          if (!variant.getCntrlVrntType().trim().substring(variant.getCntrlVrntType().trim().length() - 2).equals("[]")) {
+            int lengthOfArray = variant.getCntrlVrntName().split("\\.").length;
             deepLevel = lengthOfArray > 0 ? lengthOfArray - 1 : 0;
             break;
           }
@@ -133,10 +131,10 @@ public class ChannelProductService {
       }
       if (optionsGroupList.size() > 0) {
         int deepLevel = 0;
-        for (ChannelProductOption option : channelProduct.getChannelProductOptionGroupList().get(0)
-            .getChannelProductOptionList()) {
-          if (!option.getChnlOptnType().trim().substring(option.getChnlOptnType().trim().length() - 2).equals("[]")) {
-            int lengthOfArray = option.getChnlOptnName().split("\\.").length;
+        for (CentralProductOption option : centralProduct.getCentralProductOptionGroupList().get(0)
+            .getCentralProductOptionList()) {
+          if (!option.getCntrlOptnType().trim().substring(option.getCntrlOptnType().trim().length() - 2).equals("[]")) {
+            int lengthOfArray = option.getCntrlOptnName().split("\\.").length;
             deepLevel = lengthOfArray > 0 ? lengthOfArray - 1 : 0;
             break;
           }
@@ -156,21 +154,3 @@ public class ChannelProductService {
   }
 
 }
-
-// class FailedResponse {
-// private HttpResponse response;
-// private Exception exception;
-
-// public FailedResponse(HttpResponse response, Exception exception) {
-// this.response = response;
-// this.exception = exception;
-// }
-
-// public HttpResponse getResponse() {
-// return response;
-// }
-
-// public Exception getException() {
-// return exception;
-// }
-// }
