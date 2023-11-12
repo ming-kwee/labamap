@@ -17,7 +17,7 @@ service ChannelAttributeMappingView {
 
   rpc GetChannelAttributeMappings(ByChannelIdRequest) returns (ByChannelIdResponse) {
     option (kalix.method).view.query = {
-      query: "SELECT * AS channelattributemappings FROM channelattributemappings"
+      query: "SELECT * AS channelattributemappings FROM channelattributemappings WHERE channelId = :channelId"
     };
     option (google.api.http) = {
       post: "/channel_attribute_mappings",
@@ -39,7 +39,7 @@ service ChannelAttributeMappingView {
 }
 
 message ByChannelIdRequest {
-  string ProductId = 1;
+  string channelId = 1;
 }
 
 message ByChannelIdResponse {

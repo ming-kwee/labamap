@@ -15,7 +15,7 @@ service ChannelMappingView {
   };
 
 
-  rpc GetChannelMappings(ByRoleRequest) returns (ByRoleResponse) {
+  rpc GetChannelMappings(ByChannelIdRequest) returns (ByRoleResponse) {
     option (kalix.method).view.query = {
       query: "SELECT * AS channelmappings FROM channelmappings"
     };
@@ -48,7 +48,7 @@ service ChannelMappingView {
 
 }
 
-message ByRoleRequest {
+message ByChannelIdRequest {
 }
 
 message ByRoleResponse {

@@ -22,10 +22,15 @@ service AttributeService {
       option (google.api.http) = {
         post: "/create_attribute"
         body: "*"
-    };
-    };
+      };
+    }
     
-    rpc GetAttribute(GetAttributeRequest) returns (Attribute);
+    rpc GetAttribute(GetAttributeRequest) returns (Attribute){
+      option (google.api.http) = {
+        post: "/get_attribute"
+        body: "*"
+      };
+    }
 
     rpc UpdateAttribute(Attribute) returns (google.protobuf.Empty);
 
