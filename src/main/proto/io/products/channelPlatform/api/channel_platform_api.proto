@@ -19,6 +19,7 @@ service ChannelPlatformService {
     };
   
     rpc CreateChannelPlatform(ChannelPlatform) returns (google.protobuf.Empty){
+      // option (kalix.method).entity.key_generator = VERSION_4_UUID;
       option (google.api.http) = {
         post: "/create_channel"
         body: "*"

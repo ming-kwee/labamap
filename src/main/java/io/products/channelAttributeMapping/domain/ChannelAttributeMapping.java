@@ -5,9 +5,11 @@ import io.grpc.Status;
 import io.products.channelAttributeMapping.api.ChannelAttributeMappingApi;
 import io.products.channelPlatform.api.ChannelPlatformApi;
 import io.products.channelPlatform.domain.ChannelPlatformDomain;
+import kalix.javasdk.action.Action.Effect;
 import kalix.javasdk.valueentity.ValueEntityContext;
 
 import java.util.Optional;
+import java.util.UUID;
 
 // This class was initially generated based on the .proto definition by Kalix tooling.
 // This is the implementation for the Value Entity Service described in your io/products/channelAttributeMapping/api/channel_attribute_mapping_api.proto file.
@@ -44,7 +46,7 @@ public class ChannelAttributeMapping extends AbstractChannelAttributeMapping {
 
   private ChannelAttributeMappingDomain.ChannelAttributeMappingState convertToDomain(ChannelAttributeMappingApi.ChannelAttributeMapping channelAttributeMapping) {
     return ChannelAttributeMappingDomain.ChannelAttributeMappingState.newBuilder()
-            .setMappingId(channelAttributeMapping.getMappingId())
+            .setMappingId(UUID.randomUUID().toString())
             .setAttributeId(channelAttributeMapping.getAttributeId())
             .setChannelId(channelAttributeMapping.getChannelId())
             .setDestinationField(channelAttributeMapping.getDestinationField())

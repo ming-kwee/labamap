@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
@@ -73,16 +74,14 @@ public class CentralProductActionImpl extends AbstractCentralProductAction {
     List<CentralAttribute> actCntrlAttributeList = actCentralProduct.getCentralAttributesList().stream()
         .collect(Collectors.toList());
     List<CentralProductAttribute> apiCntrlProdAttributeList = new ArrayList<>();
+    centralProductBuilder.setId(UUID.randomUUID().toString());
     for (CentralAttribute actCntrlAttribute : actCntrlAttributeList) {
-
       // Create Product common fields
       if (actCntrlAttribute.getIsCommon() == true) {
         for (FieldDescriptor field : fields) {
           if (field.getName().equals(actCntrlAttribute.getCntrlAttrName())) {
             String propName = utils.replaceAfterUnderscore(actCntrlAttribute.getCntrlAttrName());
-            if ("id".equals(field.getName())) {
-              centralProductBuilder.setId(actCntrlAttribute.getCntrlAttrValue());
-            } else if ("productId".equals(field.getName())) {
+            if ("productId".equals(field.getName())) {
               centralProductBuilder.setProductId(actCntrlAttribute.getCntrlAttrValue());
             } else if ("centralId".equals(field.getName())) {
               centralProductBuilder.setCentralId(actCntrlAttribute.getCntrlAttrValue());

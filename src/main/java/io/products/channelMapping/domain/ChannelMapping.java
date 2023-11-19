@@ -5,9 +5,11 @@ import io.grpc.Status;
 import io.products.channelMapping.api.ChannelMappingApi;
 import io.products.channelPlatform.api.ChannelPlatformApi;
 import io.products.channelPlatform.domain.ChannelPlatformDomain;
+import kalix.javasdk.action.Action.Effect;
 import kalix.javasdk.valueentity.ValueEntityContext;
 
 import java.util.Optional;
+import java.util.UUID;
 
 // This class was initially generated based on the .proto definition by Kalix tooling.
 // This is the implementation for the Value Entity Service described in your io/products/channelMapping/api/channel_mapping_api.proto file.
@@ -44,7 +46,7 @@ public class ChannelMapping extends AbstractChannelMapping {
 
   private ChannelMappingDomain.ChannelMappingState convertToDomain(ChannelMappingApi.ChannelMapping channelMapping) {
     return ChannelMappingDomain.ChannelMappingState .newBuilder()
-            .setChannelMapId(channelMapping.getChannelId())
+            .setChannelMapId(UUID.randomUUID().toString())
             .setProductId(channelMapping.getProductId())
             .setChannelId(channelMapping.getChannelId())
             .build();

@@ -34,7 +34,7 @@ public class ChannelProductService {
     ActorSystem actorSystem = ActorSystem.create("MyActorSystem");
     Http http = Http.get(actorSystem);
     LOG.info("Starting the actorSystem service");
-    String postEndpoint = "https://labamap.myshopify.com/admin/api/2023-04/products.jsn";
+    String postEndpoint = "https://labamap.myshopify.com/admin/api/2023-04/products.json";
 
     // "https://labamap.myshopify.com/admin/api/2023-04/products.jsn";
     

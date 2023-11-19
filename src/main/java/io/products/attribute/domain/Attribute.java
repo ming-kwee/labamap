@@ -1,11 +1,13 @@
 package io.products.attribute.domain;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.grpc.Status;
 import com.google.protobuf.Empty;
 import io.products.attribute.api.AttributeApi;
+import kalix.javasdk.action.Action.Effect;
 import kalix.javasdk.valueentity.ValueEntityContext;
 
 // This class was initially generated based on the .proto definition by Kalix tooling.
@@ -15,6 +17,8 @@ import kalix.javasdk.valueentity.ValueEntityContext;
 // or delete it so it is regenerated as needed.
 
 public class Attribute extends AbstractAttribute {
+  private static final Logger LOG = LoggerFactory.getLogger(Attribute.class);
+
   @SuppressWarnings("unused")
   private final String entityId;
 
@@ -41,9 +45,15 @@ public class Attribute extends AbstractAttribute {
 
   private Optional<Effect<Empty>> reject(AttributeDomain.AttributeState currentState, io.products.attribute.api.AttributeApi.Attribute command) {
 
+
+    LOG.info("CURRENT_STATE " + currentState);
+    LOG.info("COMMAND " + command);
+
+
     if (currentState.getAttributeId().equals(command.getAttributeId())) {
       return Optional.of(effects().error("Attribute is already exists!!", Status.Code.NOT_FOUND));
-
+    } else if (currentState.getAttributeName().equals(command.getAttributeName())) {
+      return Optional.of(effects().error("Attribute Name is already exists!!", Status.Code.NOT_FOUND));
     } else {
       return Optional.empty();
     }

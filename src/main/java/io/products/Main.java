@@ -1,5 +1,6 @@
 package io.products;
 
+import io.products.attribute.action.AttributeActionImpl;
 import io.products.attribute.domain.Attribute;
 import io.products.attribute.view.AttributeViewImpl;
 import io.products.centralProduct.action.CentralProductActionImpl;
@@ -51,6 +52,7 @@ public final class Main {
         ChannelPlatform::new,
         ChannelProduct::new,
         Variant::new,
+        AttributeActionImpl::new,
         AttributeViewImpl::new,
         CentralProductActionImpl::new,
         CentralProductViewImpl::new,

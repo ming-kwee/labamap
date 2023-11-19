@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
@@ -73,16 +74,14 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     List<ChannelAttribute> actChnlAttributeList = actChannelProduct.getChannelAttributesList().stream()
         .collect(Collectors.toList());
     List<ChannelProductAttribute> apiChnlProdAttributeList = new ArrayList<>();
+    channelProductBuilder.setId(UUID.randomUUID().toString());
     for (ChannelAttribute actChnlAttribute : actChnlAttributeList) {
-
       // Create Product common fields
       if (actChnlAttribute.getIsCommon() == true) {
         for (FieldDescriptor field : fields) {
           if (field.getName().equals(actChnlAttribute.getChnlAttrName())) {
             String propName = utils.replaceAfterUnderscore(actChnlAttribute.getChnlAttrName());
-            if ("id".equals(field.getName())) {
-              channelProductBuilder.setId(actChnlAttribute.getChnlAttrValue());
-            } else if ("productId".equals(field.getName())) {
+            if ("productId".equals(field.getName())) {
               channelProductBuilder.setProductId(actChnlAttribute.getChnlAttrValue());
             } else if ("channelId".equals(field.getName())) {
               channelProductBuilder.setChannelId(actChnlAttribute.getChnlAttrValue());

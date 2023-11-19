@@ -19,6 +19,7 @@ service AttributeService {
     };
   
     rpc CreateAttribute(Attribute) returns (google.protobuf.Empty){
+      // option (kalix.method).entity.key_generator = VERSION_4_UUID;
       option (google.api.http) = {
         post: "/create_attribute"
         body: "*"
@@ -32,15 +33,23 @@ service AttributeService {
       };
     }
 
-    rpc UpdateAttribute(Attribute) returns (google.protobuf.Empty);
+    rpc UpdateAttribute(Attribute) returns (google.protobuf.Empty){
+      // option (kalix.method).entity.key_generator = VERSION_4_UUID;
 
-    rpc DeleteAttribute(DeleteAttributeRequest) returns (google.protobuf.Empty);
+    }
+
+    rpc DeleteAttribute(DeleteAttributeRequest) returns (google.protobuf.Empty){
+      // option (kalix.method).entity.key_generator = VERSION_4_UUID;
+    }
 
 }
 
+
+
+    //
 message Attribute {
-    string attributeId = 1  [(kalix.field).entity_key = true];
-    string attributeName = 2;
+    string attributeId = 1 [(kalix.field).entity_key = true];  
+    string attributeName = 2 [(kalix.field).entity_key = true];
     string attributeType = 3;
     bool isCommon = 4;
 }
@@ -49,5 +58,6 @@ message GetAttributeRequest {
     string attributeId = 1 [(kalix.field).entity_key = true];
 }
 message DeleteAttributeRequest {
-    string attributeId = 1 [(kalix.field).entity_key = true];
+    string attributeId = 1 [(kalix.field).entity_key = true]; 
 }
+

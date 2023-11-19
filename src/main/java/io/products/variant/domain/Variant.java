@@ -3,9 +3,11 @@ package io.products.variant.domain;
 import com.google.protobuf.Empty;
 import io.grpc.Status;
 import io.products.variant.api.VariantApi;
+import kalix.javasdk.action.Action.Effect;
 import kalix.javasdk.valueentity.ValueEntityContext;
 
 import java.util.Optional;
+import java.util.UUID;
 
 // This class was initially generated based on the .proto definition by Kalix tooling.
 // This is the implementation for the Value Entity Service described in your io/products/variant/api/variant_api.proto file.
@@ -42,7 +44,7 @@ public class Variant extends AbstractVariant {
 
   private VariantDomain.VariantState convertToDomain(VariantApi.Variant variant) {
     return VariantDomain.VariantState.newBuilder()
-            .setVariantId(variant.getVariantId())
+            .setVariantId(UUID.randomUUID().toString())
             .setProductId(variant.getProductId())
             .setVariantTitle(variant.getVariantTitle())
             .setPrice(variant.getPrice())

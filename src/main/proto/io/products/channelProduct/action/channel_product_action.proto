@@ -12,13 +12,12 @@ service ChannelProductAction {
       action: {}
     };
   
-    rpc CreateChannelProduct(ChannelProduct) returns (google.protobuf.Empty);  
-    // {
-      // option (google.api.http) = {
-      //     post: "/create_channel_product_impl"
-      //     body: "*"
-      // };
-    // }
+    rpc CreateChannelProduct(ChannelProduct) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+          post: "/create_channel_product_impl"
+          body: "*"
+      };
+    }
 
     // rpc UpdateChannelProduct(ChannelProductApi.ChannelProduct) returns (ChannelProduct) {
     //   option (google.api.http) = {
