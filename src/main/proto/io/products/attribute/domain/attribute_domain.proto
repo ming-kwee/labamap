@@ -9,4 +9,5 @@ message AttributeState {
     string attributeName = 2;
     string attributeType = 3;
     bool isCommon = 4;
+    string group = 5;
 }

@@ -52,6 +52,7 @@ message Attribute {
     string attributeName = 2 [(kalix.field).entity_key = true];
     string attributeType = 3;
     bool isCommon = 4;
+    string group = 5;
 }
 
 message GetAttributeRequest {
