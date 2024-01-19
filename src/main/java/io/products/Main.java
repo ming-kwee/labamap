@@ -10,6 +10,9 @@ import io.products.channelAttributeMapping.domain.ChannelAttributeMapping;
 import io.products.channelAttributeMapping.view.ChannelAttributeMappingViewImpl;
 import io.products.channelMapping.domain.ChannelMapping;
 import io.products.channelMapping.view.ChannelMappingViewImpl;
+import io.products.metadata.domain.Metadata;
+import io.products.metadata.view.MetadataByChannelIdAndGroupViewImpl;
+import io.products.metadata.view.MetadataViewImpl;
 import io.products.variant.domain.Variant;
 import io.products.variant.view.VariantViewImpl;
 import kalix.javasdk.Kalix;
@@ -51,6 +54,7 @@ public final class Main {
         ChannelMapping::new,
         ChannelPlatform::new,
         ChannelProduct::new,
+        Metadata::new,
         Variant::new,
         AttributeActionImpl::new,
         AttributeViewImpl::new,
@@ -61,6 +65,8 @@ public final class Main {
         ChannelPlatformViewImpl::new,
         ChannelProductActionImpl::new,
         ChannelProductViewImpl::new,
+        MetadataByChannelIdAndGroupViewImpl::new,
+        MetadataViewImpl::new,
         VariantViewImpl::new);
   }
 

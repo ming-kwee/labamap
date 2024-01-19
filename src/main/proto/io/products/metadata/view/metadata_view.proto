@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package io.products.metadata.view;
+option java_outer_classname = "MetadataViewModel";
+
+import "io/products/metadata/domain/metadata_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service MetadataView {
+  option (kalix.codegen) = {
+    view: {}
+  };
+
+
+  rpc GetMetadatas(ByRoleRequest) returns (ByRoleResponse) {
+    option (kalix.method).view.query = {
+      query: "SELECT * AS metadatas FROM metadatas"
+    };
+    option (google.api.http) = {
+      post: "/metadatas",
+      body: "*"
+    };
+  }
+
+  rpc UpdateMetadata(domain.MetadataState) returns (domain.MetadataState) {
+    option (kalix.method).eventing.in = {
+      value_entity: "metadatas"
+    };
+    option (kalix.method).view.update = {
+      table: "metadatas"
+      // transform_updates: true
+    };
+  }
+
+  // rpc DeleteProduct(google.protobuf.Empty) returns (domain.ProductState) {
+  //   option (kalix.method).eventing.in = {
+  //     value_entity: "products"
+  //     handle_deletes: true
+  //   };
+  //   option (kalix.method).view.update = {
+  //     table: "products"
+  //   };
+  // }
+
+
+}
+
+message ByRoleRequest {
+}
+
+message ByRoleResponse {
+  repeated domain.MetadataState metadatas = 1;
+}
+

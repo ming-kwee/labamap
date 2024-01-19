@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package io.products.metadata.view;
+option java_outer_classname = "MetadataViewByChannelIdAndGroupModel";
+
+import "io/products/metadata/domain/metadata_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service MetadataByChannelIdAndGroupView {
+  option (kalix.codegen) = {
+    view: {}
+  };
+
+  rpc GetMetadataByChannelIdAndGroup(GetMetadataByChannelIdAndGroupRequest) returns (MetadataByChannelIdAndGroupResponse) {
+    option (kalix.method).view.query = {
+      query: "SELECT * AS metadatas FROM metadatas WHERE channelId = :channelId AND grouping = :grouping"
+    };
+    option (google.api.http) = {
+      post: "/metadata-by-channel-and-group",
+      body: "*"
+    };
+  }
+
+  rpc UpdateMetadata(domain.MetadataState) returns (domain.MetadataState) {
+    option (kalix.method).eventing.in = {
+      value_entity: "metadatas"
+    };
+    option (kalix.method).view.update = {
+      table: "metadatas"
+      // transform_updates: true
+    };
+  }
+
+}
+
+message GetMetadataByChannelIdAndGroupRequest {
+  string channelId = 1;
+  string grouping = 2;
+}
+
+message MetadataByChannelIdAndGroupResponse {
+  repeated domain.MetadataState metadatas = 1;
+}
+
