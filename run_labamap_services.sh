@@ -41,15 +41,13 @@ labamap_pid=$!
 
 sleep 30
 
-# bash set_attributes.sh
+bash set_attributes.sh
 
-# bash set_product.sh
+bash set_channel_attributes_mapping_for-shopify.sh
 
-# bash set_product_attributes.sh
+sleep 30
 
-# bash set_channel_product_attributes.sh
-
-bash set_channel_attributes_mapping.sh
+bash set_channel_metadata_for-shopify.sh
 
 # sleep 30
 # open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security

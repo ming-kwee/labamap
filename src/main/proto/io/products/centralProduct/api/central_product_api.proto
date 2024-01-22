@@ -38,7 +38,12 @@ service CentralProductService {
 
     // rpc UpdateCentralProduct(CentralProduct) returns (google.protobuf.Empty);
 
-    rpc DeleteCentralProduct(DeleteCentralProductRequest) returns (google.protobuf.Empty);
+    rpc DeleteCentralProduct(DeleteCentralProductRequest) returns (google.protobuf.Empty){
+      option (google.api.http) = {
+          post: "/delete"
+          body: "*"
+      };
+  };
 
 }
 

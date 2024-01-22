@@ -47,6 +47,7 @@ message ChannelProduct {
   repeated ChannelAttribute channelAttributes = 1;
   repeated VariantGroup variantGroups = 2;
   repeated OptionGroup optionGroups = 3;
+  repeated MetadataGroup metadataGroups = 4;
 }
 
 
@@ -63,7 +64,6 @@ message ChannelAttribute {
 message VariantGroup {
   repeated ChannelVariant channelVariant = 1;
 }
-
 message ChannelVariant {
   string vrntId = 1;
   string chnlVrntName = 2;
@@ -74,11 +74,20 @@ message ChannelVariant {
 message OptionGroup {
   repeated ChannelOption channelOption = 1;
 }
-
-
 message ChannelOption {
   string optnId = 1;
   string chnlOptnName = 2;
   string chnlOptnValue = 3;
   string chnlOptnType = 4;
+}
+
+
+message MetadataGroup {
+  repeated ChannelMetadata channelMetadata = 1;
+}
+message ChannelMetadata {
+  string channelId = 1;
+  string key = 2;
+  string value = 3;
+  string grouping = 4;
 }

@@ -36,6 +36,8 @@ import akka.http.scaladsl.model.StatusCodes;
 import io.products.channelProduct.action.ChannelProductActionApi.ChannelAttribute;
 import io.products.channelProduct.action.ChannelProductActionApi.ChannelOption;
 import io.products.channelProduct.action.ChannelProductActionApi.ChannelVariant;
+import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata;
+import io.products.channelProduct.action.ChannelProductActionApi.MetadataGroup;
 import io.products.channelProduct.action.ChannelProductActionApi.OptionGroup;
 import io.products.channelProduct.action.ChannelProductActionApi.VariantGroup;
 import io.products.channelProduct.api.ChannelProductApi;
@@ -179,10 +181,16 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
 
       // return
       // effects().reply(ChannelProductService.createChannelProduct(channelProductBuilder.build()));
+
+      /* _______________________________________________ */
+      //  Get Metadata and Set to an List<MetadataGroup>
+      /* _______________________________________________ */
+      List<MetadataGroup> actChnlMetadataGroupList = actChannelProduct.getMetadataGroupsList().stream()
+          .collect(Collectors.toList());
+      /* _______________________________________________ */      
       try {
-        LOG.info("walau " + channelProductBuilder.getId());
         ChannelProductHttpResponse verifikasi = ChannelProductService
-            .createChannelProduct(channelProductBuilder.build());
+            .createChannelProduct(channelProductBuilder.build(), actChnlMetadataGroupList);
 
         if (verifikasi.getStatus() == "OK") {
           return effects().reply(Empty.getDefaultInstance());
@@ -214,7 +222,6 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     return effects().asyncEffect(effect.exceptionally(NotEmptyAuth()));
     /* ------------------------------------------------------------- */
 
-    
   }
 
   private Function<Throwable, ? extends Effect<Empty>> NotEmptyAuth() {

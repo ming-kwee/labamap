@@ -17,6 +17,8 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.StatusCodes;
 import akka.http.javadsl.model.headers.RawHeader;
 import io.grpc.StatusException;
+import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata;
+import io.products.channelProduct.action.ChannelProductActionApi.MetadataGroup;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProduct;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
@@ -29,18 +31,26 @@ import io.products.shared.utils;
 public class ChannelProductService {
   private static final Logger LOG = LoggerFactory.getLogger(ChannelProductService.class);
 
-  
-  public static ChannelProductHttpResponse createChannelProduct(ChannelProduct channelProduct) throws StatusException {
+  public static ChannelProductHttpResponse createChannelProduct(ChannelProduct channelProduct,
+      List<MetadataGroup> metadataGroupList)
+      throws StatusException {
     ActorSystem actorSystem = ActorSystem.create("MyActorSystem");
     Http http = Http.get(actorSystem);
-    LOG.info("Starting the actorSystem service");
-    String postEndpoint = "https://labamap.myshopify.com/admin/api/2023-04/products.json";
+
+    for (MetadataGroup MetadataGroup : metadataGroupList) {
+      for (ChannelMetadata Metadata : MetadataGroup.getChannelMetadataList()) {
+        LOG.info("METADATAAA" + Metadata.getKey());
+      }
+    }
+
+    // LOG.info("Starting the actorSystem service");
+    String postEndpoint = "https://labamap.myshopify.com/admin/api/2023-04/products.jsonN";
 
     // "https://labamap.myshopify.com/admin/api/2023-04/products.jsn";
-    
+
     String accessToken = "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";
     String requestBody = transformAttributeToJson(channelProduct);
-    LOG.info("transformAttributeToJson " + requestBody);
+    // LOG.info("transformAttributeToJson " + requestBody);
 
     HttpRequest request = HttpRequest.POST(postEndpoint)
         .addHeader(RawHeader.create("X-Shopify-Access-Token", accessToken))
@@ -59,7 +69,7 @@ public class ChannelProductService {
 
       HttpResponse response = responseStage.toCompletableFuture().get();
 
-      LOG.info("LOH " + response.status().intValue());
+      // LOG.info("LOH " + response.status().intValue());
 
       if (response.status().intValue() >= 400) {
         ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
@@ -144,7 +154,7 @@ public class ChannelProductService {
         result = utils.finalMergeMaps(result, utils.mergeMaps(optionsGroupList, deepLevel));
       }
 
-      LOG.info("result " + result);
+      // LOG.info("result " + result);
       String json = objectMapper.writeValueAsString(result);
 
       return json;
