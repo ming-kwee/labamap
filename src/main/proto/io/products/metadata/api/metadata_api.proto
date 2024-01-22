@@ -38,6 +38,8 @@ message Metadata {
   string key = 2 [(kalix.field).entity_key = true];
   string value = 3;
   string grouping = 4;
+  string subGrouping = 5;
+  string target = 6;
 }
 
 message GetMetadataRequest {

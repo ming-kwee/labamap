@@ -49,6 +49,8 @@ public class Metadata extends AbstractMetadata {
             .setKey(metadata.getKey())
             .setValue(metadata.getValue())
             .setGrouping(metadata.getGrouping())
+            .setSubGrouping(metadata.getSubGrouping())
+            .setTarget(metadata.getTarget())
             .build();
   }
 

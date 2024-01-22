@@ -10,4 +10,6 @@ message MetadataState {
   string key = 2;
   string value = 3;
   string grouping = 4;
+  string subGrouping = 5;
+  string target = 6;
 }

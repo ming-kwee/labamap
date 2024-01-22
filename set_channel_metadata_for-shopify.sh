@@ -7,7 +7,9 @@ post_channel_metadata()
         "channelId": "shopify",
         "key": "create_channel_product_endpoint",
         "value": "https://labamap.myshopify.com/admin/api/2023-04/products.json",
-        "grouping": "channelProduct"
+        "grouping": "create_channel_product",
+        "subGrouping": "url",
+        "target": "channel_product"
         }
 EOF
 }
@@ -27,7 +29,9 @@ post_channel_metadata()
         "channelId": "shopify",
         "key": "create_channel_product_method",
         "value": "POST",
-        "grouping": "channelProduct"
+        "grouping": "create_channel_product",
+        "subGrouping": "method",
+        "target": "channel_product"
         }
 EOF
 }
@@ -46,7 +50,9 @@ post_channel_metadata()
         "channelId": "shopify",
         "key": "create_channel_product_authorization",
         "value": "bearer",
-        "grouping": "channelProduct"
+        "grouping": "create_channel_product",
+        "subGrouping": "authorization",
+        "target": "channel_product"
         }
 EOF
 }
@@ -65,7 +71,9 @@ post_channel_metadata()
         "channelId": "shopify",
         "key": "create_channel_product_token_from",
         "value": "shopify_token",
-        "grouping": "channelProduct"
+        "grouping": "create_channel_product",
+        "subGrouping": "authorization_token",
+        "target": "channel_product"
         }
 EOF
 }

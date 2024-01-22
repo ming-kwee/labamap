@@ -1,24 +1,24 @@
 syntax = "proto3";
 
 package io.products.metadata.view;
-option java_outer_classname = "MetadataViewByChannelIdAndGroupModel";
+option java_outer_classname = "MetadataViewByChannelIdAndTargetModel";
 
 import "io/products/metadata/domain/metadata_domain.proto";
 import "google/api/annotations.proto";
 import "kalix/annotations.proto";
 import "google/protobuf/empty.proto";
 
-service MetadataByChannelIdAndGroupView {
+service MetadataByChannelIdAndTargetView {
   option (kalix.codegen) = {
     view: {}
   };
 
-  rpc GetMetadataByChannelIdAndGroup(GetMetadataByChannelIdAndGroupRequest) returns (MetadataByChannelIdAndGroupResponse) {
+  rpc GetMetadataByChannelIdAndTarget(GetMetadataByChannelIdAndTargetRequest) returns (MetadataByChannelIdAndTargetResponse) {
     option (kalix.method).view.query = {
-      query: "SELECT * AS metadatas FROM metadatas WHERE channelId = :channelId AND grouping = :grouping"
+      query: "SELECT * AS metadatas FROM metadatas WHERE channelId = :channelId AND target = :target"
     };
     option (google.api.http) = {
-      post: "/metadata-by-channel-and-group",
+      post: "/metadata-by-channel-and-target",
       body: "*"
     };
   }
@@ -35,12 +35,12 @@ service MetadataByChannelIdAndGroupView {
 
 }
 
-message GetMetadataByChannelIdAndGroupRequest {
+message GetMetadataByChannelIdAndTargetRequest {
   string channelId = 1;
-  string grouping = 2;
+  string target = 2;
 }
 
-message MetadataByChannelIdAndGroupResponse {
+message MetadataByChannelIdAndTargetResponse {
   repeated domain.MetadataState metadatas = 1;
 }
 

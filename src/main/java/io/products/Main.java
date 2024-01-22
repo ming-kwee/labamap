@@ -10,24 +10,15 @@ import io.products.channelAttributeMapping.view.ChannelAttributeMappingViewImpl;
 import io.products.channelMapping.domain.ChannelMapping;
 import io.products.channelMapping.view.ChannelMappingViewImpl;
 import io.products.metadata.domain.Metadata;
-import io.products.metadata.view.MetadataByChannelIdAndGroupViewImpl;
+import io.products.metadata.view.MetadataByChannelIdAndTargetViewImpl;
 import io.products.metadata.view.MetadataViewImpl;
 import io.products.variant.domain.Variant;
 import io.products.variant.view.VariantViewImpl;
 import kalix.javasdk.Kalix;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import akka.actor.ActorSystem;
-import akka.http.javadsl.Http;
-import akka.http.javadsl.model.HttpRequest;
-import akka.http.javadsl.model.HttpResponse;
 import io.products.channelPlatform.domain.ChannelPlatform;
 import io.products.channelPlatform.view.ChannelPlatformViewImpl;
 import io.products.channelProduct.action.ChannelProductActionImpl;
@@ -63,7 +54,7 @@ public final class Main {
         ChannelPlatformViewImpl::new,
         ChannelProductActionImpl::new,
         ChannelProductViewImpl::new,
-        MetadataByChannelIdAndGroupViewImpl::new,
+        MetadataByChannelIdAndTargetViewImpl::new,
         MetadataViewImpl::new,
         VariantViewImpl::new);
   }
