@@ -4,12 +4,21 @@ post_channel_metadata()
 {
   cat <<EOF
         {
+<<<<<<< HEAD
                 "channelId": "shopify",
                 "key": "create_channel_product_endpoint",
                 "value": "https://labamap.myshopify.com/admin/api/2023-04/products.json",
                 "target": "channelProduct",
                 "grouping": "integration",
                 "subGrouping": "http_request"
+=======
+        "channelId": "shopify",
+        "key": "create_channel_product_endpoint",
+        "value": "https://labamap.myshopify.com/admin/api/2023-04/products.json",
+        "grouping": "create_channel_product",
+        "subGrouping": "url",
+        "target": "channel_product"
+>>>>>>> fff2ce1747d55e1148693cc26d1ed668b90206c9
         }
 EOF
 }

@@ -16,18 +16,9 @@ import io.products.variant.domain.Variant;
 import io.products.variant.view.VariantViewImpl;
 import kalix.javasdk.Kalix;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import akka.actor.ActorSystem;
-import akka.http.javadsl.Http;
-import akka.http.javadsl.model.HttpRequest;
-import akka.http.javadsl.model.HttpResponse;
 import io.products.channelPlatform.domain.ChannelPlatform;
 import io.products.channelPlatform.view.ChannelPlatformViewImpl;
 import io.products.channelProduct.action.ChannelProductActionImpl;
