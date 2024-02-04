@@ -37,7 +37,9 @@ message Metadata {
   string channelId = 1  [(kalix.field).entity_key = true];
   string key = 2 [(kalix.field).entity_key = true];
   string value = 3;
-  string grouping = 4;
+  string target = 4;
+  string grouping = 5;
+  string subGrouping = 6;
 }
 
 message GetMetadataRequest {

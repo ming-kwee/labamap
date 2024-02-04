@@ -48,7 +48,9 @@ public class Metadata extends AbstractMetadata {
             .setChannelId(metadata.getChannelId())
             .setKey(metadata.getKey())
             .setValue(metadata.getValue())
+            .setTarget(metadata.getTarget())
             .setGrouping(metadata.getGrouping())
+            .setSubGrouping(metadata.getSubGrouping())
             .build();
   }
 

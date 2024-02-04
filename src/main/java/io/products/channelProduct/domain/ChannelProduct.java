@@ -56,7 +56,6 @@ public class ChannelProduct extends AbstractChannelProduct {
   @Override
   public Effect<Empty> createChannelProduct(ChannelProductDomain.ChannelProductState currentState,
       ChannelProductApi.ChannelProduct command) {
-
     ChannelProductDomain.ChannelProductState state = convertToDomain(currentState, command);
 
     return reject(currentState, command).orElseGet(() -> handleCreation(state, command));
@@ -66,6 +65,7 @@ public class ChannelProduct extends AbstractChannelProduct {
       io.products.channelProduct.api.ChannelProductApi.ChannelProduct command) {
 
     if (currentState.getId().equals(command.getId()) && currentState.getIsDeleted() == false) {
+      LOG.info("SIMPAN ERROR");    
       return Optional.of(effects().error("Channel Product is already exists!!!", Status.Code.NOT_FOUND));
 
     } else {
@@ -171,6 +171,9 @@ public class ChannelProduct extends AbstractChannelProduct {
 
   private Effect<Empty> handleCreation(ChannelProductDomain.ChannelProductState state,
       io.products.channelProduct.api.ChannelProductApi.ChannelProduct command) {
+
+
+    LOG.info("SIMPAN");    
     ChannelProductDomain.ChannelProductCreated event = ChannelProductDomain.ChannelProductCreated.newBuilder()
         .setChannelProduct(state).build();
     return effects().emitEvent(event).thenReply(__ -> Empty.getDefaultInstance());

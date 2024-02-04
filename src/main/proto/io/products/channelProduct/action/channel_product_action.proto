@@ -12,36 +12,17 @@ service ChannelProductAction {
       action: {}
     };
   
-    rpc CreateChannelProduct(ChannelProduct) returns (google.protobuf.Empty) {
+    rpc CreateChannelProduct(ChannelProducts) returns (google.protobuf.Empty) {
       option (google.api.http) = {
           post: "/create_channel_product_impl"
           body: "*"
       };
     }
-
-    // rpc UpdateChannelProduct(ChannelProductApi.ChannelProduct) returns (ChannelProduct) {
-    //   option (google.api.http) = {
-    //       put: "/channel_product/{id}"
-    //       body: "*"
-    //   };
-    // }
-
-    // rpc DeleteChannelProduct(ChannelProductApi.ChannelProduct) returns (ChannelProduct) {
-    //   option (google.api.http) = {
-    //       put: "/channel_product/{id}/delete"
-    //       body: "*"
-    //   };
-    // }
-
-    // rpc OnDeleteState (google.protobuf.Empty) returns (google.protobuf.Empty) {
-    //   option (kalix.method).eventing.in = {
-    //     value_entity: "channel_products"
-    //     handle_deletes: true // <4>
-    //   };
-    // }
-
 }
 
+message ChannelProducts {
+  repeated ChannelProduct channelProducts = 1;
+}
 
 message ChannelProduct {
   repeated ChannelAttribute channelAttributes = 1;
@@ -89,5 +70,31 @@ message ChannelMetadata {
   string channelId = 1;
   string key = 2;
   string value = 3;
-  string grouping = 4;
+  string target = 4;
+  string grouping = 5;
+  string subGrouping = 6;
+
 }
+
+
+
+    // rpc UpdateChannelProduct(ChannelProductApi.ChannelProduct) returns (ChannelProduct) {
+    //   option (google.api.http) = {
+    //       put: "/channel_product/{id}"
+    //       body: "*"
+    //   };
+    // }
+
+    // rpc DeleteChannelProduct(ChannelProductApi.ChannelProduct) returns (ChannelProduct) {
+    //   option (google.api.http) = {
+    //       put: "/channel_product/{id}/delete"
+    //       body: "*"
+    //   };
+    // }
+
+    // rpc OnDeleteState (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    //   option (kalix.method).eventing.in = {
+    //     value_entity: "channel_products"
+    //     handle_deletes: true // <4>
+    //   };
+    // }

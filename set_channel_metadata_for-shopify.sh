@@ -4,10 +4,12 @@ post_channel_metadata()
 {
   cat <<EOF
         {
-        "channelId": "shopify",
-        "key": "create_channel_product_endpoint",
-        "value": "https://labamap.myshopify.com/admin/api/2023-04/products.json",
-        "grouping": "channelProduct"
+                "channelId": "shopify",
+                "key": "create_channel_product_endpoint",
+                "value": "https://labamap.myshopify.com/admin/api/2023-04/products.json",
+                "target": "channelProduct",
+                "grouping": "integration",
+                "subGrouping": "http_request"
         }
 EOF
 }
@@ -25,9 +27,11 @@ post_channel_metadata()
   cat <<EOF
         {
         "channelId": "shopify",
-        "key": "create_channel_product_method",
-        "value": "POST",
-        "grouping": "channelProduct"
+        "key": "create_channel_product_access_token_header_name",
+        "value": "X-Shopify-Access-Token",
+        "target": "channelProduct",
+        "grouping": "integration",
+        "subGrouping": "http_request"
         }
 EOF
 }
@@ -46,7 +50,9 @@ post_channel_metadata()
         "channelId": "shopify",
         "key": "create_channel_product_authorization",
         "value": "bearer",
-        "grouping": "channelProduct"
+        "target": "channelProduct",
+        "grouping": "integration",
+        "subGrouping": "security"
         }
 EOF
 }
@@ -65,7 +71,9 @@ post_channel_metadata()
         "channelId": "shopify",
         "key": "create_channel_product_token_from",
         "value": "shopify_token",
-        "grouping": "channelProduct"
+        "target": "channelProduct",
+        "grouping": "integration",
+        "subGrouping": "security"
         }
 EOF
 }
