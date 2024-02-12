@@ -1,7 +1,5 @@
 package io.products.channelProduct.service;
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,60 +27,94 @@ import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup;
 import io.products.shared.utils;
 
+public class Create_CP_WithBearerToken {
 
+  private static final Logger LOG = LoggerFactory.getLogger(Create_CP_WithBearerToken.class);
 
-public class Create_WithObjectCP_WithBearerToken {
-
-  private static final Logger LOG = LoggerFactory.getLogger(Create_WithObjectCP_WithBearerToken.class);
-
-
-
-    public static CompletionStage<HttpResponse> createChannelProduct(ChannelProduct channelProduct,
-      Map<String, Object> hashmapMetadata, Http http )
+  public static CompletionStage<HttpResponse> createAChannelProduct(ChannelProduct channelProduct,
+      Map<String, Object> hashmapMetadata, Http http)
       throws StatusException {
 
-        LOG.info("METADATAAA" + hashmapMetadata);
-        ChannelMetadata endpoint_Metadata = (ChannelMetadata) hashmapMetadata
-            .get("integration.http_request.create_channel_product_endpoint");
-        LOG.info("ENDPOINT1 " + endpoint_Metadata.getValue());
-        ChannelMetadata accessTokenHeaderName_Metadata = (ChannelMetadata) hashmapMetadata
-            .get("integration.http_request.create_channel_product_access_token_header_name");
-        LOG.info("HEADER1  " + endpoint_Metadata.getValue());
-        ChannelMetadata token_Metadata = (ChannelMetadata) hashmapMetadata
-            .get("integration.security.create_channel_product_token_from");
-            LOG.info("TOKEN1  " + token_Metadata.getValue());
-            ChannelMetadata authorization_Metadata = (ChannelMetadata) hashmapMetadata
-            .get("integration.security.create_channel_product_authorization");
-            LOG.info("AUTH1  " + authorization_Metadata.getValue());
-        // if (endpoint_Metadata.getValue().equals("bearer")) {
-        // LOG.info("Starting the actorSystem service");
-        String postEndpoint = endpoint_Metadata.getValue(); // "https://labamap.myshopify.com/admin/api/2023-04/products.jsonN";
-        LOG.info("ENDPOINT ENDPOINT " + postEndpoint);
-        // "https://labamap.myshopify.com/admin/api/2023-04/products.jsn";
-    
-        String accessToken = "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";
-        token_Metadata.getValue(); //
-        String requestBody = transformAttributeToJson(channelProduct);
-        // LOG.info("transformAttributeToJson " + requestBody);
-        LOG.info("HEADER HEADER " + accessTokenHeaderName_Metadata.getValue());
-    
-        HttpRequest request = HttpRequest.POST(postEndpoint)
-            .addHeader(RawHeader.create(accessTokenHeaderName_Metadata.getValue(), accessToken))
-            .addHeader(RawHeader.create("Content-Type", "application/json"))
-            .withEntity(ContentTypes.APPLICATION_JSON, requestBody);
-    
-        // return CompletionStage<HttpResponse> responseStage = http.singleRequest(request)
-        return http.singleRequest(request)
+    LOG.info("CREATE A CHANNEL PRODUCT - Create_CP_WithBearerToken");
+    String integration_HttpRequest_CreateCpEndpoint = null;
+    if (hashmapMetadata.containsKey("integration.http_request.create_cp_endpoint")) {
+      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+          .get("integration.http_request.create_cp_endpoint");
+      integration_HttpRequest_CreateCpEndpoint = (String) channelMetadata.getValue();
+    }
+
+    String integration_HttpRequest_CreateCpAccessTokenHeaderName = null;
+    if (hashmapMetadata.containsKey("integration.http_request.create_cp_access_token_header_name")) {
+      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+          .get("integration.http_request.create_cp_access_token_header_name");
+      integration_HttpRequest_CreateCpAccessTokenHeaderName = (String) channelMetadata.getValue();
+    }
+
+    String accessToken = "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";
+    String postEndpoint = integration_HttpRequest_CreateCpEndpoint;
+    String requestBody = transformAttributeToJson(channelProduct);
+
+    HttpRequest request = HttpRequest.POST(postEndpoint)
+        .addHeader(RawHeader.create(integration_HttpRequest_CreateCpAccessTokenHeaderName, accessToken))
+        .addHeader(RawHeader.create("Content-Type", "application/json"))
+        .withEntity(ContentTypes.APPLICATION_JSON, requestBody);
+
+    return http.singleRequest(request)
         .thenApply(response -> {
-              return response;
-            })
-            .exceptionally(ex -> {
-              return HttpResponse.create().withStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-            });
+          return response;
+        })
+        .exceptionally(ex -> {
+          return HttpResponse.create().withStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+        });
 
   }
 
 
+
+
+  public static CompletionStage<HttpResponse> createSomeChannelProducts(List<ChannelProduct.Builder> channelProductBuilders,
+      Map<String, Object> hashmapMetadata, Http http)
+      throws StatusException {
+
+    LOG.info("CREATE SOME CHANNEL PRODUCTs - Create_CP_WithBearerToken");
+    String integration_HttpRequest_CreateCpEndpoint = null;
+    if (hashmapMetadata.containsKey("integration.http_request.create_cp_endpoint")) {
+      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+          .get("integration.http_request.create_cp_endpoint");
+      integration_HttpRequest_CreateCpEndpoint = (String) channelMetadata.getValue();
+    }
+
+    String integration_HttpRequest_CreateCpAccessTokenHeaderName = null;
+    if (hashmapMetadata.containsKey("integration.http_request.create_cp_access_token_header_name")) {
+      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+          .get("integration.http_request.create_cp_access_token_header_name");
+      integration_HttpRequest_CreateCpAccessTokenHeaderName = (String) channelMetadata.getValue();
+    }
+
+    List<String> requests = new ArrayList<>();
+    for (ChannelProduct.Builder channelProductBuilder : channelProductBuilders) {
+      requests.add(transformAttributeToJson(channelProductBuilder.build()));
+    }
+    String requestBody = requests.toString();
+
+    LOG.info("requestBody for some channel products " + requestBody);
+    String accessToken = "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";
+
+    String postEndpoint = integration_HttpRequest_CreateCpEndpoint;
+    HttpRequest request = HttpRequest.POST(postEndpoint)
+        .addHeader(RawHeader.create(integration_HttpRequest_CreateCpAccessTokenHeaderName, accessToken))
+        .addHeader(RawHeader.create("Content-Type", "application/json"))
+        .withEntity(ContentTypes.APPLICATION_JSON, requestBody);
+
+    return http.singleRequest(request)
+        .thenApply(response -> {
+          return response;
+        })
+        .exceptionally(ex -> {
+          return HttpResponse.create().withStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+        });
+
+  }
 
 
   private static String transformAttributeToJson(ChannelProduct channelProduct) {
@@ -153,6 +185,5 @@ public class Create_WithObjectCP_WithBearerToken {
 
     }
   }
-
 
 }

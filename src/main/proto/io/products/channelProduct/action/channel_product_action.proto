@@ -21,7 +21,8 @@ service ChannelProductAction {
 }
 
 message ChannelProducts {
-  repeated ChannelProduct channelProducts = 1;
+  string eventId = 1;
+  repeated ChannelProduct channelProducts = 2;
 }
 
 message ChannelProduct {

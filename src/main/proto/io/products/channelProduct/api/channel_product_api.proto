@@ -51,6 +51,7 @@ message ChannelProduct {
     repeated ChannelProductVariantGroup channelProductVariantGroup = 5;
     repeated ChannelProductOptionGroup channelProductOptionGroup = 6;
     bool isDeleted = 7;
+    string eventId = 8;
 
 }
 

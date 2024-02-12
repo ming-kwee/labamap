@@ -3,37 +3,19 @@ package io.products.channelProduct.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.protobuf.Empty;
-import kalix.javasdk.action.Action.Effect;
-import akka.actor.ActorSystem;
 import io.grpc.Status;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelAttribute;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelVariant;
 import io.products.channelProduct.api.ChannelProductApi;
-import io.products.channelProduct.api.ChannelProductApi.DeleteChannelProductRequest;
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductVariantGroup;
-import io.products.channelProduct.domain.ChannelProductDomain;
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductAttribute;
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductOption;
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductOptionGroup;
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductState;
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductVariant;
 import kalix.javasdk.eventsourcedentity.EventSourcedEntityContext;
-import akka.http.javadsl.Http;
-import akka.http.javadsl.model.ContentTypes;
-import akka.http.javadsl.model.HttpRequest;
-import akka.http.javadsl.model.HttpResponse;
-// This class was initially generated based on the .proto definition by Kalix tooling.
-// This is the implementation for the Value Entity Service described in your io/products/channel_product/api/channel_product_api.proto file.
-//
-// As long as this file exists it will not be overwritten: you can maintain it yourself,
-// or delete it so it is regenerated as needed.
-import akka.http.javadsl.model.headers.RawHeader;
 
 public class ChannelProduct extends AbstractChannelProduct {
   private static final Logger LOG = LoggerFactory.getLogger(ChannelProduct.class);
@@ -159,6 +141,7 @@ public class ChannelProduct extends AbstractChannelProduct {
 
     stateBuilder
         .setId(apiChannelProduct.getId())
+        .setEventId(apiChannelProduct.getEventId())
         .setChannelId(apiChannelProduct.getChannelId())
         .setProductId(apiChannelProduct.getProductId())
         .setIsDeleted(apiChannelProduct.getIsDeleted())
@@ -202,6 +185,7 @@ public class ChannelProduct extends AbstractChannelProduct {
         .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(state.getChannelProductVariantGroupList())
         .clearChannelProductAttribute().addAllChannelProductAttribute(state.getChannelProductAttributeList())
         .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(state.getChannelProductOptionGroupList())
+        .setEventId(state.getEventId())
         .setId(state.getId()).build();
 
     ChannelProductDomain.ChannelProductDeleted event = ChannelProductDomain.ChannelProductDeleted.newBuilder()
@@ -313,6 +297,7 @@ public class ChannelProduct extends AbstractChannelProduct {
 
     apiChannelProduct
         .setId(channelProductState.getId())
+        .setEventId(channelProductState.getEventId())
         .setChannelId(channelProductState.getChannelId())
         .setProductId(channelProductState.getProductId())
         .setIsDeleted(channelProductState.getIsDeleted())
@@ -338,6 +323,7 @@ public class ChannelProduct extends AbstractChannelProduct {
 
     stateBuilder
         .setId(event.getChannelProduct().getId())
+        // .setEventId(event.getEventId())
         .setChannelId(event.getChannelProduct().getChannelId())
         .setProductId(event.getChannelProduct().getProductId())
         .setIsDeleted(event.getChannelProduct().getIsDeleted())
@@ -360,6 +346,7 @@ public class ChannelProduct extends AbstractChannelProduct {
     ChannelProductDomain.ChannelProductState.Builder stateBuilder = currentState.toBuilder();
     stateBuilder
         .setId(event.getChannelProduct().getId())
+        // .setEventId(event.getEventId())
         .setChannelId(event.getChannelProduct().getChannelId())
         .setProductId(event.getChannelProduct().getProductId())
         .setIsDeleted(event.getChannelProduct().getIsDeleted())
