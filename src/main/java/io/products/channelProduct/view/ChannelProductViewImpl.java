@@ -151,11 +151,11 @@ public class ChannelProductViewImpl extends AbstractChannelProductView {
         .setId(channelProductState.getId())
         .setChannelId(channelProductState.getChannelId())
         .setProductId(channelProductState.getProductId())
-        .setIsDeleted(channelProductState.getIsDeleted())
         .clearChannelProductAttribute().addAllChannelProductAttribute(apiChnlProdAttributeList)
         .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(apiChnlProdVariantGroupList)
         .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(apiChnlProdOptionGroupList)
-        .setIsDeleted(channelProductState.getIsDeleted());
+        .setIsDeleted(channelProductState.getIsDeleted())
+        .setEventId(channelProductState.getEventId());
 
     return apiChannelProduct.build();
 
