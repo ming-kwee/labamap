@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -70,7 +73,7 @@ public class Create_CP_MultiExecution {
                 // Log the response payload
                 LOG.info("Response Payload: " + payload);
 
-                HttpRequest requestForCreatingVariants = initialSetup_HttpRequest_forCreatingVariants(hashmapMetadata);
+                HttpRequest requestForCreatingVariants = initialSetup_HttpRequest_forCreatingVariants(hashmapMetadata, payload);
                 List<String> variantList = (List<String>) requestBodies.get("variants");
                 for (String bodyForVariant : variantList) {
 
@@ -152,7 +155,7 @@ public class Create_CP_MultiExecution {
         .singleRequest(request_forCreatingProduct.withEntity(ContentTypes.APPLICATION_JSON, bodyForProducts));
     postResults.add(responseStageForProduct);
 
-    HttpRequest requestForCreatingVariants = initialSetup_HttpRequest_forCreatingVariants(hashmapMetadata);
+    HttpRequest requestForCreatingVariants = initialSetup_HttpRequest_forCreatingVariants(hashmapMetadata, "");
 
     for (List<String> variantList : Listof_VariantList) {
       for (String bodyForVariant : variantList) {
@@ -316,7 +319,8 @@ public class Create_CP_MultiExecution {
 
   }
 
-  private static HttpRequest initialSetup_HttpRequest_forCreatingVariants(Map<String, Object> hashmapMetadata) {
+  @SuppressWarnings("null")
+  private static HttpRequest initialSetup_HttpRequest_forCreatingVariants(Map<String, Object> hashmapMetadata, String payloadOfChannelProduct) {
 
     /* -------- setting up authorization metadata ------- */
     String integration_Security_CreateCpTypeOfAuthorization = null;
@@ -336,8 +340,38 @@ public class Create_CP_MultiExecution {
     if (hashmapMetadata.containsKey("integration.http_request.create_cp_variant_endpoint")) {
       ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
           .get("integration.http_request.create_cp_variant_endpoint");
-      integration_HttpRequest_CreateCpVariantEndpoint = (String) channelMetadata.getValue();
+          integration_HttpRequest_CreateCpVariantEndpoint = (String) channelMetadata.getValue();
+    }  
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    JsonNode jsonNode;
+    try {
+      Pattern pattern = Pattern.compile("<(.*?)>");
+      Matcher matcher = pattern.matcher(integration_HttpRequest_CreateCpVariantEndpoint);
+      
+      // Find the first match
+      if (matcher.find()) {
+          // Extract the characters inside '<' and '>'
+          String id = matcher.group(1);
+          LOG.info("channelProductID  id" + id);
+          jsonNode = objectMapper.readTree(payloadOfChannelProduct);
+          String channelProductID = jsonNode.get(id).toString();
+          LOG.info("channelProductID " + channelProductID);
+          integration_HttpRequest_CreateCpVariantEndpoint = integration_HttpRequest_CreateCpVariantEndpoint.replaceAll("<.*?>", channelProductID);
+          LOG.info("channelProductID ### " + integration_HttpRequest_CreateCpVariantEndpoint);
+          
+          // Print the extracted ID
+          System.out.println("ID: " + id);
+      }
+    } catch (JsonMappingException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (JsonProcessingException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
+
+
 
     /* --- the entry to the service world based on type of authorization --- */
     HttpRequest request = null;
