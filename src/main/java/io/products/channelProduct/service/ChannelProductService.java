@@ -22,25 +22,28 @@ public class ChannelProductService {
     Http http = Http.get(actorSystem);
 
     try {
-      String integration_Security_CreateCpTypeOfAuthorization = null;
-      if (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization")) {
+
+      /* -------- setting up single or multi execution metadata ------- */
+      String integration_BodyContent_CreateCpSeparateVariantCrud = null;
+      if (hashmapMetadata.containsKey("integration.body_content.create_cp_separate_variant_crud")) {
         ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
-            .get("integration.security.create_cp_type_of_authorization");
-        integration_Security_CreateCpTypeOfAuthorization = (String) channelMetadata.getValue();
+            .get("integration.body_content.create_cp_separate_variant_crud");
+        integration_BodyContent_CreateCpSeparateVariantCrud = (String) channelMetadata.getValue();
       } else {
-        ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
-            .setStatus("FAIL")
-            .setDescription("type of authorization has not been set")
-            .build();
-        throw new RuntimeException(cpHttpResponse.getDescription());
+        integration_BodyContent_CreateCpSeparateVariantCrud = "false";
       }
 
+      /* --- the entry to the service world based on type of authorization --- */
       HttpResponse response = null;
-      if (integration_Security_CreateCpTypeOfAuthorization.equals("bearer")) {
-        LOG.info("CREATE A CHANNEL PRODUCT - BEARER");
-        response = Create_CP_WithBearerToken
+      if (integration_BodyContent_CreateCpSeparateVariantCrud.equals("true")) {
+        response = Create_CP_MultiExecution
+            .createAChannelProduct_WithSplitVariants(channelProduct, hashmapMetadata, http, actorSystem)
+            .toCompletableFuture().get();       
+      } else {
+        response = Create_CP_SingleExecution
             .createAChannelProduct(channelProduct, hashmapMetadata, http)
             .toCompletableFuture().get();
+      
       }
 
       if (response != null && response.status().intValue() >= 400) {
@@ -67,31 +70,64 @@ public class ChannelProductService {
     }
   }
 
-  public static ChannelProductHttpResponse createSomeChannelProductsService(List<ChannelProduct.Builder> channelProductBuilders,
+  public static ChannelProductHttpResponse createSomeChannelProductsService(
+      List<ChannelProduct.Builder> channelProductBuilders,
       Map<String, Object> hashmapMetadata)
       throws StatusException {
     ActorSystem actorSystem = ActorSystem.create("MyActorSystem");
     Http http = Http.get(actorSystem);
 
     try {
-      String integration_Security_CreateCpTypeOfAuthorization = null;
-      if (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization")) {
+      // String integration_Security_CreateCpTypeOfAuthorization = null;
+      // if (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization")) {
+      //   ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+      //       .get("integration.security.create_cp_type_of_authorization");
+      //   integration_Security_CreateCpTypeOfAuthorization = (String) channelMetadata.getValue();
+      // } else {
+      //   ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
+      //       .setStatus("FAIL")
+      //       .setDescription("type of authorization has not been set")
+      //       .build();
+      //   throw new RuntimeException(cpHttpResponse.getDescription());
+      // }
+
+      // HttpResponse response = null;
+
+      // switch (integration_Security_CreateCpTypeOfAuthorization) {
+      //   case "bearer":
+      //     LOG.info("CREATE SOME CHANNEL PRODUCTS - BEARER");
+      //     // response = BearerToken
+      //     //     .createSomeChannelProducts(channelProductBuilders, hashmapMetadata, http)
+      //     //     .toCompletableFuture().get();
+      //     break;
+      //   case "oauth1":
+      //     LOG.info("CREATE SOME CHANNEL PRODUCTS - OAUTH1");
+      //     // response = Create_CP_WithOauth1_HMACSHA1
+      //     //     .createSomeChannelProducts(channelProductBuilders, hashmapMetadata, http)
+      //     //     .toCompletableFuture().get();
+      //     break;
+      //   default:
+      //     break;
+      // }
+      
+      /* -------- setting up single or multi execution metadata ------- */
+      String integration_BodyContent_CreateCpSeparateVariantCrud = null;
+      if (hashmapMetadata.containsKey("integration.body_content.create_cp_separate_variant_crud")) {
         ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
-            .get("integration.security.create_cp_type_of_authorization");
-        integration_Security_CreateCpTypeOfAuthorization = (String) channelMetadata.getValue();
+            .get("integration.body_content.create_cp_separate_variant_crud");
+        integration_BodyContent_CreateCpSeparateVariantCrud = (String) channelMetadata.getValue();
       } else {
-        ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
-            .setStatus("FAIL")
-            .setDescription("type of authorization has not been set")
-            .build();
-        throw new RuntimeException(cpHttpResponse.getDescription());
+        integration_BodyContent_CreateCpSeparateVariantCrud = "false";
       }
 
-
+      /* --- the entry to the service world based on type of authorization --- */
       HttpResponse response = null;
-      if (integration_Security_CreateCpTypeOfAuthorization.equals("bearer")) {
-        LOG.info("CREATE SOME CHANNEL PRODUCTS - BEARER");
-        response = Create_CP_WithBearerToken
+      if (integration_BodyContent_CreateCpSeparateVariantCrud.equals("true")) {
+        response = Create_CP_MultiExecution
+            .createSomeChannelProducts_WithSplitVariants(channelProductBuilders, hashmapMetadata, http)
+            .toCompletableFuture().get();       
+      } else {
+        response = Create_CP_SingleExecution
             .createSomeChannelProducts(channelProductBuilders, hashmapMetadata, http)
             .toCompletableFuture().get();
       }

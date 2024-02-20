@@ -47,7 +47,6 @@ public class ChannelProduct extends AbstractChannelProduct {
       io.products.channelProduct.api.ChannelProductApi.ChannelProduct command) {
 
     if (currentState.getId().equals(command.getId()) && currentState.getIsDeleted() == false) {
-      LOG.info("SIMPAN ERROR");    
       return Optional.of(effects().error("Channel Product is already exists!!!", Status.Code.NOT_FOUND));
 
     } else {
@@ -155,8 +154,6 @@ public class ChannelProduct extends AbstractChannelProduct {
   private Effect<Empty> handleCreation(ChannelProductDomain.ChannelProductState state,
       io.products.channelProduct.api.ChannelProductApi.ChannelProduct command) {
 
-
-    LOG.info("SIMPAN");    
     ChannelProductDomain.ChannelProductCreated event = ChannelProductDomain.ChannelProductCreated.newBuilder()
         .setChannelProduct(state).build();
     return effects().emitEvent(event).thenReply(__ -> Empty.getDefaultInstance());
@@ -169,9 +166,6 @@ public class ChannelProduct extends AbstractChannelProduct {
   @Override
   public Effect<Empty> deleteChannelProduct(ChannelProductDomain.ChannelProductState currentState,
       ChannelProductApi.DeleteChannelProductRequest command) {
-    LOG.info("deletedelete " + currentState.getChannelId() + ", " +
-        currentState.getId() + ", " + command.getId());
-
     return handleDeletion(currentState, command);
   }
 
@@ -333,8 +327,6 @@ public class ChannelProduct extends AbstractChannelProduct {
         .addAllChannelProductVariantGroup(event.getChannelProduct().getChannelProductVariantGroupList())
         .clearChannelProductOptionGroup()
         .addAllChannelProductOptionGroup(event.getChannelProduct().getChannelProductOptionGroupList());
-
-    LOG.info("VVVC " + stateBuilder.getIsDeleted());
 
     return stateBuilder.build();
   }

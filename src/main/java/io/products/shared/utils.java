@@ -24,7 +24,7 @@ public class utils {
       currentMap = (Map<String, Object>) currentMap.get(attributeParts[i]);
     }
     currentMap.put(attributeParts[attributeParts.length - 1], typeConverter(value, type));
-    LOG.info("addAttribute_toMap " + currentMap);
+    // LOG.info("addAttribute_toMap " + currentMap);
   }
 
   public static Map<String, Object> addVariantOrOption_toGroupMap(Map<String, Object> groupMap,
@@ -38,7 +38,7 @@ public class utils {
       currentMap = (Map<String, Object>) currentMap.get(variant_or_option_parts[i]);
     }
     currentMap.put(variant_or_option_parts[variant_or_option_parts.length - 1], typeConverter(value, type));
-    LOG.info("addVariantOrOption_toGroupMap " + currentMap);
+    // LOG.info("addVariantOrOption_toGroupMap " + currentMap);
     return groupMap; // Return the modified groupMap
   }
 
@@ -161,8 +161,8 @@ public class utils {
 
   private static Object typeConverter(String value, String type) {
 
-    LOG.info("typeConverter.value " + value);
-    LOG.info("typeConverter.type " + type);
+    // LOG.info("typeConverter.value " + value);
+    // LOG.info("typeConverter.type " + type);
 
     if ("string".equalsIgnoreCase(type)) {
       return value;

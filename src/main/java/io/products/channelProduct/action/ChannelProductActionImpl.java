@@ -71,12 +71,9 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     /* _______________________________________________ */
 
     CompletableFuture<Effect<Empty>> effect;
-    if (hashmapMetadata.containsKey("integration.body_content.multi_product")) {
-      ChannelMetadata bodyContent = (ChannelMetadata) hashmapMetadata.get("integration.body_content.multi_product");
+    if (hashmapMetadata.containsKey("integration.body_content.create_cp_multi_product")) {
+      ChannelMetadata bodyContent = (ChannelMetadata) hashmapMetadata.get("integration.body_content.create_cp_multi_product");
       boolean isMultiProduct = "true".equals(bodyContent.getValue());
-
-      // Log the appropriate message based on whether it's multi-product or not
-      LOG.info(isMultiProduct ? "Create Some Channel Products" : "Create A Channel Product");
 
       // Call the appropriate method based on the boolean value
       effect = isMultiProduct ? createSomeChannelProducts(channelProductBuilders, hashmapMetadata)
@@ -212,17 +209,18 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
       String finalExceptionMessage;
       if (anyException_WhileDeletion != "") {
         finalExceptionMessage = anyException_WhileDeletion;
-      }else{
+      } else {
         finalExceptionMessage = anyException_WhileProcess;
-      };
+      }
+      ;
       return CompletableFuture.<Effect<Empty>>completedFuture(effects().error(finalExceptionMessage));
 
     });
   }
 
-  // /* --------------------------- */
-  // // Create A Channel Product
-  // /* ___________________________ */
+  /* --------------------------- */
+  // Create A Channel Product
+  /* ___________________________ */
   private CompletableFuture<Effect<Empty>> createAChannelProduct(
       ChannelProduct.Builder channelProductBuilder, Map<String, Object> hashmapMetadata) {
 

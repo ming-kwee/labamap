@@ -10,114 +10,90 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.ContentTypes;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.StatusCodes;
-import akka.http.javadsl.model.headers.RawHeader;
 import io.grpc.StatusException;
 import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProduct;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute;
+import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOption;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOptionGroup;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup;
+import io.products.channelProduct.service.authorization.BearerToken;
+import io.products.channelProduct.service.authorization.Oauth1_HMACSHA1;
 import io.products.shared.utils;
 
-public class Create_CP_WithBearerToken {
-
-  private static final Logger LOG = LoggerFactory.getLogger(Create_CP_WithBearerToken.class);
+public class Create_CP_SingleExecution {
+  private static final Logger LOG = LoggerFactory.getLogger(Create_CP_SingleExecution.class);
 
   public static CompletionStage<HttpResponse> createAChannelProduct(ChannelProduct channelProduct,
       Map<String, Object> hashmapMetadata, Http http)
       throws StatusException {
+    // LOG.info("CREATE A CHANNEL PRODUCT - Create_CP_WithBearerToken");
+    HttpRequest request = initialSetup_HttpRequest(hashmapMetadata);
 
-    LOG.info("CREATE A CHANNEL PRODUCT - Create_CP_WithBearerToken");
-    String integration_HttpRequest_CreateCpEndpoint = null;
-    if (hashmapMetadata.containsKey("integration.http_request.create_cp_endpoint")) {
-      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
-          .get("integration.http_request.create_cp_endpoint");
-      integration_HttpRequest_CreateCpEndpoint = (String) channelMetadata.getValue();
-    }
-
-    String integration_HttpRequest_CreateCpAccessTokenHeaderName = null;
-    if (hashmapMetadata.containsKey("integration.http_request.create_cp_access_token_header_name")) {
-      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
-          .get("integration.http_request.create_cp_access_token_header_name");
-      integration_HttpRequest_CreateCpAccessTokenHeaderName = (String) channelMetadata.getValue();
-    }
-
-    String accessToken = "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";
-    String postEndpoint = integration_HttpRequest_CreateCpEndpoint;
-    String requestBody = transformAttributeToJson(channelProduct);
-
-    HttpRequest request = HttpRequest.POST(postEndpoint)
-        .addHeader(RawHeader.create(integration_HttpRequest_CreateCpAccessTokenHeaderName, accessToken))
-        .addHeader(RawHeader.create("Content-Type", "application/json"))
-        .withEntity(ContentTypes.APPLICATION_JSON, requestBody);
-
-    return http.singleRequest(request)
+    String requestBody = transform_AttributeToJson(channelProduct);
+    return http.singleRequest(request.withEntity(ContentTypes.APPLICATION_JSON, requestBody))
         .thenApply(response -> {
+
+          LOG.info("HALORESPONSE " + response);
           return response;
         })
         .exceptionally(ex -> {
           return HttpResponse.create().withStatus(StatusCodes.INTERNAL_SERVER_ERROR);
         });
-
   }
 
-
-
-
-  public static CompletionStage<HttpResponse> createSomeChannelProducts(List<ChannelProduct.Builder> channelProductBuilders,
+  public static CompletionStage<HttpResponse> createSomeChannelProducts(
+      List<ChannelProduct.Builder> channelProductBuilders,
       Map<String, Object> hashmapMetadata, Http http)
-      throws StatusException {
+      throws StatusException, JsonMappingException, JsonProcessingException {
 
     LOG.info("CREATE SOME CHANNEL PRODUCTs - Create_CP_WithBearerToken");
-    String integration_HttpRequest_CreateCpEndpoint = null;
-    if (hashmapMetadata.containsKey("integration.http_request.create_cp_endpoint")) {
-      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
-          .get("integration.http_request.create_cp_endpoint");
-      integration_HttpRequest_CreateCpEndpoint = (String) channelMetadata.getValue();
-    }
-
-    String integration_HttpRequest_CreateCpAccessTokenHeaderName = null;
-    if (hashmapMetadata.containsKey("integration.http_request.create_cp_access_token_header_name")) {
-      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
-          .get("integration.http_request.create_cp_access_token_header_name");
-      integration_HttpRequest_CreateCpAccessTokenHeaderName = (String) channelMetadata.getValue();
-    }
-
-    List<String> requests = new ArrayList<>();
+    /* ___________________________________________________ */
+    // Arrange multi-channel products into arrays and merge the
+    // array with root objects with a properties name if any.
+    /* ___________________________________________________ */
+    ObjectMapper objectMapper = new ObjectMapper();
+    ObjectNode root = objectMapper.createObjectNode();
+    ArrayNode productsArray = objectMapper.createArrayNode();
     for (ChannelProduct.Builder channelProductBuilder : channelProductBuilders) {
-      requests.add(transformAttributeToJson(channelProductBuilder.build()));
+      productsArray.add(objectMapper.readTree(transform_AttributeToJson(channelProductBuilder.build())));
     }
-    String requestBody = requests.toString();
+    String requestBody = "";
+    if (hashmapMetadata.containsKey("integration.body_content.root_enclosed_property_name")) {
+      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+          .get("integration.body_content.root_enclosed_property_name");
+      root.set(channelMetadata.getValue(), productsArray);
+      requestBody = root.toString();
+    } else {
+      requestBody = productsArray.toString();
+    }
+    /* ____________________________________________________ */
+    // String accessToken = "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";
+    HttpRequest request = initialSetup_HttpRequest(hashmapMetadata);
 
-    LOG.info("requestBody for some channel products " + requestBody);
-    String accessToken = "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";
-
-    String postEndpoint = integration_HttpRequest_CreateCpEndpoint;
-    HttpRequest request = HttpRequest.POST(postEndpoint)
-        .addHeader(RawHeader.create(integration_HttpRequest_CreateCpAccessTokenHeaderName, accessToken))
-        .addHeader(RawHeader.create("Content-Type", "application/json"))
-        .withEntity(ContentTypes.APPLICATION_JSON, requestBody);
-
-    return http.singleRequest(request)
+    return http.singleRequest(request.withEntity(ContentTypes.APPLICATION_JSON, requestBody))
         .thenApply(response -> {
           return response;
         })
         .exceptionally(ex -> {
           return HttpResponse.create().withStatus(StatusCodes.INTERNAL_SERVER_ERROR);
         });
-
   }
 
-
-  private static String transformAttributeToJson(ChannelProduct channelProduct) {
+  // ---------------------------------------------------------------------------------------------------------------
+  private static String transform_AttributeToJson(ChannelProduct channelProduct) {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       // Create a map to store the attributes dynamically
@@ -175,7 +151,6 @@ public class Create_CP_WithBearerToken {
         result = utils.finalMergeMaps(result, utils.mergeMaps(optionsGroupList, deepLevel));
       }
 
-      // LOG.info("result " + result);
       String json = objectMapper.writeValueAsString(result);
 
       return json;
@@ -184,6 +159,49 @@ public class Create_CP_WithBearerToken {
       return e.getMessage();
 
     }
+  }
+  // ---------------------------------------------------------------------------------------------------------------
+
+
+  private static HttpRequest initialSetup_HttpRequest(Map<String, Object> hashmapMetadata) {
+
+
+      /* -------- setting up authorization metadata ------- */
+      String integration_Security_CreateCpTypeOfAuthorization = null;
+      if (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization")) {
+        ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+            .get("integration.security.create_cp_type_of_authorization");
+        integration_Security_CreateCpTypeOfAuthorization = (String) channelMetadata.getValue();
+      } else {
+        ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
+            .setStatus("FAIL")
+            .setDescription("type of authorization has not been set")
+            .build();
+        throw new RuntimeException(cpHttpResponse.getDescription());
+      }
+
+
+    String integration_HttpRequest_CreateCpEndpoint = null;
+    if (hashmapMetadata.containsKey("integration.http_request.create_cp_endpoint")) {
+      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+          .get("integration.http_request.create_cp_endpoint");
+      integration_HttpRequest_CreateCpEndpoint = (String) channelMetadata.getValue();
+    }
+
+      /* --- the entry to the service world based on type of authorization --- */
+      HttpRequest request = null;
+      switch (integration_Security_CreateCpTypeOfAuthorization) {
+        case "bearer":
+          request = BearerToken.setup_HttpRequest(integration_HttpRequest_CreateCpEndpoint, "POST", hashmapMetadata);
+          break;
+        case "oauth1":
+        request = Oauth1_HMACSHA1.setup_HttpRequest(integration_HttpRequest_CreateCpEndpoint, "POST", hashmapMetadata);
+        break;
+        default:
+          break;
+      }
+
+    return request;
   }
 
 }
