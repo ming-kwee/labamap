@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 // This class was initially generated based on the .proto definition by Kalix tooling.
-// This is the implementation for the Value Entity Service described in your io/products/metadata/api/metadata_api.proto file.
+// This is the implementation for the Value Entity Service described in your io/products/metadata/api/credential_api.proto file.
 //
 // As long as this file exists it will not be overwritten: you can maintain it yourself,
 // or delete it so it is regenerated as needed.

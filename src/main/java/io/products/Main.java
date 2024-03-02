@@ -9,6 +9,9 @@ import io.products.channelAttributeMapping.domain.ChannelAttributeMapping;
 import io.products.channelAttributeMapping.view.ChannelAttributeMappingViewImpl;
 import io.products.channelMapping.domain.ChannelMapping;
 import io.products.channelMapping.view.ChannelMappingViewImpl;
+import io.products.credential.domain.Credential;
+import io.products.credential.view.CredentialByChannelIdAndUserIdViewImpl;
+import io.products.credential.view.CredentialViewImpl;
 import io.products.metadata.domain.Metadata;
 import io.products.metadata.view.MetadataByChannelIdAndTargetViewImpl;
 import io.products.metadata.view.MetadataViewImpl;
@@ -44,6 +47,7 @@ public final class Main {
         ChannelMapping::new,
         ChannelPlatform::new,
         ChannelProduct::new,
+        Credential::new,
         Metadata::new,
         Variant::new,
         AttributeViewImpl::new,
@@ -54,6 +58,8 @@ public final class Main {
         ChannelPlatformViewImpl::new,
         ChannelProductActionImpl::new,
         ChannelProductViewImpl::new,
+        CredentialByChannelIdAndUserIdViewImpl::new,
+        CredentialViewImpl::new,
         MetadataByChannelIdAndTargetViewImpl::new,
         MetadataViewImpl::new,
         VariantViewImpl::new);
