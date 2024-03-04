@@ -1,5 +1,6 @@
 package io.products.channelProduct.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup;
 import io.products.channelProduct.service.authorization.BearerToken;
 import io.products.channelProduct.service.authorization.Oauth1_HMACSHA1;
+import io.products.channelProduct.service.authorization.Oauth2_SHA256;
 import io.products.shared.utils;
 
 public class Create_CP_SingleExecution {
@@ -196,6 +198,14 @@ public class Create_CP_SingleExecution {
           break;
         case "oauth1":
         request = Oauth1_HMACSHA1.setup_HttpRequest(integration_HttpRequest_CreateCpEndpoint, "POST", hashmapMetadata);
+        break;
+        case "oauth2":
+          try {
+            request = Oauth2_SHA256.setup_HttpRequest(integration_HttpRequest_CreateCpEndpoint, "POST", hashmapMetadata);
+          } catch (UnsupportedEncodingException e) {
+            System.out.println("ELOLL: " + e.getMessage());
+            e.printStackTrace();
+          }
         break;
         default:
           break;

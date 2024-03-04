@@ -16,17 +16,10 @@ import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 
 public class Oauth1_HMACSHA1 {
-  private static final Logger LOG = LoggerFactory.getLogger(BearerToken.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Oauth1_HMACSHA1.class);
 
 
   public static HttpRequest setup_HttpRequest(String URL, String HttpMethod, Map<String, Object> hashmapMetadata) {
-
-    // String integration_HttpRequest_CreateCpEndpoint = null;
-    // if (hashmapMetadata.containsKey("integration.http_request.create_cp_endpoint")) {
-    //   ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
-    //       .get("integration.http_request.create_cp_endpoint");
-    //   integration_HttpRequest_CreateCpEndpoint = (String) channelMetadata.getValue();
-    // }
 
     String postEndpoint = URL;
     // OAuth 1.0 credentials
@@ -48,8 +41,6 @@ public class Oauth1_HMACSHA1 {
     return HttpRequest.POST(postEndpoint)
         .addHeader(RawHeader.create("Authorization", authHeader))
         .addHeader(RawHeader.create("Content-Type", "application/json"));
-
-
   }
 
 }
