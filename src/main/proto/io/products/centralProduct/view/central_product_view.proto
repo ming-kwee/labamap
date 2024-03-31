@@ -63,5 +63,5 @@ service CentralProductView {
   }
 
   message ByRoleResponse {
-    api.CentralProduct central_products = 1;
+    repeated api.CentralProduct central_products = 1;
   }
