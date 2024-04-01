@@ -325,6 +325,12 @@
       <artifactId>signpost-commonshttp4</artifactId>
       <version>2.1.1</version>
     </dependency>
+    <dependency>
+      <groupId>lazop-sdk</groupId>
+      <artifactId>lazop-java-api-sdk</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+
     <!-- <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-chrome-driver</artifactId>
