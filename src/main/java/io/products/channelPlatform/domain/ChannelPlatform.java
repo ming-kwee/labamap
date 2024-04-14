@@ -34,18 +34,18 @@ public class ChannelPlatform extends AbstractChannelPlatform {
 
   private Optional<Effect<Empty>> reject(ChannelPlatformDomain.ChannelPlatformState  currentState, ChannelPlatformApi.ChannelPlatform  command) {
 
-    // if (currentState.getChannelId().equals(command.getChannelId())) {
-    //   return Optional.of(effects().error("Channel is already exists!!", Status.Code.NOT_FOUND));
+     if (currentState.getChannelId().equals(command.getChannelId())) {
+       return Optional.of(effects().error("Channel is already exists!!", Status.Code.NOT_FOUND));
 
-    // } else {
+     } else {
       return Optional.empty();
-    // }
+     }
   }
 
 
   private ChannelPlatformDomain.ChannelPlatformState  convertToDomain(ChannelPlatformApi.ChannelPlatform  channel) {
     return ChannelPlatformDomain.ChannelPlatformState .newBuilder()
-        .setChannelId(UUID.randomUUID().toString())
+        .setChannelId(channel.getChannelId())
         .setChannelName(channel.getChannelName())
         .setChannelEndpoint(channel.getChannelEndpoint())
         .build();
