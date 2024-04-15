@@ -40,7 +40,7 @@ service CentralProductService {
 
     rpc DeleteCentralProduct(DeleteCentralProductRequest) returns (google.protobuf.Empty){
       option (google.api.http) = {
-          post: "/delete"
+          post: "/delete-central-product"
           body: "*"
       };
   };
