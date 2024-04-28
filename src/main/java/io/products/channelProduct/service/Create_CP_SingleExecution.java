@@ -51,7 +51,9 @@ public class Create_CP_SingleExecution {
     return http.singleRequest(request.withEntity(ContentTypes.APPLICATION_JSON, requestBody))
         .thenApply(response -> {
 
-          LOG.info("HALORESPONSE " + response);
+          LOG.info("HALORESPONSE (" + 
+          response.status().intValue() + "):" +
+          response.status().defaultMessage());
           return response;
         })
         .exceptionally(ex -> {

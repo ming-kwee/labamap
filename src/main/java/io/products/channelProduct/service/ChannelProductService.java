@@ -38,19 +38,21 @@ public class ChannelProductService {
       if (integration_BodyContent_CreateCpSeparateVariantCrud.equals("true")) {
         response = Create_CP_MultiExecution
             .createAChannelProduct_WithSplitVariants(channelProduct, hashmapMetadata, http, actorSystem)
-            .toCompletableFuture().get();       
+            .toCompletableFuture().get();
       } else {
         response = Create_CP_SingleExecution
             .createAChannelProduct(channelProduct, hashmapMetadata, http)
             .toCompletableFuture().get();
-      
       }
 
-      if (response != null && response.status().intValue() >= 400) {
+      if (response != null && response.status().intValue() >= 300) {
         ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
             .setStatus("FAIL")
-            .setDescription("Gagal simpan")
+            .setDescription("Gagal simpan, (" +
+                response.status().intValue() + "):" +
+                response.status().defaultMessage())
             .build();
+
         return cpHttpResponse;
       } else {
         ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
@@ -79,37 +81,41 @@ public class ChannelProductService {
 
     try {
       // String integration_Security_CreateCpTypeOfAuthorization = null;
-      // if (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization")) {
-      //   ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
-      //       .get("integration.security.create_cp_type_of_authorization");
-      //   integration_Security_CreateCpTypeOfAuthorization = (String) channelMetadata.getValue();
+      // if
+      // (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization"))
+      // {
+      // ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+      // .get("integration.security.create_cp_type_of_authorization");
+      // integration_Security_CreateCpTypeOfAuthorization = (String)
+      // channelMetadata.getValue();
       // } else {
-      //   ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
-      //       .setStatus("FAIL")
-      //       .setDescription("type of authorization has not been set")
-      //       .build();
-      //   throw new RuntimeException(cpHttpResponse.getDescription());
+      // ChannelProductHttpResponse cpHttpResponse =
+      // ChannelProductHttpResponse.newBuilder()
+      // .setStatus("FAIL")
+      // .setDescription("type of authorization has not been set")
+      // .build();
+      // throw new RuntimeException(cpHttpResponse.getDescription());
       // }
 
       // HttpResponse response = null;
 
       // switch (integration_Security_CreateCpTypeOfAuthorization) {
-      //   case "bearer":
-      //     LOG.info("CREATE SOME CHANNEL PRODUCTS - BEARER");
-      //     // response = BearerToken
-      //     //     .createSomeChannelProducts(channelProductBuilders, hashmapMetadata, http)
-      //     //     .toCompletableFuture().get();
-      //     break;
-      //   case "oauth1":
-      //     LOG.info("CREATE SOME CHANNEL PRODUCTS - OAUTH1");
-      //     // response = Create_CP_WithOauth1_HMACSHA1
-      //     //     .createSomeChannelProducts(channelProductBuilders, hashmapMetadata, http)
-      //     //     .toCompletableFuture().get();
-      //     break;
-      //   default:
-      //     break;
+      // case "bearer":
+      // LOG.info("CREATE SOME CHANNEL PRODUCTS - BEARER");
+      // // response = BearerToken
+      // // .createSomeChannelProducts(channelProductBuilders, hashmapMetadata, http)
+      // // .toCompletableFuture().get();
+      // break;
+      // case "oauth1":
+      // LOG.info("CREATE SOME CHANNEL PRODUCTS - OAUTH1");
+      // // response = Create_CP_WithOauth1_HMACSHA1
+      // // .createSomeChannelProducts(channelProductBuilders, hashmapMetadata, http)
+      // // .toCompletableFuture().get();
+      // break;
+      // default:
+      // break;
       // }
-      
+
       /* -------- setting up single or multi execution metadata ------- */
       String integration_BodyContent_CreateCpSeparateVariantCrud = null;
       if (hashmapMetadata.containsKey("integration.body_content.create_cp_separate_variant_crud")) {
@@ -125,17 +131,19 @@ public class ChannelProductService {
       if (integration_BodyContent_CreateCpSeparateVariantCrud.equals("true")) {
         response = Create_CP_MultiExecution
             .createSomeChannelProducts_WithSplitVariants(channelProductBuilders, hashmapMetadata, http)
-            .toCompletableFuture().get();       
+            .toCompletableFuture().get();
       } else {
         response = Create_CP_SingleExecution
             .createSomeChannelProducts(channelProductBuilders, hashmapMetadata, http)
             .toCompletableFuture().get();
       }
 
-      if (response != null && response.status().intValue() >= 400) {
+      if (response != null && response.status().intValue() >= 300) {
         ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
             .setStatus("FAIL")
-            .setDescription("Gagal simpan")
+            .setDescription("Gagal simpan, (" +
+                response.status().intValue() + "):" +
+                response.status().defaultMessage())
             .build();
         return cpHttpResponse;
       } else {
