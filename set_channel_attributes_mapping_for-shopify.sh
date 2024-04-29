@@ -578,6 +578,29 @@ post_channel_attribute_mapping()
         {
             "mappingId": 26,
             "channelId": "shopify",
+            "attributeId": "channel_variant_product_images",
+            "destinationField": "product.variants.images",
+            "type": "object[]",
+            "group": "variant",
+            "isCommon": false
+        }
+EOF
+}
+echo "===> POST ATTRIBUTE"
+curl -i \
+-H "Accept: application/json" \
+-H "Content-Type:application/json" \
+-X POST --data "$(post_channel_attribute_mapping)" "localhost:9000/create_channel_attribute_mapping"
+
+
+
+sleep 1
+post_channel_attribute_mapping()
+{
+  cat <<EOF
+        {
+            "mappingId": 27,
+            "channelId": "shopify",
             "attributeId": "channel_option_name",
             "destinationField": "product.options.name",
             "type": "string",
@@ -599,7 +622,7 @@ post_channel_attribute_mapping()
 {
   cat <<EOF
         {
-            "mappingId": 27,
+            "mappingId": 28,
             "channelId": "shopify",
             "attributeId": "channel_option_values",
             "destinationField": "product.options.values",
