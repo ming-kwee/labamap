@@ -564,6 +564,28 @@ post_attribute()
 {
   cat <<EOF
 {
+
+    "attributeId": "channel_variant_product_images",
+    "attributeName": "variants.channel_variant_product_images",
+    "attributeType": "object[]",
+    "isCommon": false,
+    "group": "variant"
+}
+EOF
+}
+echo "===> POST ATTRIBUTE"
+curl -i \
+-H "Accept: application/json" \
+-H "Content-Type:application/json" \
+-X POST --data "$(post_attribute)" "localhost:9000/create_attribute"
+
+
+
+sleep 1
+post_attribute()
+{
+  cat <<EOF
+{
   
     "attributeId": "channel_option_name",
     "attributeName": "options.channel_option_name",
