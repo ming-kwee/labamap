@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package io.products.masterProduct.api;
+
+option java_outer_classname = "MasterProductApi";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "kalix/annotations.proto";
+// import "io/products/master_product/domain/master_product_domain.proto";
+
+service MasterProductService {
+    option (kalix.codegen) = {
+      // value_entity: {
+      //   name: "io.products.masterProduct.domain.MasterProduct"
+      //   entity_type: "master_products"
+      //   state: "io.products.masterProduct.domain.MasterProductState"
+      // }
+      event_sourced_entity: {
+        name: "io.products.masterProduct.domain.MasterProduct"
+        entity_type: "master_products"
+        state: "io.products.masterProduct.domain.MasterProductState"
+        events: [
+          "io.products.masterProduct.domain.MasterProductDeleted",
+          "io.products.masterProduct.domain.MasterProductCreated"
+          ]
+      }
+    };
+  
+    rpc CreateMasterProduct(MasterProduct) returns (google.protobuf.Empty);
+    
+    rpc GetMasterProduct(GetMasterProductRequest) returns (MasterProduct){
+      option (google.api.http) = {
+          post: "/get_master_product"
+          body: "*"
+      };
+  };
+
+    // rpc UpdateMasterProduct(MasterProduct) returns (google.protobuf.Empty);
+
+    rpc DeleteMasterProduct(DeleteMasterProductRequest) returns (google.protobuf.Empty){
+      option (google.api.http) = {
+          post: "/delete-master-product"
+          body: "*"
+      };
+  };
+
+}
+
+message MasterProduct {
+    string id = 1 [(kalix.field).entity_key = true];
+    string productId = 2;
+    string masterId = 3;
+
+    repeated MasterProductAttribute masterProductAttribute = 4;
+    repeated MasterProductVariantGroup masterProductVariantGroup = 5;
+    repeated MasterProductOptionGroup masterProductOptionGroup = 6;
+    bool isDeleted = 7;
+
+}
+
+message GetMasterProductRequest {
+  string id = 1  [(kalix.field).entity_key = true];
+}
+message DeleteMasterProductRequest {
+    string id = 1 [(kalix.field).entity_key = true];
+}
+
+message MasterProductAttribute {
+  string attrId = 1 [(kalix.field).entity_key = true];
+  string mstrAttrName = 2;
+  string mstrAttrType = 3;
+  string value = 4;
+  bool isCommon = 5;
+  
+}
+
+
+message MasterProductVariantGroup {
+  repeated MasterProductVariant masterProductVariant = 1;
+}
+
+
+message MasterProductVariant {
+  string vrntId = 1 [(kalix.field).entity_key = true];
+  string mstrVrntName = 2;
+  string mstrVrntType = 3;
+  string value = 4;
+}
+
+message MasterProductOptionGroup {
+  repeated MasterProductOption masterProductOption = 1;
+}
+
+
+message MasterProductOption {
+  string optnId = 1 [(kalix.field).entity_key = true];
+  string mstrOptnName = 2;
+  string mstrOptnType = 3;
+  string value = 4;
+}
+
+message MasterProductHttpResponse {
+  string status = 1;
+  string description = 2;
+  // You can add more fields as needed.
+}

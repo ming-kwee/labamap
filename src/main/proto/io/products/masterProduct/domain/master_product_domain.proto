@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package io.products.masterProduct.domain;
+
+option java_outer_classname = "MasterProductDomain";
+
+message MasterProductState {
+    string id = 1;
+    string productId = 2;
+    string masterId = 3;
+    repeated MasterProductAttribute masterProductAttribute = 4;
+    repeated MasterProductVariantGroup masterProductVariantGroup = 5;
+    repeated MasterProductOptionGroup masterProductOptionGroup = 6;
+    bool isDeleted = 7;
+}
+    
+
+message MasterProductCreated {
+    MasterProductState masterProduct = 1;
+}
+
+message MasterProductDeleted {
+    MasterProductState masterProduct = 1;
+}
+
+
+message MasterProductAttribute {
+    string attrId = 1;
+    string mstrAttrName = 2;
+    string mstrAttrType = 3;
+    string value = 4;
+    bool isCommon = 5;
+}
+  
+
+message MasterProductVariantGroup {
+    repeated MasterProductVariant masterProductVariant = 1;
+}
+ 
+
+message MasterProductVariant {
+    string vrntId = 1;
+    string mstrVrntName = 2;
+    string mstrVrntType = 3;    
+    string value = 4;
+}
+
+ 
+message MasterProductOptionGroup {
+    repeated MasterProductOption masterProductOption = 1;
+}
+
+message MasterProductOption {
+    string optnId = 1;
+    string mstrOptnName = 2;
+    string mstrOptnType = 3;    
+    string value = 4;
+}
+

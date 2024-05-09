@@ -1,0 +1,84 @@
+syntax = "proto3";
+package io.products.masterProduct.action;
+
+option java_outer_classname = "MasterProductActionApi";
+
+import "kalix/annotations.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service MasterProductAction {
+    option (kalix.codegen) = {
+      action: {}
+    };
+  
+    rpc CreateMasterProduct(MasterProduct) returns (google.protobuf.Empty)  {
+      option (google.api.http) = {
+          post: "/create_master_product_impl"
+          body: "*"
+      };
+    }
+
+    // rpc UpdateMasterProduct(MasterProductApi.MasterProduct) returns (MasterProduct) {
+    //   option (google.api.http) = {
+    //       put: "/master_product/{id}"
+    //       body: "*"
+    //   };
+    // }
+
+    // rpc DeleteMasterProduct(MasterProductApi.MasterProduct) returns (MasterProduct) {
+    //   option (google.api.http) = {
+    //       put: "/master_product/{id}/delete"
+    //       body: "*"
+    //   };
+    // }
+
+    // rpc OnDeleteState (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    //   option (kalix.method).eventing.in = {
+    //     value_entity: "master_products"
+    //     handle_deletes: true // <4>
+    //   };
+    // }
+
+}
+
+
+message MasterProduct {
+  repeated MasterAttribute masterAttributes = 1;
+  repeated VariantGroup variantGroups = 2;
+  repeated OptionGroup optionGroups = 3;
+}
+
+
+message MasterAttribute {  
+  string attrId = 1;
+  string mstrAttrName = 2;
+  string mstrAttrValue = 3;
+  string mstrAttrType = 4;
+  bool isCommon = 5;
+
+}
+
+
+message VariantGroup {
+  repeated MasterVariant masterVariant = 1;
+}
+
+message MasterVariant {
+  string vrntId = 1;
+  string mstrVrntName = 2;
+  string mstrVrntValue = 3;
+  string mstrVrntType = 4;
+}
+
+message OptionGroup {
+  repeated MasterOption masterOption = 1;
+}
+
+
+message MasterOption {
+  string optnId = 1;
+  string mstrOptnName = 2;
+  string mstrOptnValue = 3;
+  string mstrOptnType = 4;
+}

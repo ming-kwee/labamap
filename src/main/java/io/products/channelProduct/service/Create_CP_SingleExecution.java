@@ -86,6 +86,8 @@ public class Create_CP_SingleExecution {
     } else {
       requestBody = productsArray.toString();
     }
+
+    LOG.info("REQUESTBODY", requestBody);
     /* ____________________________________________________ */
     // String accessToken = "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";
     HttpRequest request = initialSetup_HttpRequest(hashmapMetadata);
