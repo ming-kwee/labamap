@@ -6,13 +6,15 @@ option java_outer_classname = "ChannelProductDomain";
 
 message ChannelProductState {
     string id = 1;
-    string productId = 2;
-    string channelId = 3;
-    repeated ChannelProductAttribute channelProductAttribute = 4;
-    repeated ChannelProductVariantGroup channelProductVariantGroup = 5;
-    repeated ChannelProductOptionGroup channelProductOptionGroup = 6;
-    bool isDeleted = 7;
-    string eventId = 8;
+    string sku = 2;
+    string storeId = 3;
+    string channelId = 4;
+    repeated ChannelProductAttribute channelProductAttribute = 5;
+    repeated ChannelProductVariantGroup channelProductVariantGroup = 6;
+    repeated ChannelProductOptionGroup channelProductOptionGroup = 7;
+    bool isDeleted = 8;
+    string eventId = 9;
+    string channelProductId = 10;
 }
     
 

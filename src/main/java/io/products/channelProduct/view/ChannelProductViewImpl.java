@@ -149,8 +149,9 @@ public class ChannelProductViewImpl extends AbstractChannelProductView {
 
     apiChannelProduct
         .setId(channelProductState.getId())
+        .setSku(channelProductState.getSku())
+        .setStoreId(channelProductState.getStoreId())
         .setChannelId(channelProductState.getChannelId())
-        .setProductId(channelProductState.getProductId())
         .clearChannelProductAttribute().addAllChannelProductAttribute(apiChnlProdAttributeList)
         .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(apiChnlProdVariantGroupList)
         .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(apiChnlProdOptionGroupList)

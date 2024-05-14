@@ -7,6 +7,7 @@ option java_outer_classname = "ChannelProductApi";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "kalix/annotations.proto";
+import "google/protobuf/struct.proto";
 // import "io/products/channel_product/domain/channel_product_domain.proto";
 
 service ChannelProductService {
@@ -44,14 +45,15 @@ service ChannelProductService {
 
 message ChannelProduct {
     string id = 1 [(kalix.field).entity_key = true];
-    string productId = 2;
-    string channelId = 3;
+    string sku = 2;
+    string storeId = 3;
+    string channelId = 4;
 
-    repeated ChannelProductAttribute channelProductAttribute = 4;
-    repeated ChannelProductVariantGroup channelProductVariantGroup = 5;
-    repeated ChannelProductOptionGroup channelProductOptionGroup = 6;
-    bool isDeleted = 7;
-    string eventId = 8;
+    repeated ChannelProductAttribute channelProductAttribute = 5;
+    repeated ChannelProductVariantGroup channelProductVariantGroup = 6;
+    repeated ChannelProductOptionGroup channelProductOptionGroup = 7;
+    bool isDeleted = 8;
+    string eventId = 9;
 
 }
 
@@ -99,5 +101,6 @@ message ChannelProductOption {
 message ChannelProductHttpResponse {
   string status = 1;
   string description = 2;
+  map<string, google.protobuf.Value> data = 3;
   // You can add more fields as needed.
 }
