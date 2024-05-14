@@ -13,7 +13,7 @@ service AttributeService {
     option (kalix.codegen) = {
       value_entity: {
         name: "io.products.attribute.domain.Attribute"
-        entity_type: "attributes"
+        type_id: "attributes"
         state: "io.products.attribute.domain.AttributeState"
       }
     };

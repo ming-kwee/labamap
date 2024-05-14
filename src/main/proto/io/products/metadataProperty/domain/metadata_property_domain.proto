@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package io.products.metadata.domain;
+package io.products.metadataProperty.domain;
 
-option java_outer_classname = "MetadataDomain";
+option java_outer_classname = "MetadataPropertyDomain";
 
 
-message MetadataState {
+message MetadataPropertyState {
   string channelId = 1;
   string key = 2;
   string value = 3;

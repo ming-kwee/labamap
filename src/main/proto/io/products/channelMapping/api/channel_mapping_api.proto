@@ -13,7 +13,7 @@ service ChannelMappingService {
   option (kalix.codegen) = {
     value_entity: {
       name: "io.products.channelMapping.domain.ChannelMapping"
-      entity_type: "channel_mapping"
+      type_id: "channel_mapping"
       state: "io.products.channelMapping.domain.ChannelMappingState"
     }
   };

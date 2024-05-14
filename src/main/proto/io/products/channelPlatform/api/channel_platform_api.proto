@@ -13,7 +13,7 @@ service ChannelPlatformService {
     option (kalix.codegen) = {
       value_entity: {
         name: "io.products.channelPlatform.domain.ChannelPlatform"
-        entity_type: "channel_platforms"
+        type_id: "channel_platforms"
         state: "io.products.channelPlatform.domain.ChannelPlatformState"
       }
     };

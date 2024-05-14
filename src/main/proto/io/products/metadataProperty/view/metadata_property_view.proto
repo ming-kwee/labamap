@@ -1,22 +1,22 @@
 syntax = "proto3";
 
-package io.products.metadata.view;
+package io.products.metadataProperty.view;
 option java_outer_classname = "MetadataViewModel";
 
-import "io/products/metadata/domain/metadata_domain.proto";
+import "io/products/metadataProperty/domain/metadata_property_domain.proto";
 import "google/api/annotations.proto";
 import "kalix/annotations.proto";
 import "google/protobuf/empty.proto";
 
-service MetadataView {
+service MetadataPropertyView {
   option (kalix.codegen) = {
     view: {}
   };
 
 
-  rpc GetMetadatas(ByRoleRequest) returns (ByRoleResponse) {
+  rpc GetMetadataProperties(ByRoleRequest) returns (ByRoleResponse) {
     option (kalix.method).view.query = {
-      query: "SELECT * AS metadatas FROM metadatas"
+      query: "SELECT * AS metadata_properties FROM metadata_properties"
     };
     option (google.api.http) = {
       post: "/metadatas",
@@ -24,12 +24,12 @@ service MetadataView {
     };
   }
 
-  rpc UpdateMetadata(domain.MetadataState) returns (domain.MetadataState) {
+  rpc UpdateMetadataProperty(domain.MetadataPropertyState) returns (domain.MetadataPropertyState) {
     option (kalix.method).eventing.in = {
-      value_entity: "metadatas"
+      value_entity: "metadata_properties"
     };
     option (kalix.method).view.update = {
-      table: "metadatas"
+      table: "metadata_properties"
       // transform_updates: true
     };
   }
@@ -51,6 +51,6 @@ message ByRoleRequest {
 }
 
 message ByRoleResponse {
-  repeated domain.MetadataState metadatas = 1;
+  repeated domain.MetadataPropertyState metadata_properties = 1;
 }
 

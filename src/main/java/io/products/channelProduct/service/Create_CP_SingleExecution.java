@@ -17,7 +17,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.lazada.lazop.util.ApiException;
 
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.ContentTypes;
@@ -43,7 +42,7 @@ public class Create_CP_SingleExecution {
 
   public static CompletionStage<HttpResponse> createAChannelProduct(ChannelProduct channelProduct,
       Map<String, Object> hashmapMetadata, Http http)
-      throws StatusException, ApiException, JsonMappingException, JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
+      throws StatusException, JsonMappingException, JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
     // LOG.info("CREATE A CHANNEL PRODUCT - Create_CP_WithBearerToken");
     HttpRequest request = initialSetup_HttpRequest(hashmapMetadata);
 
@@ -64,7 +63,7 @@ public class Create_CP_SingleExecution {
   public static CompletionStage<HttpResponse> createSomeChannelProducts(
       List<ChannelProduct.Builder> channelProductBuilders,
       Map<String, Object> hashmapMetadata, Http http)
-      throws StatusException, JsonMappingException, JsonProcessingException, ApiException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
+      throws StatusException, JsonMappingException, JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
 
     LOG.info("CREATE SOME CHANNEL PRODUCTs - Create_CP_WithBearerToken");
     /* ___________________________________________________ */
@@ -172,7 +171,7 @@ public class Create_CP_SingleExecution {
   // ---------------------------------------------------------------------------------------------------------------
 
 
-  private static HttpRequest initialSetup_HttpRequest(Map<String, Object> hashmapMetadata) throws ApiException, JsonMappingException, JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
+  private static HttpRequest initialSetup_HttpRequest(Map<String, Object> hashmapMetadata) throws JsonMappingException, JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
 
 
       /* -------- setting up authorization metadata ------- */

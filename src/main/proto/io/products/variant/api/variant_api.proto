@@ -13,7 +13,7 @@ service VariantService {
   option (kalix.codegen) = {
     value_entity: {
       name: "io.products.variant.domain.Variant"
-      entity_type: "variants"
+      type_id: "variants"
       state: "io.products.variant.domain.VariantState"
     }
   };

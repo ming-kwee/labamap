@@ -7,15 +7,43 @@ option java_outer_classname = "ChannelProductApi";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "kalix/annotations.proto";
-// import "io/products/channel_product/domain/channel_product_domain.proto";
+ import "io/products/channelProduct/domain/channel_product_domain.proto";
 
+// SyncChannelProductWorkflowService
+//service SyncChannelProductWorkflowService {
+//  option (kalix.codegen) = {
+//    workflow: {
+//      name: "io.products.channelProduct.api.SyncChannelProductWorkflow"
+//      type_id: "channel_products"
+//      state: "io.products.channelProduct.domain.ChannelProductState"
+//    }
+//  };
+//  rpc Start(ChannelProduct) returns (google.protobuf.Empty) {}
+//  rpc Accept(AcceptRequest) returns (google.protobuf.Empty) {}
+//  rpc AcceptationTimeout(AcceptationTimeoutRequest) returns (google.protobuf.Empty) {}
+//  rpc GetChannelProductState(GetRequest) returns (io.products.channelProduct.domain.ChannelProductState) {}
+//}
+
+//message GetRequest {
+//  string id = 1 [(kalix.field).id = true];
+//}
+//
+//message AcceptRequest {
+//  string id = 1 [(kalix.field).id = true];
+//}
+//
+//message AcceptationTimeoutRequest {
+//  string id = 1 [(kalix.field).id = true];
+//}
+
+// ChannelProductService
 service ChannelProductService {
     option (kalix.codegen) = {
-      // value_entity: {
-      //   name: "io.products.channelProduct.domain.ChannelProduct"
-      //   entity_type: "channel_products"
-      //   state: "io.products.channelProduct.domain.ChannelProductState"
-      // }
+//       value_entity: {
+//         name: "io.products.channelProduct.domain.ChannelProduct"
+//         entity_type: "channel_products"
+//         state: "io.products.channelProduct.domain.ChannelProductState"
+//       }
       event_sourced_entity: {
         name: "io.products.channelProduct.domain.ChannelProduct"
         entity_type: "channel_products"
@@ -26,15 +54,15 @@ service ChannelProductService {
           ]
       }
     };
-  
+
     rpc CreateChannelProduct(ChannelProduct) returns (google.protobuf.Empty);
-    
+
     rpc GetChannelProduct(GetChannelProductRequest) returns (ChannelProduct){
       option (google.api.http) = {
           post: "/get_channel_product"
           body: "*"
       };
-  };
+    };
 
     // rpc UpdateChannelProduct(ChannelProduct) returns (google.protobuf.Empty);
 
@@ -43,7 +71,7 @@ service ChannelProductService {
 }
 
 message ChannelProduct {
-    string id = 1 [(kalix.field).entity_key = true];
+    string id = 1 [(kalix.field).id = true];
     string productId = 2;
     string channelId = 3;
 
@@ -56,19 +84,19 @@ message ChannelProduct {
 }
 
 message GetChannelProductRequest {
-  string id = 1  [(kalix.field).entity_key = true];
+  string id = 1  [(kalix.field).id = true];
 }
 message DeleteChannelProductRequest {
-    string id = 1 [(kalix.field).entity_key = true];
+    string id = 1 [(kalix.field).id = true];
 }
 
 message ChannelProductAttribute {
-  string attrId = 1 [(kalix.field).entity_key = true];
+  string attrId = 1 [(kalix.field).id = true];
   string chnlAttrName = 2;
   string chnlAttrType = 3;
   string value = 4;
   bool isCommon = 5;
-  
+
 }
 
 
@@ -78,7 +106,7 @@ message ChannelProductVariantGroup {
 
 
 message ChannelProductVariant {
-  string vrntId = 1 [(kalix.field).entity_key = true];
+  string vrntId = 1 [(kalix.field).id = true];
   string chnlVrntName = 2;
   string chnlVrntType = 3;
   string value = 4;
@@ -90,7 +118,7 @@ message ChannelProductOptionGroup {
 
 
 message ChannelProductOption {
-  string optnId = 1 [(kalix.field).entity_key = true];
+  string optnId = 1 [(kalix.field).id = true];
   string chnlOptnName = 2;
   string chnlOptnType = 3;
   string value = 4;

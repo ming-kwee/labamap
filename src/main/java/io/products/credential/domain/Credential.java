@@ -3,8 +3,8 @@ package io.products.credential.domain;
 import com.google.protobuf.Empty;
 import io.grpc.Status;
 import io.products.credential.api.CredentialApi;
-import io.products.metadata.api.MetadataApi;
-import io.products.metadata.domain.MetadataDomain;
+import io.products.metadataProperty.api.MetadataPropertyApi;
+import io.products.metadataProperty.domain.MetadataPropertyDomain;
 import kalix.javasdk.valueentity.ValueEntityContext;
 
 import java.util.Optional;

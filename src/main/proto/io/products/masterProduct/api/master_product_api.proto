@@ -18,7 +18,7 @@ service MasterProductService {
       // }
       event_sourced_entity: {
         name: "io.products.masterProduct.domain.MasterProduct"
-        entity_type: "master_products"
+        type_id: "master_products"
         state: "io.products.masterProduct.domain.MasterProductState"
         events: [
           "io.products.masterProduct.domain.MasterProductDeleted",

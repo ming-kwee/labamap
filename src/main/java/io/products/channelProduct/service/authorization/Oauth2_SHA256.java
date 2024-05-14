@@ -19,10 +19,6 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lazada.lazop.api.LazopClient;
-import com.lazada.lazop.api.LazopRequest;
-import com.lazada.lazop.api.LazopResponse;
-import com.lazada.lazop.util.ApiException;
 
 import akka.actor.ActorSystem;
 import akka.http.javadsl.Http;
@@ -46,7 +42,7 @@ public class Oauth2_SHA256 {
   private static final String LAZADA_URL = "https://api.lazada.com/rest";
 
   public static HttpRequest setup_HttpRequest(String URL, String HttpMethod, Map<String, Object> hashmapMetadata)
-      throws UnsupportedEncodingException, ApiException, JsonMappingException, JsonProcessingException,
+      throws UnsupportedEncodingException, JsonMappingException, JsonProcessingException,
       InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
 
     ActorSystem actorSystem = ActorSystem.create("MyActorSystem");
@@ -174,18 +170,19 @@ public class Oauth2_SHA256 {
   }
 
   private static String exchangeAuthorizationCodeForAccessToken(String authorizationCode)
-      throws UnsupportedEncodingException, ApiException, JsonMappingException, JsonProcessingException {
+      throws UnsupportedEncodingException, JsonMappingException, JsonProcessingException {
 
-    LazopClient client = new LazopClient("https://api.lazada.com/rest", "128209", "pi6auSLgoHUncSr1NK9zLUTDFRI6YaKp"); // "${appkey}",
-                                                                                                                       // "${appSecret}");
-    LazopRequest request = new LazopRequest("/auth/token/create");
-    request.addApiParameter("code", authorizationCode);
-    LazopResponse response = client.execute(request);
-    ObjectMapper objectMapper = new ObjectMapper();
-    Map<String, Object> jsonMap = objectMapper.readValue(response.getBody(), Map.class);
-
-    LOG.info("step#AA " + (String) jsonMap.get("access_token"));
-    return (String) jsonMap.get("access_token");
+//    LazopClient client = new LazopClient("https://api.lazada.com/rest", "128209", "pi6auSLgoHUncSr1NK9zLUTDFRI6YaKp"); // "${appkey}",
+//                                                                                                                       // "${appSecret}");
+//    LazopRequest request = new LazopRequest("/auth/token/create");
+//    request.addApiParameter("code", authorizationCode);
+//    LazopResponse response = client.execute(request);
+//    ObjectMapper objectMapper = new ObjectMapper();
+//    Map<String, Object> jsonMap = objectMapper.readValue(response.getBody(), Map.class);
+//
+//    LOG.info("step#AA " + (String) jsonMap.get("access_token"));
+//    return (String) jsonMap.get("access_token");
+    return null;
   }
 
   private static String initiateGenerateSignature(String requestUri, String appKey, String appSecret, String code)
@@ -257,26 +254,26 @@ public class Oauth2_SHA256 {
   //   Thread.sleep(10);
   // }
 
-  private static void getProducts(String url, String appkey, String appSecret, String accessToken) throws ApiException, InterruptedException{
+  private static void getProducts(String url, String appkey, String appSecret, String accessToken) throws InterruptedException{
   // LazopClient client = new LazopClient(url, appkey, appSecret);
-  LazopClient client = new LazopClient("https://api.lazada.com/rest", "128209", "pi6auSLgoHUncSr1NK9zLUTDFRI6YaKp"); // "${appkey}",
-
-  LazopRequest request = new LazopRequest();
-  request.setApiName("/products/get");
-  request.setHttpMethod("GET");
-  request.addApiParameter("filter", "live");
-  request.addApiParameter("update_before", "2024-03-01T00:00:00+0800");
-  request.addApiParameter("create_before", "2024-03-01T00:00:00+0800");
-  request.addApiParameter("offset", "0");
-  request.addApiParameter("create_after", "2024-01-01T00:00:00+0800");
-  request.addApiParameter("update_after", "2024-01-01T00:00:00+0800");
-  request.addApiParameter("limit", "10");
-  request.addApiParameter("options", "1");
-  // request.addApiParameter("sku_seller_list", " [\"39817:01:01\", \"Apple 6S Black\"]");
-  LOG.info("stop 1");
-  LazopResponse response = client.execute(request, accessToken);
-  LOG.info("stop 2 " + response.getBody());
-  System.out.println(response.getBody());
-  Thread.sleep(10);
+//  LazopClient client = new LazopClient("https://api.lazada.com/rest", "128209", "pi6auSLgoHUncSr1NK9zLUTDFRI6YaKp"); // "${appkey}",
+//
+//  LazopRequest request = new LazopRequest();
+//  request.setApiName("/products/get");
+//  request.setHttpMethod("GET");
+//  request.addApiParameter("filter", "live");
+//  request.addApiParameter("update_before", "2024-03-01T00:00:00+0800");
+//  request.addApiParameter("create_before", "2024-03-01T00:00:00+0800");
+//  request.addApiParameter("offset", "0");
+//  request.addApiParameter("create_after", "2024-01-01T00:00:00+0800");
+//  request.addApiParameter("update_after", "2024-01-01T00:00:00+0800");
+//  request.addApiParameter("limit", "10");
+//  request.addApiParameter("options", "1");
+//  // request.addApiParameter("sku_seller_list", " [\"39817:01:01\", \"Apple 6S Black\"]");
+//  LOG.info("stop 1");
+//  LazopResponse response = client.execute(request, accessToken);
+//  LOG.info("stop 2 " + response.getBody());
+//  System.out.println(response.getBody());
+//  Thread.sleep(10);
   }
 }

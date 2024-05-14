@@ -19,8 +19,8 @@
 
     <jdk.target>17</jdk.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <kalix-sdk.version>1.1.7</kalix-sdk.version>
-    <akka-grpc.version>2.3.2</akka-grpc.version>
+    <kalix-sdk.version>1.4.1</kalix-sdk.version>
+    <akka-grpc.version>2.1.6</akka-grpc.version>
   </properties>
 
   <build>
@@ -38,7 +38,7 @@
       <extension>
         <groupId>kr.motd.maven</groupId>
         <artifactId>os-maven-plugin</artifactId>
-        <version>1.7.0</version>
+        <version>1.7.1</version>
       </extension>
     </extensions>
 
@@ -46,7 +46,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.11.0</version>
         <configuration>
           <source>${jdk.target}</source>
           <target>${jdk.target}</target>
@@ -114,7 +114,7 @@
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
-        <version>0.39.1</version>
+        <version>0.43.4</version>
         <configuration>
           <images>
             <image>
@@ -167,7 +167,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.2.0</version>
         <executions>
           <execution>
             <goals>
@@ -298,14 +298,25 @@
   </profiles>
 
   <dependencies>
+<!--    <dependency>-->
+<!--      <groupId>io.kalix</groupId>-->
+<!--      <artifactId>kalix-java-sdk</artifactId>-->
+<!--      <version>1.1.7</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>io.kalix</groupId>-->
+<!--      <artifactId>kalix-java-sdk-testkit</artifactId>-->
+<!--      <version>1.1.7</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>io.kalix</groupId>
-      <artifactId>kalix-java-sdk</artifactId>
+      <artifactId>kalix-java-sdk-protobuf</artifactId>
       <version>${kalix-sdk.version}</version>
     </dependency>
     <dependency>
       <groupId>io.kalix</groupId>
-      <artifactId>kalix-java-sdk-testkit</artifactId>
+      <artifactId>kalix-java-sdk-protobuf-testkit</artifactId>
       <version>${kalix-sdk.version}</version>
       <scope>test</scope>
     </dependency>
@@ -325,11 +336,11 @@
       <artifactId>signpost-commonshttp4</artifactId>
       <version>2.1.1</version>
     </dependency>
-    <dependency>
-      <groupId>lazop-sdk</groupId>
-      <artifactId>lazop-java-api-sdk</artifactId>
-      <version>1.2.0</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>lazop-sdk</groupId>-->
+<!--      <artifactId>lazop-java-api-sdk</artifactId>-->
+<!--      <version>1.2.0</version>-->
+<!--    </dependency>-->
 
     <!-- <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
