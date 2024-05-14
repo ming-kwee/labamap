@@ -44,20 +44,22 @@ public class Create_CP_SingleExecution {
       Map<String, Object> hashmapMetadata, Http http)
       throws StatusException, JsonMappingException, JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
     // LOG.info("CREATE A CHANNEL PRODUCT - Create_CP_WithBearerToken");
-    HttpRequest request = initialSetup_HttpRequest(hashmapMetadata);
 
+    HttpRequest request = initialSetup_HttpRequest(hashmapMetadata);
     String requestBody = transform_AttributeToJson(channelProduct);
+
     return http.singleRequest(request.withEntity(ContentTypes.APPLICATION_JSON, requestBody))
         .thenApply(response -> {
 
           LOG.info("HALORESPONSE (" + 
           response.status().intValue() + "):" +
           response.status().defaultMessage());
-          return response;
+          return response ;
         })
         .exceptionally(ex -> {
           return HttpResponse.create().withStatus(StatusCodes.INTERNAL_SERVER_ERROR);
         });
+
   }
 
   public static CompletionStage<HttpResponse> createSomeChannelProducts(
@@ -219,5 +221,29 @@ public class Create_CP_SingleExecution {
 
     return request;
   }
+
+
+
+
+
+    // Implement JSON parsing logic to extract the product ID
+    // private static String extractProductIdFromJson(String responseBody) {
+    //     ObjectMapper mapper = new ObjectMapper();
+    //     try {
+    //         // Parse the JSON response body
+    //         JsonNode jsonNode = mapper.readTree(responseBody);
+
+    //         // Extract the product ID from the JSON structure
+    //         JsonNode productIdNode = jsonNode.path("product").path("id");
+    //         if (productIdNode.isMissingNode()) {
+    //             throw new RuntimeException("Product ID not found in the response");
+    //         }
+
+    //         // Return the product ID as a string
+    //         return productIdNode.asText();
+    //     } catch (IOException e) {
+    //         throw new RuntimeException("Failed to parse JSON response: " + e.getMessage(), e);
+    //     }
+    // }
 
 }

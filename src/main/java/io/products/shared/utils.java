@@ -126,7 +126,7 @@ public class utils {
         result.append(c);
       }
     }
-    return result.toString() + "_";
+    return result.toString();
   }
 
   /* ------------------------- */

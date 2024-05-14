@@ -2,19 +2,26 @@ package io.products.channelProduct.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import akka.actor.ActorSystem;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.HttpResponse;
+import akka.http.javadsl.unmarshalling.Unmarshaller;
+import akka.stream.Materializer;
 import io.grpc.StatusException;
 import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProduct;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
+import com.google.protobuf.Struct;
 
 public class ChannelProductService {
   private static final Logger LOG = LoggerFactory.getLogger(ChannelProductService.class);
 
+  @SuppressWarnings("null")
   public static ChannelProductHttpResponse createAChannelProductService(ChannelProduct channelProduct,
       Map<String, Object> hashmapMetadata)
       throws StatusException {
@@ -35,14 +42,51 @@ public class ChannelProductService {
 
       /* --- the entry to the service world based on type of authorization --- */
       HttpResponse response = null;
+      CompletionStage<ChannelProductHttpResponse> responseFuture = null;
+      Materializer materializer = Materializer.createMaterializer(actorSystem);
       if (integration_BodyContent_CreateCpSeparateVariantCrud.equals("true")) {
         response = Create_CP_MultiExecution
             .createAChannelProduct_WithSplitVariants(channelProduct, hashmapMetadata, http, actorSystem)
             .toCompletableFuture().get();
       } else {
-        response = Create_CP_SingleExecution
+        responseFuture = Create_CP_SingleExecution
             .createAChannelProduct(channelProduct, hashmapMetadata, http)
-            .toCompletableFuture().get();
+            .thenCompose(response2 -> {
+              if (response2.status().isSuccess()) {
+                // Extract the product ID from the response body
+                return Unmarshaller.entityToString().unmarshal(response2.entity(), materializer)
+                    .thenApply(responseBody -> {
+                      // Parse JSON response body to extract the ID of the newly created product
+                      LOG.info("HINEE " + responseBody);
+                      // String productId = extractProductIdFromJson(responseBody);
+
+                      // Build the ChannelProductHttpResponse object
+                      Struct.Builder structBuilder = Struct.newBuilder();
+                      Struct struct = structBuilder.build();
+
+                      // Your JSON data as a string
+                      String jsonData = "{\"key1\": \"value1\", \"key2\": 123}";
+
+                      // Parse the JSON data and populate the Struct builder
+                      // JsonFormat.parser().merge(jsonData, structBuilder);
+
+                      // LOG.info("Theu" + response);
+                      LOG.info("Theuna " + struct);
+
+                      return ChannelProductHttpResponse.newBuilder()
+                          .setStatus("OK")
+                          .setDescription("Berhasil simpan")
+                          .putAllData(struct.getFieldsMap())
+                          .build();
+                    });
+              } else {
+                // Handle error response
+                return CompletableFuture.completedFuture(ChannelProductHttpResponse.newBuilder()
+                    .setStatus("ERROR")
+                    .setDescription("Gagal simpan")
+                    .build());
+              }
+            });
       }
 
       if (response != null && response.status().intValue() >= 300) {
@@ -55,11 +99,7 @@ public class ChannelProductService {
 
         return cpHttpResponse;
       } else {
-        ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
-            .setStatus("OK")
-            .setDescription("Berhasil simpan")
-            .build();
-        return cpHttpResponse;
+        return responseFuture.toCompletableFuture().get();
       }
 
     } catch (Exception e) {
@@ -71,6 +111,7 @@ public class ChannelProductService {
       return cpHttpResponse;
     }
   }
+
 
   public static ChannelProductHttpResponse createSomeChannelProductsService(
       List<ChannelProduct.Builder> channelProductBuilders,
@@ -147,6 +188,7 @@ public class ChannelProductService {
             .build();
         return cpHttpResponse;
       } else {
+
         ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
             .setStatus("OK")
             .setDescription("Berhasil simpan")

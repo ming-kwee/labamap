@@ -31,6 +31,7 @@ import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup;
 import io.products.channelProduct.api.ChannelProductApi.DeleteChannelProductRequest;
 import io.products.channelProduct.service.ChannelProductService;
+import io.products.shared.utils;
 import kalix.javasdk.action.ActionCreationContext;
 
 import java.util.concurrent.ExecutionException;
@@ -295,11 +296,16 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
       // Create Product common fields
       if (actChnlAttribute.getIsCommon() == true) {
         for (FieldDescriptor field : fields) {
-          if (field.getName().equals(actChnlAttribute.getChnlAttrName())) {
-            // String propName =
-            // utils.replaceAfterUnderscore(actChnlAttribute.getChnlAttrName());
-            if ("productId".equals(field.getName())) {
-              channelProductBuilder.setProductId(actChnlAttribute.getChnlAttrValue());
+
+          String propName =
+          utils.replaceAfterUnderscore(actChnlAttribute.getChnlAttrName());
+          LOG.info("PROPNAME " + propName + ", " + field.getName() + ", " + actChnlAttribute.getChnlAttrName());
+
+        if (field.getName().equals(propName)) {
+            if ("sku".equals(field.getName())) {
+              channelProductBuilder.setSku(actChnlAttribute.getChnlAttrValue());
+            } else if ("storeId".equals(field.getName())) {
+              channelProductBuilder.setStoreId(actChnlAttribute.getChnlAttrValue());            
             } else if ("channelId".equals(field.getName())) {
               channelProductBuilder.setChannelId(actChnlAttribute.getChnlAttrValue());
             }

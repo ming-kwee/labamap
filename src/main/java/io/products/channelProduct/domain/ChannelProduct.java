@@ -137,14 +137,15 @@ public class ChannelProduct extends AbstractChannelProduct {
     }
 
     stateBuilder
-            .setId(apiChannelProduct.getId())
-            .setChannelId(apiChannelProduct.getChannelId())
-            .setProductId(apiChannelProduct.getProductId())
-            .setIsDeleted(apiChannelProduct.getIsDeleted())
-            .setEventId(apiChannelProduct.getEventId())
-            .clearChannelProductAttribute().addAllChannelProductAttribute(domChnlProdAttributeList)
-            .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(domChnlProdVariantGroupList)
-            .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(domChnlProdOptionGroupList);
+        .setId(apiChannelProduct.getId())
+        .setSku(apiChannelProduct.getSku())
+        .setStoreId(apiChannelProduct.getStoreId())
+        .setChannelId(apiChannelProduct.getChannelId())
+        .setIsDeleted(apiChannelProduct.getIsDeleted())
+        .setEventId(apiChannelProduct.getEventId())
+        .clearChannelProductAttribute().addAllChannelProductAttribute(domChnlProdAttributeList)
+        .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(domChnlProdVariantGroupList)
+        .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(domChnlProdOptionGroupList);
 
     return stateBuilder.build();
   }
@@ -170,14 +171,15 @@ public class ChannelProduct extends AbstractChannelProduct {
                                        ChannelProductApi.DeleteChannelProductRequest command) {
 
     ChannelProductDomain.ChannelProductState deletedState = ChannelProductDomain.ChannelProductState.newBuilder()
-            .setIsDeleted(true)
-            .setEventId(state.getEventId())
-            .setChannelId(state.getChannelId())
-            .setProductId(state.getProductId())
-            .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(state.getChannelProductVariantGroupList())
-            .clearChannelProductAttribute().addAllChannelProductAttribute(state.getChannelProductAttributeList())
-            .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(state.getChannelProductOptionGroupList())
-            .setId(state.getId()).build();
+        .setIsDeleted(true)
+        .setEventId(state.getEventId())
+        .setSku(state.getSku())
+        .setStoreId(state.getStoreId())
+        .setChannelId(state.getChannelId())
+        .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(state.getChannelProductVariantGroupList())
+        .clearChannelProductAttribute().addAllChannelProductAttribute(state.getChannelProductAttributeList())
+        .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(state.getChannelProductOptionGroupList())
+        .setId(state.getId()).build();
 
     ChannelProductDomain.ChannelProductDeleted event = ChannelProductDomain.ChannelProductDeleted.newBuilder()
             .setChannelProduct(deletedState).build();
@@ -285,14 +287,15 @@ public class ChannelProduct extends AbstractChannelProduct {
     }
 
     apiChannelProduct
-            .setId(channelProductState.getId())
-            .setChannelId(channelProductState.getChannelId())
-            .setProductId(channelProductState.getProductId())
-            .setIsDeleted(channelProductState.getIsDeleted())
-            .setEventId(channelProductState.getEventId())
-            .clearChannelProductAttribute().addAllChannelProductAttribute(apiChnlProdAttributeList)
-            .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(apiChnlProdVariantGroupList)
-            .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(apiChnlProdOptionGroupList);
+        .setId(channelProductState.getId())
+        .setSku(channelProductState.getSku())
+        .setStoreId(channelProductState.getStoreId())
+        .setChannelId(channelProductState.getChannelId())
+        .setIsDeleted(channelProductState.getIsDeleted())
+        .setEventId(channelProductState.getEventId())
+        .clearChannelProductAttribute().addAllChannelProductAttribute(apiChnlProdAttributeList)
+        .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(apiChnlProdVariantGroupList)
+        .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(apiChnlProdOptionGroupList);
 
     return apiChannelProduct.build();
 
@@ -307,17 +310,18 @@ public class ChannelProduct extends AbstractChannelProduct {
   public ChannelProductDomain.ChannelProductState channelProductCreated(ChannelProductDomain.ChannelProductState currentState, ChannelProductDomain.ChannelProductCreated event) {
     ChannelProductDomain.ChannelProductState.Builder stateBuilder = currentState.toBuilder();
     stateBuilder
-            .setId(event.getChannelProduct().getId())
-            .setChannelId(event.getChannelProduct().getChannelId())
-            .setProductId(event.getChannelProduct().getProductId())
-            .setIsDeleted(event.getChannelProduct().getIsDeleted())
-            .setEventId(event.getChannelProduct().getEventId())
-            .clearChannelProductAttribute()
-            .addAllChannelProductAttribute(event.getChannelProduct().getChannelProductAttributeList())
-            .clearChannelProductVariantGroup()
-            .addAllChannelProductVariantGroup(event.getChannelProduct().getChannelProductVariantGroupList())
-            .clearChannelProductOptionGroup()
-            .addAllChannelProductOptionGroup(event.getChannelProduct().getChannelProductOptionGroupList());
+        .setId(event.getChannelProduct().getId())
+        .setSku(event.getChannelProduct().getSku())
+        .setStoreId(event.getChannelProduct().getStoreId())
+        .setChannelId(event.getChannelProduct().getChannelId())
+        .setIsDeleted(event.getChannelProduct().getIsDeleted())
+        .setEventId(event.getChannelProduct().getEventId())
+        .clearChannelProductAttribute()
+        .addAllChannelProductAttribute(event.getChannelProduct().getChannelProductAttributeList())
+        .clearChannelProductVariantGroup()
+        .addAllChannelProductVariantGroup(event.getChannelProduct().getChannelProductVariantGroupList())
+        .clearChannelProductOptionGroup()
+        .addAllChannelProductOptionGroup(event.getChannelProduct().getChannelProductOptionGroupList());
 
     return stateBuilder.build();
   }
@@ -328,17 +332,18 @@ public class ChannelProduct extends AbstractChannelProduct {
     ChannelProductDomain.ChannelProductState.Builder stateBuilder = currentState.toBuilder();
 
     stateBuilder
-            .setId(event.getChannelProduct().getId())
-            .setChannelId(event.getChannelProduct().getChannelId())
-            .setProductId(event.getChannelProduct().getProductId())
-            .setIsDeleted(event.getChannelProduct().getIsDeleted())
-            .setEventId(event.getChannelProduct().getEventId())
-            .clearChannelProductAttribute()
-            .addAllChannelProductAttribute(event.getChannelProduct().getChannelProductAttributeList())
-            .clearChannelProductVariantGroup()
-            .addAllChannelProductVariantGroup(event.getChannelProduct().getChannelProductVariantGroupList())
-            .clearChannelProductOptionGroup()
-            .addAllChannelProductOptionGroup(event.getChannelProduct().getChannelProductOptionGroupList());
+        .setId(event.getChannelProduct().getId())
+        .setSku(event.getChannelProduct().getSku())
+        .setStoreId(event.getChannelProduct().getStoreId())
+        .setChannelId(event.getChannelProduct().getChannelId())
+        .setIsDeleted(event.getChannelProduct().getIsDeleted())
+        .setEventId(event.getChannelProduct().getEventId())
+        .clearChannelProductAttribute()
+        .addAllChannelProductAttribute(event.getChannelProduct().getChannelProductAttributeList())
+        .clearChannelProductVariantGroup()
+        .addAllChannelProductVariantGroup(event.getChannelProduct().getChannelProductVariantGroupList())
+        .clearChannelProductOptionGroup()
+        .addAllChannelProductOptionGroup(event.getChannelProduct().getChannelProductOptionGroupList());
 
     return stateBuilder.build();
   }
