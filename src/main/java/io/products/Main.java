@@ -12,9 +12,9 @@ import io.products.channelMapping.view.ChannelMappingViewImpl;
 import io.products.credential.domain.Credential;
 import io.products.credential.view.CredentialByChannelIdAndUserIdViewImpl;
 import io.products.credential.view.CredentialViewImpl;
-import io.products.metadataProperty.domain.MetadataProperty;
-import io.products.metadataProperty.view.MetadataPropertyByChannelIdAndTargetViewImpl;
-import io.products.metadataProperty.view.MetadataPropertyViewImpl;
+import io.products.channelMetadata.domain.ChannelMetadata;
+import io.products.channelMetadata.view.ChannelMetadataByChannelIdAndTargetViewImpl;
+import io.products.channelMetadata.view.ChannelMetadataViewImpl;
 import io.products.variant.domain.Variant;
 import io.products.variant.view.VariantViewImpl;
 import kalix.javasdk.Kalix;
@@ -44,15 +44,17 @@ public final class Main {
         Attribute::new,
         ChannelAttributeMapping::new,
         ChannelMapping::new,
+        ChannelMetadata::new,
         ChannelPlatform::new,
         ChannelProduct::new,
         Credential::new,
         MasterProduct::new,
-        MetadataProperty::new,
         Variant::new,
         AttributeViewImpl::new,
         ChannelAttributeMappingViewImpl::new,
         ChannelMappingViewImpl::new,
+        ChannelMetadataByChannelIdAndTargetViewImpl::new,
+        ChannelMetadataViewImpl::new,
         ChannelPlatformViewImpl::new,
         ChannelProductActionImpl::new,
         ChannelProductViewImpl::new,
@@ -60,8 +62,6 @@ public final class Main {
         CredentialViewImpl::new,
         MasterProductActionImpl::new,
         MasterProductViewImpl::new,
-        MetadataPropertyByChannelIdAndTargetViewImpl::new,
-        MetadataPropertyViewImpl::new,
         VariantViewImpl::new);
   }
 

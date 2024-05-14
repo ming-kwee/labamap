@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package io.products.channelMetadata.api;
+
+option java_outer_classname = "ChannelMetadataApi";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "kalix/annotations.proto";
+import "io/products/channelMetadata/domain/channel_metadata_domain.proto";
+
+service ChannelMetadataService {
+  option (kalix.codegen) = {
+    value_entity: {
+      name: "io.products.channelMetadata.domain.ChannelMetadata"
+      type_id: "channel_metadatas"
+      state: "io.products.channelMetadata.domain.ChannelMetadataState"
+    }
+  };
+
+  rpc CreateChannelMetadata(ChannelMetadata) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/create_metadata"
+      body: "*"
+    };
+  };
+
+  rpc GetChannelMetadata(GetChannelMetadataRequest) returns (ChannelMetadata);
+
+  rpc UpdateChannelMetadata(ChannelMetadata) returns (google.protobuf.Empty);
+
+  rpc DeleteChannelMetadata(DeleteChannelMetadataRequest) returns (google.protobuf.Empty);
+
+}
+
+message ChannelMetadata {
+  string channelId = 1  [(kalix.field).entity_key = true];
+  string key = 2 [(kalix.field).entity_key = true];
+  string value = 3;
+  string target = 4;
+  string grouping = 5;
+  string subGrouping = 6;
+}
+
+message GetChannelMetadataRequest {
+  string channelId = 1 [(kalix.field).entity_key = true];
+  string key = 2 [(kalix.field).entity_key = true];
+}
+message DeleteChannelMetadataRequest {
+  string channelId = 1 [(kalix.field).entity_key = true];
+  string key = 2 [(kalix.field).entity_key = true];
+}

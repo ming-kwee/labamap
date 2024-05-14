@@ -26,15 +26,15 @@ lsof -ti tcp:8080 | xargs kill
 lsof -ti tcp:8081 | xargs kill
 
 
-cd /Users/admin/work/Akka/labamap && docker compose down &
+cd /Users/admin/MyKalix/labamap && docker compose down &
 
 echo "===> Starting Docker Compose Up"
-cd /Users/admin/work/Akka/labamap && docker compose up &
+cd /Users/admin/MyKalix/labamap && docker compose up &
 
 sleep 30
 
 echo "===> Starting Labamap Service"
-cd /Users/admin/work/Akka/labamap && mvn compile exec:exec &
+cd /Users/admin/MyKalix/labamap && mvn compile exec:exec &
 labamap_pid=$!
 
 

@@ -26,15 +26,15 @@ import "io/products/channelProduct/domain/channel_product_domain.proto";
 //}
 
 //message GetRequest {
-//  string id = 1 [(kalix.field).id = true];
+//  string id = 1 [(kalix.field).entity_key = true];
 //}
 //
 //message AcceptRequest {
-//  string id = 1 [(kalix.field).id = true];
+//  string id = 1 [(kalix.field).entity_key = true];
 //}
 //
 //message AcceptationTimeoutRequest {
-//  string id = 1 [(kalix.field).id = true];
+//  string id = 1 [(kalix.field).entity_key = true];
 //}
 
 // ChannelProductService
@@ -86,14 +86,14 @@ message ChannelProduct {
 }
 
 message GetChannelProductRequest {
-  string id = 1  [(kalix.field).id = true];
+  string id = 1  [(kalix.field).entity_key = true];
 }
 message DeleteChannelProductRequest {
-    string id = 1 [(kalix.field).id = true];
+    string id = 1 [(kalix.field).entity_key = true];
 }
 
 message ChannelProductAttribute {
-  string attrId = 1 [(kalix.field).id = true];
+  string attrId = 1 [(kalix.field).entity_key = true];
   string chnlAttrName = 2;
   string chnlAttrType = 3;
   string value = 4;
@@ -108,7 +108,7 @@ message ChannelProductVariantGroup {
 
 
 message ChannelProductVariant {
-  string vrntId = 1 [(kalix.field).id = true];
+  string vrntId = 1 [(kalix.field).entity_key = true];
   string chnlVrntName = 2;
   string chnlVrntType = 3;
   string value = 4;
@@ -120,7 +120,7 @@ message ChannelProductOptionGroup {
 
 
 message ChannelProductOption {
-  string optnId = 1 [(kalix.field).id = true];
+  string optnId = 1 [(kalix.field).entity_key = true];
   string chnlOptnName = 2;
   string chnlOptnType = 3;
   string value = 4;

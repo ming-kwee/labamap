@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package io.products.channelMetadata.view;
+option java_outer_classname = "ChannelMetadataViewByChannelIdAndTargetModel";
+
+import "io/products/channelMetadata/domain/channel_metadata_domain.proto";
+import "google/api/annotations.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service ChannelMetadataByChannelIdAndTargetView {
+  option (kalix.codegen) = {
+    view: {}
+  };
+
+  
+  rpc GetChannelMetadataByChannelIdAndTarget(GetChannelMetadataByChannelIdAndTargetRequest) returns (ChannelMetadataByChannelIdAndTargetResponse) {
+    option (kalix.method).view.query = {
+      query: "SELECT * AS channel_metadatas FROM channel_metadatas WHERE channelId = :channelId AND target = :target"
+    };
+    option (google.api.http) = {
+      post: "/metadata-by-channel-and-target",
+      body: "*"
+    };
+  }
+
+  rpc UpdateChannelMetadata(domain.ChannelMetadataState) returns (domain.ChannelMetadataState) {
+    option (kalix.method).eventing.in = {
+      value_entity: "channel_metadatas"
+    };
+    option (kalix.method).view.update = {
+      table: "channel_metadatas"
+      // transform_updates: true
+    };
+  }
+
+}
+
+message GetChannelMetadataByChannelIdAndTargetRequest {
+  string channelId = 1;
+  string target = 2;
+}
+
+message ChannelMetadataByChannelIdAndTargetResponse {
+  repeated domain.ChannelMetadataState channel_metadatas = 1;
+}
+
