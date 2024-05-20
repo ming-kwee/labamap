@@ -20,6 +20,7 @@ service ChannelProductAction {
     }
 }
 
+/* ------------------------------------------------ */
 message ChannelProducts {
   string eventId = 1;
   repeated ChannelProduct channelProducts = 2;
@@ -32,17 +33,14 @@ message ChannelProduct {
   repeated MetadataGroup metadataGroups = 4;
 }
 
-
 message ChannelAttribute {  
   string attrId = 1;
   string chnlAttrName = 2;
   string chnlAttrValue = 3;
   string chnlAttrType = 4;
   bool isCommon = 5;
-
 }
-
-
+/* ------------------------------------------------ */
 message VariantGroup {
   repeated ChannelVariant channelVariant = 1;
 }
@@ -52,7 +50,7 @@ message ChannelVariant {
   string chnlVrntValue = 3;
   string chnlVrntType = 4;
 }
-
+/* ------------------------------------------------ */
 message OptionGroup {
   repeated ChannelOption channelOption = 1;
 }
@@ -62,8 +60,7 @@ message ChannelOption {
   string chnlOptnValue = 3;
   string chnlOptnType = 4;
 }
-
-
+/* ------------------------------------------------ */
 message MetadataGroup {
   repeated ChannelMetadata channelMetadata = 1;
 }

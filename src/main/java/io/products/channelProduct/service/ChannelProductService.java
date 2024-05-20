@@ -14,15 +14,18 @@ import akka.http.javadsl.unmarshalling.Unmarshaller;
 import akka.stream.Materializer;
 import io.grpc.StatusException;
 import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProduct;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
+import io.products.channelProduct.api.ChannelProductApi.CreateChannelProductCommand;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Struct;
+import com.google.protobuf.util.JsonFormat;
 
 public class ChannelProductService {
   private static final Logger LOG = LoggerFactory.getLogger(ChannelProductService.class);
 
   @SuppressWarnings("null")
-  public static ChannelProductHttpResponse createAChannelProductService(ChannelProduct channelProduct,
+  public static ChannelProductHttpResponse createAChannelProductService(CreateChannelProductCommand channelProduct,
       Map<String, Object> hashmapMetadata)
       throws StatusException {
     ActorSystem actorSystem = ActorSystem.create("MyActorSystem");
@@ -56,21 +59,26 @@ public class ChannelProductService {
                 // Extract the product ID from the response body
                 return Unmarshaller.entityToString().unmarshal(response2.entity(), materializer)
                     .thenApply(responseBody -> {
-                      // Parse JSON response body to extract the ID of the newly created product
-                      LOG.info("HINEE " + responseBody);
-                      // String productId = extractProductIdFromJson(responseBody);
 
-                      // Build the ChannelProductHttpResponse object
-                      Struct.Builder structBuilder = Struct.newBuilder();
-                      Struct struct = structBuilder.build();
 
-                      // Your JSON data as a string
-                      String jsonData = "{\"key1\": \"value1\", \"key2\": 123}";
+                      
+                              // Create a new Struct builder
+        Struct.Builder structBuilder = Struct.newBuilder();
+        Struct struct = null;
+        try {
+            // Parse the JSON data and populate the Struct builder
+            JsonFormat.parser().merge(responseBody, structBuilder);
 
-                      // Parse the JSON data and populate the Struct builder
-                      // JsonFormat.parser().merge(jsonData, structBuilder);
+            // Build the Struct
+            struct = structBuilder.build();
 
-                      // LOG.info("Theu" + response);
+            // Print the Struct
+            System.out.println(struct);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+                      LOG.info("Theu" + responseBody);
                       LOG.info("Theuna " + struct);
 
                       return ChannelProductHttpResponse.newBuilder()
@@ -114,49 +122,13 @@ public class ChannelProductService {
 
 
   public static ChannelProductHttpResponse createSomeChannelProductsService(
-      List<ChannelProduct.Builder> channelProductBuilders,
+      List<CreateChannelProductCommand.Builder> channelProductBuilders,
       Map<String, Object> hashmapMetadata)
       throws StatusException {
     ActorSystem actorSystem = ActorSystem.create("MyActorSystem");
     Http http = Http.get(actorSystem);
 
     try {
-      // String integration_Security_CreateCpTypeOfAuthorization = null;
-      // if
-      // (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization"))
-      // {
-      // ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
-      // .get("integration.security.create_cp_type_of_authorization");
-      // integration_Security_CreateCpTypeOfAuthorization = (String)
-      // channelMetadata.getValue();
-      // } else {
-      // ChannelProductHttpResponse cpHttpResponse =
-      // ChannelProductHttpResponse.newBuilder()
-      // .setStatus("FAIL")
-      // .setDescription("type of authorization has not been set")
-      // .build();
-      // throw new RuntimeException(cpHttpResponse.getDescription());
-      // }
-
-      // HttpResponse response = null;
-
-      // switch (integration_Security_CreateCpTypeOfAuthorization) {
-      // case "bearer":
-      // LOG.info("CREATE SOME CHANNEL PRODUCTS - BEARER");
-      // // response = BearerToken
-      // // .createSomeChannelProducts(channelProductBuilders, hashmapMetadata, http)
-      // // .toCompletableFuture().get();
-      // break;
-      // case "oauth1":
-      // LOG.info("CREATE SOME CHANNEL PRODUCTS - OAUTH1");
-      // // response = Create_CP_WithOauth1_HMACSHA1
-      // // .createSomeChannelProducts(channelProductBuilders, hashmapMetadata, http)
-      // // .toCompletableFuture().get();
-      // break;
-      // default:
-      // break;
-      // }
-
       /* -------- setting up single or multi execution metadata ------- */
       String integration_BodyContent_CreateCpSeparateVariantCrud = null;
       if (hashmapMetadata.containsKey("integration.body_content.create_cp_separate_variant_crud")) {

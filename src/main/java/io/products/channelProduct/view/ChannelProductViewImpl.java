@@ -49,6 +49,20 @@ public class ChannelProductViewImpl extends AbstractChannelProductView {
   }
 
   @Override
+  public View.UpdateEffect<ChannelProductApi.ChannelProduct> processChannelProductUpdated(
+      ChannelProductApi.ChannelProduct state,
+      ChannelProductDomain.ChannelProductUpdated channelProductUpdated) {
+
+    if (state == null) {
+      return effects().ignore(); // state not found
+    } else {
+      ChannelProductApi.ChannelProduct updated = convertToApi(channelProductUpdated.getChannelProduct());
+      return effects().updateState(updated);
+    }
+  }
+
+
+  @Override
   public View.UpdateEffect<ChannelProductApi.ChannelProduct> processChannelProductDeleted(
       ChannelProductApi.ChannelProduct state,
       ChannelProductDomain.ChannelProductDeleted channelProductDeleted) {
@@ -156,7 +170,8 @@ public class ChannelProductViewImpl extends AbstractChannelProductView {
         .clearChannelProductVariantGroup().addAllChannelProductVariantGroup(apiChnlProdVariantGroupList)
         .clearChannelProductOptionGroup().addAllChannelProductOptionGroup(apiChnlProdOptionGroupList)
         .setIsDeleted(channelProductState.getIsDeleted())
-        .setEventId(channelProductState.getEventId());
+        .setEventId(channelProductState.getEventId())
+        .setProductId(channelProductState.getProductId());
 
     return apiChannelProduct.build();
 

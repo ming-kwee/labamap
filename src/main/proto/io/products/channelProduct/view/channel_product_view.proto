@@ -36,7 +36,7 @@ service ChannelProductView {
       };
     }
   
-    rpc ProcessChannelProductDeleted(domain.ChannelProductDeleted) returns (api.ChannelProduct) { 
+    rpc ProcessChannelProductUpdated(domain.ChannelProductUpdated) returns (api.ChannelProduct) { 
       option (kalix.method).eventing.in = {
         event_sourced_entity: "channel_products" 
       };
@@ -46,7 +46,15 @@ service ChannelProductView {
       };
     }
 
-
+    rpc ProcessChannelProductDeleted(domain.ChannelProductDeleted) returns (api.ChannelProduct) { 
+      option (kalix.method).eventing.in = {
+        event_sourced_entity: "channel_products" 
+      };
+      option (kalix.method).view.update = {
+        table: "channel_products"
+        transform_updates: true
+      };
+    }
 
     rpc IgnoreOtherEvents(google.protobuf.Any) returns (api.ChannelProduct) {
       option (kalix.method).eventing.in = {
