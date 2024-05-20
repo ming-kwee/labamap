@@ -6,58 +6,31 @@ option java_outer_classname = "ChannelProductApi";
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
-import "google/protobuf/struct.proto";
 import "kalix/annotations.proto";
-import "io/products/channelProduct/domain/channel_product_domain.proto";
+import "google/protobuf/struct.proto";
+// import "io/products/channel_product/domain/channel_product_domain.proto";
 
-// SyncChannelProductWorkflowService
-//service SyncChannelProductWorkflowService {
-//  option (kalix.codegen) = {
-//    workflow: {
-//      name: "io.products.channelProduct.api.SyncChannelProductWorkflow"
-//      type_id: "channel_products"
-//      state: "io.products.channelProduct.domain.ChannelProductState"
-//    }
-//  };
-//  rpc Start(ChannelProduct) returns (google.protobuf.Empty) {}
-//  rpc Accept(AcceptRequest) returns (google.protobuf.Empty) {}
-//  rpc AcceptationTimeout(AcceptationTimeoutRequest) returns (google.protobuf.Empty) {}
-//  rpc GetChannelProductState(GetRequest) returns (io.products.channelProduct.domain.ChannelProductState) {}
-//}
-
-//message GetRequest {
-//  string id = 1 [(kalix.field).entity_key = true];
-//}
-//
-//message AcceptRequest {
-//  string id = 1 [(kalix.field).entity_key = true];
-//}
-//
-//message AcceptationTimeoutRequest {
-//  string id = 1 [(kalix.field).entity_key = true];
-//}
-
-// ChannelProductService
 service ChannelProductService {
     option (kalix.codegen) = {
-//       value_entity: {
-//         name: "io.products.channelProduct.domain.ChannelProduct"
-//         entity_type: "channel_products"
-//         state: "io.products.channelProduct.domain.ChannelProductState"
-//       }
+      // value_entity: {
+      //   name: "io.products.channelProduct.domain.ChannelProduct"
+      //   entity_type: "channel_products"
+      //   state: "io.products.channelProduct.domain.ChannelProductState"
+      // }
       event_sourced_entity: {
         name: "io.products.channelProduct.domain.ChannelProduct"
-        entity_type: "channel_products"
+        type_id: "channel_products"
         state: "io.products.channelProduct.domain.ChannelProductState"
         events: [
           "io.products.channelProduct.domain.ChannelProductDeleted",
-          "io.products.channelProduct.domain.ChannelProductCreated"
+          "io.products.channelProduct.domain.ChannelProductCreated",
+          "io.products.channelProduct.domain.ChannelProductUpdated"          
           ]
       }
     };
-
-    rpc CreateChannelProduct(ChannelProduct) returns (google.protobuf.Empty);
-
+  
+    rpc CreateChannelProduct(CreateChannelProductCommand) returns (google.protobuf.Empty);
+    
     rpc GetChannelProduct(GetChannelProductRequest) returns (ChannelProduct){
       option (google.api.http) = {
           post: "/get_channel_product"
@@ -65,31 +38,68 @@ service ChannelProductService {
       };
     };
 
-    // rpc UpdateChannelProduct(ChannelProduct) returns (google.protobuf.Empty);
+    rpc UpdateChannelProduct(UpdateChannelProductCommand) returns (google.protobuf.Empty);
 
-    rpc DeleteChannelProduct(DeleteChannelProductRequest) returns (google.protobuf.Empty);
+    rpc DeleteChannelProduct(DeleteChannelProductCommand) returns (google.protobuf.Empty);
 
 }
 
-message ChannelProduct {
+
+/***********************************************************
+* COMMAND AND REQUEST MESSAGES
+***********************************************************/
+
+message CreateChannelProductCommand {
     string id = 1 [(kalix.field).entity_key = true];
     string sku = 2;
     string storeId = 3;
     string channelId = 4;
-
     repeated ChannelProductAttribute channelProductAttribute = 5;
     repeated ChannelProductVariantGroup channelProductVariantGroup = 6;
     repeated ChannelProductOptionGroup channelProductOptionGroup = 7;
     bool isDeleted = 8;
     string eventId = 9;
+    string productId = 10;
+}
 
+message UpdateChannelProductCommand {
+  string id = 1 [(kalix.field).entity_key = true];
+  string sku = 2;
+  string storeId = 3;
+  string channelId = 4;
+  repeated ChannelProductAttribute channelProductAttribute = 5;
+  repeated ChannelProductVariantGroup channelProductVariantGroup = 6;
+  repeated ChannelProductOptionGroup channelProductOptionGroup = 7;
+  bool isDeleted = 8;
+  string eventId = 9;
+  string productId = 10;
+}
+
+message DeleteChannelProductCommand {
+  string id = 1 [(kalix.field).entity_key = true];
 }
 
 message GetChannelProductRequest {
   string id = 1  [(kalix.field).entity_key = true];
 }
-message DeleteChannelProductRequest {
-    string id = 1 [(kalix.field).entity_key = true];
+
+
+
+/***********************************************************
+* DOMAIN DATA MESSAGES
+***********************************************************/
+
+message ChannelProduct {
+  string id = 1 [(kalix.field).entity_key = true];
+  string sku = 2;
+  string storeId = 3;
+  string channelId = 4;
+  repeated ChannelProductAttribute channelProductAttribute = 5;
+  repeated ChannelProductVariantGroup channelProductVariantGroup = 6;
+  repeated ChannelProductOptionGroup channelProductOptionGroup = 7;
+  bool isDeleted = 8;
+  string eventId = 9;
+  string productId = 10;
 }
 
 message ChannelProductAttribute {
@@ -98,14 +108,12 @@ message ChannelProductAttribute {
   string chnlAttrType = 3;
   string value = 4;
   bool isCommon = 5;
-
+  
 }
-
-
+/* ------------------------------------------------------- */
 message ChannelProductVariantGroup {
   repeated ChannelProductVariant channelProductVariant = 1;
 }
-
 
 message ChannelProductVariant {
   string vrntId = 1 [(kalix.field).entity_key = true];
@@ -113,11 +121,10 @@ message ChannelProductVariant {
   string chnlVrntType = 3;
   string value = 4;
 }
-
+/* ------------------------------------------------------- */
 message ChannelProductOptionGroup {
   repeated ChannelProductOption channelProductOption = 1;
 }
-
 
 message ChannelProductOption {
   string optnId = 1 [(kalix.field).entity_key = true];
@@ -126,9 +133,14 @@ message ChannelProductOption {
   string value = 4;
 }
 
+
+
+/***********************************************************
+* OTHER MESSAGES
+***********************************************************/
+
 message ChannelProductHttpResponse {
   string status = 1;
   string description = 2;
   map<string, google.protobuf.Value> data = 3;
-  // You can add more fields as needed.
 }

@@ -14,11 +14,15 @@ message ChannelProductState {
     repeated ChannelProductOptionGroup channelProductOptionGroup = 7;
     bool isDeleted = 8;
     string eventId = 9;
-    string channelProductId = 10;
+    string productId = 10;
 }
     
 
 message ChannelProductCreated {
+    ChannelProductState channelProduct = 1;
+}
+
+message ChannelProductUpdated {
     ChannelProductState channelProduct = 1;
 }
 
@@ -34,12 +38,10 @@ message ChannelProductAttribute {
     string value = 4;
     bool isCommon = 5;
 }
-  
 
 message ChannelProductVariantGroup {
     repeated ChannelProductVariant channelProductVariant = 1;
 }
- 
 
 message ChannelProductVariant {
     string vrntId = 1;
@@ -47,7 +49,6 @@ message ChannelProductVariant {
     string chnlVrntType = 3;    
     string value = 4;
 }
-
  
 message ChannelProductOptionGroup {
     repeated ChannelProductOption channelProductOption = 1;

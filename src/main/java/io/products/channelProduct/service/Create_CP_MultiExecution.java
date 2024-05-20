@@ -37,6 +37,7 @@ import io.products.channelProduct.api.ChannelProductApi.ChannelProductOption;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOptionGroup;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup;
+import io.products.channelProduct.api.ChannelProductApi.CreateChannelProductCommand;
 import io.products.channelProduct.service.authorization.BearerToken;
 import io.products.channelProduct.service.authorization.Oauth1_HMACSHA1;
 import io.products.shared.utils;
@@ -45,7 +46,7 @@ public class Create_CP_MultiExecution {
   private static final Logger LOG = LoggerFactory.getLogger(Create_CP_MultiExecution.class);
 
   @SuppressWarnings("unchecked")
-  public static CompletionStage<HttpResponse> createAChannelProduct_WithSplitVariants(ChannelProduct channelProduct,
+  public static CompletionStage<HttpResponse> createAChannelProduct_WithSplitVariants(CreateChannelProductCommand channelProduct,
       Map<String, Object> hashmapMetadata, Http http, ActorSystem actorSystem)
       throws StatusException {
 
@@ -113,7 +114,7 @@ public class Create_CP_MultiExecution {
 
   @SuppressWarnings("unchecked")
   public static CompletionStage<HttpResponse> createSomeChannelProducts_WithSplitVariants(
-      List<ChannelProduct.Builder> channelProductBuilders,
+      List<CreateChannelProductCommand.Builder> channelProductBuilders,
       Map<String, Object> hashmapMetadata, Http http)
       throws StatusException, JsonMappingException, JsonProcessingException {
     LOG.info("CREATE SOME CHANNEL PRODUCTs - Create_CP_WithBearerToken");
@@ -128,7 +129,7 @@ public class Create_CP_MultiExecution {
     ObjectMapper objectMapper = new ObjectMapper();
     ObjectNode root = objectMapper.createObjectNode();
     ArrayNode productsArray = objectMapper.createArrayNode();
-    for (ChannelProduct.Builder channelProductBuilder : channelProductBuilders) {
+    for (CreateChannelProductCommand.Builder channelProductBuilder : channelProductBuilders) {
       Map<String, Object> requestBodies = transformAttributeToJson_WithSplitVariants(channelProductBuilder.build());
       String bodyForProduct = (String) requestBodies.get("product");
       productsArray.add(objectMapper.readTree(bodyForProduct));
@@ -199,7 +200,7 @@ public class Create_CP_MultiExecution {
 
   // ---------------------------------------------------------------------------------------------------------------
   @SuppressWarnings("unchecked")
-  private static Map<String, Object> transformAttributeToJson_WithSplitVariants(ChannelProduct channelProduct) {
+  private static Map<String, Object> transformAttributeToJson_WithSplitVariants(CreateChannelProductCommand channelProduct) {
 
     ObjectMapper objectMapper = new ObjectMapper();
     try {

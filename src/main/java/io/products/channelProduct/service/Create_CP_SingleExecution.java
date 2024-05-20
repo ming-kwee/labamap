@@ -25,13 +25,13 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.StatusCodes;
 import io.grpc.StatusException;
 import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProduct;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOption;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOptionGroup;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup;
+import io.products.channelProduct.api.ChannelProductApi.CreateChannelProductCommand;
 import io.products.channelProduct.service.authorization.BearerToken;
 import io.products.channelProduct.service.authorization.Oauth1_HMACSHA1;
 import io.products.channelProduct.service.authorization.Oauth2_SHA256;
@@ -40,7 +40,7 @@ import io.products.shared.utils;
 public class Create_CP_SingleExecution {
   private static final Logger LOG = LoggerFactory.getLogger(Create_CP_SingleExecution.class);
 
-  public static CompletionStage<HttpResponse> createAChannelProduct(ChannelProduct channelProduct,
+  public static CompletionStage<HttpResponse> createAChannelProduct(CreateChannelProductCommand channelProduct,
       Map<String, Object> hashmapMetadata, Http http)
       throws StatusException, JsonMappingException, JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
     // LOG.info("CREATE A CHANNEL PRODUCT - Create_CP_WithBearerToken");
@@ -63,7 +63,7 @@ public class Create_CP_SingleExecution {
   }
 
   public static CompletionStage<HttpResponse> createSomeChannelProducts(
-      List<ChannelProduct.Builder> channelProductBuilders,
+      List<CreateChannelProductCommand.Builder> channelProductBuilders,
       Map<String, Object> hashmapMetadata, Http http)
       throws StatusException, JsonMappingException, JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
 
@@ -75,7 +75,7 @@ public class Create_CP_SingleExecution {
     ObjectMapper objectMapper = new ObjectMapper();
     ObjectNode root = objectMapper.createObjectNode();
     ArrayNode productsArray = objectMapper.createArrayNode();
-    for (ChannelProduct.Builder channelProductBuilder : channelProductBuilders) {
+    for (CreateChannelProductCommand.Builder channelProductBuilder : channelProductBuilders) {
       productsArray.add(objectMapper.readTree(transform_AttributeToJson(channelProductBuilder.build())));
     }
     String requestBody = "";
@@ -103,7 +103,7 @@ public class Create_CP_SingleExecution {
   }
 
   // ---------------------------------------------------------------------------------------------------------------
-  private static String transform_AttributeToJson(ChannelProduct channelProduct) {
+  private static String transform_AttributeToJson(CreateChannelProductCommand channelProduct) {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       // Create a map to store the attributes dynamically
