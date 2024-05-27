@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.headers.RawHeader;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata;
+import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata_;
 
 public class BearerToken {
   private static final Logger LOG = LoggerFactory.getLogger(BearerToken.class);
@@ -17,7 +17,7 @@ public class BearerToken {
 
     String integration_HttpRequest_CreateCpAccessTokenHeaderName = null;
     if (hashmapMetadata.containsKey("integration.http_request.create_cp_access_token_header_name")) {
-      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+      ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
           .get("integration.http_request.create_cp_access_token_header_name");
       integration_HttpRequest_CreateCpAccessTokenHeaderName = (String) channelMetadata.getValue();
     }

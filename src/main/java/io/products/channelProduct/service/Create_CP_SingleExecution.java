@@ -24,7 +24,7 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.StatusCodes;
 import io.grpc.StatusException;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata;
+import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata_;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOption;
@@ -80,7 +80,7 @@ public class Create_CP_SingleExecution {
     }
     String requestBody = "";
     if (hashmapMetadata.containsKey("integration.body_content.root_enclosed_property_name")) {
-      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+      ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
           .get("integration.body_content.root_enclosed_property_name");
       root.set(channelMetadata.getValue(), productsArray);
       requestBody = root.toString();
@@ -179,7 +179,7 @@ public class Create_CP_SingleExecution {
       /* -------- setting up authorization metadata ------- */
       String integration_Security_CreateCpTypeOfAuthorization = null;
       if (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization")) {
-        ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+        ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
             .get("integration.security.create_cp_type_of_authorization");
         integration_Security_CreateCpTypeOfAuthorization = (String) channelMetadata.getValue();
       } else {
@@ -193,7 +193,7 @@ public class Create_CP_SingleExecution {
 
     String integration_HttpRequest_CreateCpEndpoint = null;
     if (hashmapMetadata.containsKey("integration.http_request.create_cp_endpoint")) {
-      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+      ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
           .get("integration.http_request.create_cp_endpoint");
       integration_HttpRequest_CreateCpEndpoint = (String) channelMetadata.getValue();
     }

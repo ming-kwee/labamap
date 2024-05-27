@@ -2,6 +2,7 @@ package io.products;
 
 import io.products.attribute.domain.Attribute;
 import io.products.attribute.view.AttributeViewImpl;
+import io.products.channelProduct.action.ChannelProductSyncActionImpl;
 import io.products.masterProduct.action.MasterProductActionImpl;
 import io.products.masterProduct.domain.MasterProduct;
 import io.products.masterProduct.view.MasterProductViewImpl;
@@ -57,6 +58,7 @@ public final class Main {
         ChannelMetadataViewImpl::new,
         ChannelPlatformViewImpl::new,
         ChannelProductActionImpl::new,
+            ChannelProductSyncActionImpl::new,
         ChannelProductViewImpl::new,
         CredentialByChannelIdAndUserIdViewImpl::new,
         CredentialViewImpl::new,

@@ -13,7 +13,7 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.unmarshalling.Unmarshaller;
 import akka.stream.Materializer;
 import io.grpc.StatusException;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata;
+import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata_;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
 import io.products.channelProduct.api.ChannelProductApi.CreateChannelProductCommand;
 
@@ -36,7 +36,7 @@ public class ChannelProductService {
       /* -------- setting up single or multi execution metadata ------- */
       String integration_BodyContent_CreateCpSeparateVariantCrud = null;
       if (hashmapMetadata.containsKey("integration.body_content.create_cp_separate_variant_crud")) {
-        ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+        ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
             .get("integration.body_content.create_cp_separate_variant_crud");
         integration_BodyContent_CreateCpSeparateVariantCrud = (String) channelMetadata.getValue();
       } else {
@@ -132,7 +132,7 @@ public class ChannelProductService {
       /* -------- setting up single or multi execution metadata ------- */
       String integration_BodyContent_CreateCpSeparateVariantCrud = null;
       if (hashmapMetadata.containsKey("integration.body_content.create_cp_separate_variant_crud")) {
-        ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
+        ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
             .get("integration.body_content.create_cp_separate_variant_crud");
         integration_BodyContent_CreateCpSeparateVariantCrud = (String) channelMetadata.getValue();
       } else {
