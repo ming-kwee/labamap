@@ -1,39 +1,39 @@
 syntax = "proto3";
 package io.products.channelProduct.action;
 
-option java_outer_classname = "ChannelProductActionApi";
+option java_outer_classname = "ChannelProductSyncActionApi";
 
 import "kalix/annotations.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
-service ChannelProductAction {
+service ChannelProductSyncAction {
     option (kalix.codegen) = {
       action: {}
     };
   
-    rpc CreateChannelProduct(ChannelProducts_) returns (google.protobuf.Empty) {
+    rpc SyncChannelProduct(ChannelProducts) returns (google.protobuf.Empty) {
       option (google.api.http) = {
-          post: "/create_channel_product_impl"
+          post: "/sync_channel_product_impl"
           body: "*"
       };
     }
 }
 
 /* ------------------------------------------------ */
-message ChannelProducts_ {
+message ChannelProducts {
   string eventId = 1;
-  repeated ChannelProduct_ channelProducts = 2;
+  repeated ChannelProduct channelProducts = 2;
 }
 
-message ChannelProduct_ {
-  repeated ChannelAttribute_ channelAttributes = 1;
-  repeated VariantGroup_ variantGroups = 2;
-  repeated OptionGroup_ optionGroups = 3;
-  repeated MetadataGroup_ metadataGroups = 4;
+message ChannelProduct {
+  repeated ChannelAttribute channelAttributes = 1;
+  repeated VariantGroup variantGroups = 2;
+  repeated OptionGroup optionGroups = 3;
+  repeated MetadataGroup metadataGroups = 4;
 }
 
-message ChannelAttribute_ {
+message ChannelAttribute {
   string attrId = 1;
   string chnlAttrName = 2;
   string chnlAttrValue = 3;
@@ -41,34 +41,35 @@ message ChannelAttribute_ {
   bool isCommon = 5;
 }
 /* ------------------------------------------------ */
-message VariantGroup_ {
-  repeated ChannelVariant_ channelVariant = 1;
+message VariantGroup {
+  repeated ChannelVariant channelVariant = 1;
 }
-message ChannelVariant_ {
+message ChannelVariant {
   string vrntId = 1;
   string chnlVrntName = 2;
   string chnlVrntValue = 3;
   string chnlVrntType = 4;
 }
 /* ------------------------------------------------ */
-message OptionGroup_ {
-  repeated ChannelOption_ channelOption = 1;
+message OptionGroup {
+  repeated ChannelOption channelOption = 1;
 }
-message ChannelOption_ {
+message ChannelOption {
   string optnId = 1;
   string chnlOptnName = 2;
   string chnlOptnValue = 3;
   string chnlOptnType = 4;
 }
 /* ------------------------------------------------ */
-message MetadataGroup_ {
-  repeated ChannelMetadata_ channelMetadata = 1;
+message MetadataGroup {
+  repeated ChannelMetadata channelMetadata = 1;
 }
-message ChannelMetadata_ {
+message ChannelMetadata {
   string channelId = 1;
   string key = 2;
   string value = 3;
   string target = 4;
   string grouping = 5;
   string subGrouping = 6;
+
 }

@@ -1,6 +1,7 @@
 package io.products.shared;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.google.protobuf.*;
 public class utils {
 
   private static final Logger LOG = LoggerFactory.getLogger(utils.class);
@@ -129,8 +130,46 @@ public class utils {
     return result.toString();
   }
 
+
+
+
+
+  public static Struct convertNumberFieldsToString(Map<String, Value> fieldsMap, String... fieldsToConvert) {
+    Struct.Builder structBuilder = Struct.newBuilder();
+
+    for (Map.Entry<String, Value> entry : fieldsMap.entrySet()) {
+      String key = entry.getKey();
+      Value value = entry.getValue();
+
+      if (shouldConvert(key, fieldsToConvert) && value.hasNumberValue()) {
+        BigDecimal numberValue = BigDecimal.valueOf(value.getNumberValue());
+        structBuilder.putFields(key, Value.newBuilder().setStringValue(numberValue.toPlainString()).build());
+      } else if (value.hasStructValue()) {
+        structBuilder.putFields(key, Value.newBuilder().setStructValue(
+            convertNumberFieldsToString(value.getStructValue().getFieldsMap(), fieldsToConvert)).build());
+      } else if (value.hasListValue()) {
+        ListValue.Builder listBuilder = ListValue.newBuilder();
+        for (Value listItem : value.getListValue().getValuesList()) {
+          if (listItem.hasStructValue()) {
+            listBuilder.addValues(Value.newBuilder().setStructValue(
+                convertNumberFieldsToString(listItem.getStructValue().getFieldsMap(), fieldsToConvert)).build());
+          } else {
+            listBuilder.addValues(listItem);
+          }
+        }
+        structBuilder.putFields(key, Value.newBuilder().setListValue(listBuilder.build()).build());
+      } else {
+        structBuilder.putFields(key, value);
+      }
+    }
+
+    return structBuilder.build();
+  }
+
+
+  
   /* ------------------------- */
-  /* private support functions */
+  /* private supporter functions */
   /* ------------------------- */
   private static void collectKeys(Map<String, Object> map, List<String> allKeys) {
     for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -146,18 +185,6 @@ public class utils {
       }
     }
   }
-
-  // private static int countNestedLevels(Map<String, Object> map, int currentLevel) {
-  //   int maxLevel = currentLevel;
-  //   for (Map.Entry<String, Object> entry : map.entrySet()) {
-  //     Object value = entry.getValue();
-  //     if (value instanceof Map) {
-  //       int childLevel = countNestedLevels((Map<String, Object>) value, currentLevel + 1);
-  //       maxLevel = Math.max(maxLevel, childLevel);
-  //     }
-  //   }
-  //   return maxLevel;
-  // }
 
   private static Object typeConverter(String value, String type) {
 
@@ -224,8 +251,19 @@ public class utils {
       return null; // Or handle the error as needed
     }
   }
+  
+  
+  private static boolean shouldConvert(String key, String[] fieldsToConvert) {
+    for (String field : fieldsToConvert) {
+      if (key.equals(field)) {
+        return true;
+      }
+    }
+    return false;
+  }
   /* ------------------------- */
-  /* private support functions */
+  /* private supporter functions */
   /* ------------------------- */
+
 
 }

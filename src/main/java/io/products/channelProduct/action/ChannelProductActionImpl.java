@@ -16,13 +16,13 @@ import org.slf4j.LoggerFactory;
 import com.google.protobuf.Descriptors.FieldDescriptor;
 
 import java.util.function.Function;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelAttribute;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelOption;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelVariant;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata;
-import io.products.channelProduct.action.ChannelProductActionApi.MetadataGroup;
-import io.products.channelProduct.action.ChannelProductActionApi.OptionGroup;
-import io.products.channelProduct.action.ChannelProductActionApi.VariantGroup;
+import io.products.channelProduct.action.ChannelProductActionApi.ChannelAttribute_;
+import io.products.channelProduct.action.ChannelProductActionApi.ChannelOption_;
+import io.products.channelProduct.action.ChannelProductActionApi.ChannelVariant_;
+import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata_;
+import io.products.channelProduct.action.ChannelProductActionApi.MetadataGroup_;
+import io.products.channelProduct.action.ChannelProductActionApi.OptionGroup_;
+import io.products.channelProduct.action.ChannelProductActionApi.VariantGroup_;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOption;
@@ -54,17 +54,17 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
   }
 
   @Override
-  public Effect<Empty> createChannelProduct(ChannelProductActionApi.ChannelProducts actChannelProducts) {
+  public Effect<Empty> createChannelProduct(ChannelProductActionApi.ChannelProducts_ actChannelProducts) {
 
     /* _______________________________________________ */
     // Get Metadata and Set to an List<MetadataGroup>
     /* _______________________________________________ */
-    List<MetadataGroup> actChnlMetadataGroupList = actChannelProducts.getChannelProductsList().get(0)
+    List<MetadataGroup_> actChnlMetadataGroupList = actChannelProducts.getChannelProductsList().get(0)
         .getMetadataGroupsList().stream()
         .collect(Collectors.toList());
     Map<String, Object> hashmapMetadata = new HashMap<>();
-    for (MetadataGroup metadataGroup : actChnlMetadataGroupList) {
-      for (ChannelMetadata metadata : metadataGroup.getChannelMetadataList()) {
+    for (MetadataGroup_ metadataGroup : actChnlMetadataGroupList) {
+      for (ChannelMetadata_ metadata : metadataGroup.getChannelMetadataList()) {
         hashmapMetadata.put(metadata.getGrouping() + '.' + metadata.getSubGrouping() + '.' + metadata.getKey(),
             metadata);
       }
@@ -75,7 +75,7 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     // Convert Data From Action To Api ChannelProduct
     /* _______________________________________________ */
     List<CreateChannelProductCommand.Builder> channelProductBuilders = new ArrayList<>();
-    for (ChannelProductActionApi.ChannelProduct actChannelProduct : actChannelProducts.getChannelProductsList()) {
+    for (ChannelProductActionApi.ChannelProduct_ actChannelProduct : actChannelProducts.getChannelProductsList()) {
       channelProductBuilders
           .add(convert_FromAction_ToApi_ChannelProduct(actChannelProduct, actChannelProducts.getEventId()));
     }
@@ -83,16 +83,15 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
 
     CompletableFuture<Effect<Empty>> effect;
     if (hashmapMetadata.containsKey("integration.body_content.create_cp_multi_product")) {
-      ChannelMetadata bodyContent = (ChannelMetadata) hashmapMetadata
+      ChannelMetadata_ bodyContent = (ChannelMetadata_) hashmapMetadata
           .get("integration.body_content.create_cp_multi_product");
       boolean isMultiProduct = "true".equals(bodyContent.getValue());
 
       // Call the appropriate method based on the boolean value
-      effect = isMultiProduct ? createSomeChannelProducts(channelProductBuilders, hashmapMetadata)
-          : createAChannelProduct(channelProductBuilders.get(0), hashmapMetadata);
+      effect = !isMultiProduct ? createAChannelProduct(channelProductBuilders.get(0), hashmapMetadata)
+          : createSomeChannelProducts(channelProductBuilders, hashmapMetadata);
     } else {
-      // If the key is not present, default to creating a single channel product
-      effect = createAChannelProduct(channelProductBuilders.get(0), hashmapMetadata);
+      effect = createSomeChannelProducts(channelProductBuilders, hashmapMetadata);
     }
     /* ------------------------------------------------------------- */
     return effects().asyncEffect(effect.exceptionally(ExceptionHandling()));
@@ -100,11 +99,45 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
 
   }
 
+
+
+
+
+  /* --------------------------- */
+  // Create A Channel Product
+  /* ___________________________ */
+  private CompletableFuture<Effect<Empty>> createAChannelProduct(
+      CreateChannelProductCommand.Builder createChannelProductBuilder, Map<String, Object> hashmapMetadata) {
+
+    LOG.info("CREATE A CHANNEL PRODUCT");
+    CompletionStage<Empty> create_channel_product = components().channelProduct()
+        .createChannelProduct(createChannelProductBuilder.build()).execute();
+
+    return (CompletableFuture<Effect<Empty>>) create_channel_product.thenApply(x -> {
+       return effects().reply(Empty.getDefaultInstance());
+    });
+  }
+
+  private Function<Throwable, ? extends Effect<Empty>> ExceptionHandling() {
+    /* --- jika kesini artinya ada error saat mencreate product ---- */
+    /* ------------------------------------------------------------- */
+    LOG.info("jika kesini artinya ada error");
+    return (e) -> effects().error(e.getMessage(), Status.Code.CANCELLED);
+    /* ------------------------------------------------------------- */
+  }
+
+
+
+
+
+
+
+
   /* --------------------------- */
   // Create Some Channel Products
   /* ___________________________ */
   private CompletableFuture<Effect<Empty>> createSomeChannelProducts(
-      List<CreateChannelProductCommand.Builder> channelProductBuilders, Map<String, Object> hashmapMetadata) {
+          List<CreateChannelProductCommand.Builder> channelProductBuilders, Map<String, Object> hashmapMetadata) {
 
     List<CompletableFuture<CompletionStage<Empty>>> futures = new ArrayList<>();
     // Start asynchronous processing for each channelProductBuilder
@@ -137,8 +170,8 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
 
       // Process the results of the asynchronous tasks
       List<CompletionStage<Empty>> responses = futures.stream()
-          .map(CompletableFuture::join) // Get the result of each CompletableFuture
-          .collect(Collectors.toList());
+              .map(CompletableFuture::join) // Get the result of each CompletableFuture
+              .collect(Collectors.toList());
 
       String anyException_WhileCreation = "";
       for (CompletionStage<Empty> response : responses) {
@@ -154,26 +187,13 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
         // jika terjadi error saat looping create channel products.
         return rollbackAllChannelProducts(channelProductBuilders, anyException_WhileCreation);
       } else {
-        try {
-          ChannelProductHttpResponse validasi = ChannelProductService
-              .createSomeChannelProductsService(channelProductBuilders, hashmapMetadata);
-          if (validasi.getStatus().equals("OK")) {
             return CompletableFuture.completedFuture(effects().reply(Empty.getDefaultInstance()));
-          } else {
-            // jika terjadi error saat looping create channel products service.
-            return rollbackAllChannelProducts(channelProductBuilders, validasi.getDescription());
-          }
-        } catch (StatusException ex) {
-          // jika terjadi unhandled error.
-          return CompletableFuture.<Effect<Empty>>completedFuture(effects().error(((Throwable) ex).getMessage()));
-        }
-
       }
-    }).thenApply(Function.identity());
+    });
   }
 
   private CompletableFuture<Effect<Empty>> rollbackAllChannelProducts(
-      List<CreateChannelProductCommand.Builder> channelProductBuilders, String anyException_WhileProcess) {
+          List<CreateChannelProductCommand.Builder> channelProductBuilders, String anyException_WhileProcess) {
 
     List<CompletableFuture<CompletionStage<Empty>>> futures = new ArrayList<>();
     // Start asynchronous soft delete for each channelProductBuilder
@@ -181,9 +201,9 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
       CompletableFuture<CompletionStage<Empty>> future = CompletableFuture.supplyAsync(() -> {
         try {
           return components().channelProduct().deleteChannelProduct(DeleteChannelProductCommand.newBuilder()
-              .setId(channelProductBuilder.getId())
-              .build())
-              .execute();
+                          .setId(channelProductBuilder.getId())
+                          .build())
+                  .execute();
         } catch (Exception e) {
           throw new RuntimeException(e); // Handle exceptions appropriately
         }
@@ -206,8 +226,8 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
 
       // Process the results of the asynchronous tasks
       List<CompletionStage<Empty>> responses = futures.stream()
-          .map(CompletableFuture::join) // Get the result of each CompletableFuture
-          .collect(Collectors.toList());
+              .map(CompletableFuture::join) // Get the result of each CompletableFuture
+              .collect(Collectors.toList());
 
       String anyException_WhileDeletion = "";
       for (CompletionStage<Empty> response : responses) {
@@ -230,155 +250,22 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     });
   }
 
-  /* --------------------------- */
-  // Create A Channel Product
-  /* ___________________________ */
-  private CompletableFuture<Effect<Empty>> createAChannelProduct(
-      CreateChannelProductCommand.Builder createChannelProductBuilder, Map<String, Object> hashmapMetadata) {
-
-    LOG.info("CREATE A CHANNEL PRODUCT");
-    CompletionStage<Empty> create_channel_product = components().channelProduct()
-        .createChannelProduct(createChannelProductBuilder.build()).execute();
-
-    return (CompletableFuture<Effect<Empty>>) create_channel_product.thenCompose(createResponse -> {
-      try {
-        ChannelProductHttpResponse validasi = ChannelProductService
-            .createAChannelProductService(createChannelProductBuilder.build(), hashmapMetadata);
-
-        if (validasi.getStatus().equals("OK")) {
-          Struct struct = convertNumberFieldsToString(validasi.getDataMap(), "id");
-          try {
-
-            // Extract values from the JSON string
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode rootNode = mapper.readTree(JsonFormat.printer().print(struct));
-            String id = rootNode.path("product").path("id").asText();
-
-            LOG.info("UPDATE A CHANNEL PRODUCT");
-            UpdateChannelProductCommand updateChannelProductCommand = UpdateChannelProductCommand.newBuilder()
-                .setId(createChannelProductBuilder.getId())
-                .setSku(createChannelProductBuilder.getSku())
-                .setStoreId(createChannelProductBuilder.getStoreId())
-                .setChannelId(createChannelProductBuilder.getChannelId())
-                .clearChannelProductAttribute()
-                .addAllChannelProductAttribute(createChannelProductBuilder.getChannelProductAttributeList())
-                .clearChannelProductVariantGroup()
-                .addAllChannelProductVariantGroup(createChannelProductBuilder.getChannelProductVariantGroupList())
-                .clearChannelProductOptionGroup()
-                .addAllChannelProductOptionGroup(createChannelProductBuilder.getChannelProductOptionGroupList())
-                .setIsDeleted(createChannelProductBuilder.getIsDeleted())
-                .setEventId(createChannelProductBuilder.getEventId())
-                .setProductId(id)
-                .build();
-
-            CompletionStage<Empty> update_channel_product = components().channelProduct()
-                .updateChannelProduct(updateChannelProductCommand)
-                .execute();
-
-            CompletionStage<Effect<Empty>> updateEffect = update_channel_product.thenApply(updateResponse -> {
-              return effects().reply(Empty.getDefaultInstance());
-            });
-            CompletableFuture<Effect<Empty>> completableFutureUpdateEffect = updateEffect
-                .exceptionally(ExceptionHandling())
-              //   .exceptionally(throwable -> {
-              //     // Handle exception, convert to an error effect
-              //     return effects().error("Update failed: " + throwable.getMessage());
-              // })
-                .toCompletableFuture();
-            return completableFutureUpdateEffect;
-
-          } catch (InvalidProtocolBufferException e) {
-            // return
-            // CompletableFuture.<Effect<Empty>>completedFuture(effects().error(((Throwable)
-            // e).getMessage()));
-            return components().channelProduct()
-                .deleteChannelProduct(DeleteChannelProductCommand.newBuilder()
-                    .setId(createChannelProductBuilder.getId())
-                    .build())
-                .execute()
-                .thenApplyAsync(deleteResult -> {
-                  throw new RuntimeException(((Throwable) e).getMessage());
-                })
-                .thenComposeAsync(ex -> {
-                  return CompletableFuture
-                      .<Effect<Empty>>completedFuture(effects().error(((Throwable) ex).getMessage()));
-                });
-          } catch (JsonMappingException e) {
-            // return
-            // CompletableFuture.<Effect<Empty>>completedFuture(effects().error(((Throwable)
-            // e).getMessage()));
-            return components().channelProduct()
-                .deleteChannelProduct(DeleteChannelProductCommand.newBuilder()
-                    .setId(createChannelProductBuilder.getId())
-                    .build())
-                .execute()
-                .thenApplyAsync(deleteResult -> {
-                  throw new RuntimeException(((Throwable) e).getMessage());
-                })
-                .thenComposeAsync(ex -> {
-                  return CompletableFuture
-                      .<Effect<Empty>>completedFuture(effects().error(((Throwable) ex).getMessage()));
-                });
-          } catch (JsonProcessingException e) {
-            // return
-            // CompletableFuture.<Effect<Empty>>completedFuture(effects().error(((Throwable)
-            // e).getMessage()));
-            return components().channelProduct()
-                .deleteChannelProduct(DeleteChannelProductCommand.newBuilder()
-                    .setId(createChannelProductBuilder.getId())
-                    .build())
-                .execute()
-                .thenApplyAsync(deleteResult -> {
-                  throw new RuntimeException(((Throwable) e).getMessage());
-                })
-                .thenComposeAsync(ex -> {
-                  return CompletableFuture
-                      .<Effect<Empty>>completedFuture(effects().error(((Throwable) ex).getMessage()));
-                });
-          }
-
-        } else {
-          LOG.info("kesini " + createChannelProductBuilder.getId());
-          return components().channelProduct()
-              .deleteChannelProduct(DeleteChannelProductCommand.newBuilder()
-                  .setId(createChannelProductBuilder.getId())
-                  .build())
-              .execute()
-              .thenApplyAsync(deleteResult -> {
-                throw new RuntimeException(validasi.getDescription());
-              })
-              .thenComposeAsync(ex -> {
-                return CompletableFuture.<Effect<Empty>>completedFuture(effects().error(((Throwable) ex).getMessage()));
-              });
-          // return rollbackChannelProduct(createChannelProductBuilder.getId(), "");
-        }
-      } catch (StatusException ex) {
-        LOG.info("kesini StatusException " + ex.getMessage());
-        // return CompletableFuture.completedFuture(effects().error(ex.getMessage()));
-        return CompletableFuture.<Effect<Empty>>completedFuture(effects().error(((Throwable) ex).getMessage()));
-        // return
-        // CompletableFuture.completedFuture(effects().reply(Empty.getDefaultInstance()));
-      }
-    }).thenApply(Function.identity());
-  }
 
 
-  /*
-   * -----------------------------------------------------------------------------
-   */
-  private Function<Throwable, ? extends Effect<Empty>> ExceptionHandling() {
-    /* --- jika kesini artinya ada error saat mencreate product ---- */
-    /* ------------------------------------------------------------- */
-    LOG.info("jika kesini artinya ada error");
-    return (e) -> effects().error(e.getMessage(), Status.Code.CANCELLED);
-    /* ------------------------------------------------------------- */
-  }
+
+
+
+
+
+
+
+
 
   /*
    * -----------------------------------------------------------------------------
    */
   private static CreateChannelProductCommand.Builder convert_FromAction_ToApi_ChannelProduct(
-      ChannelProductActionApi.ChannelProduct actChannelProduct,
+      ChannelProductActionApi.ChannelProduct_ actChannelProduct,
       String eventId) {
 
     CreateChannelProductCommand.Builder channelProductBuilder = CreateChannelProductCommand.newBuilder();
@@ -390,11 +277,11 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     // Create Channel Attributes
     /* _________________________ */
     /* ------------------------- */
-    List<ChannelAttribute> actChnlAttributeList = actChannelProduct.getChannelAttributesList().stream()
+    List<ChannelAttribute_> actChnlAttributeList = actChannelProduct.getChannelAttributesList().stream()
         .collect(Collectors.toList());
     List<ChannelProductAttribute> apiChnlProdAttributeList = new ArrayList<>();
     channelProductBuilder.setId(UUID.randomUUID().toString());
-    for (ChannelAttribute actChnlAttribute : actChnlAttributeList) {
+    for (ChannelAttribute_ actChnlAttribute : actChnlAttributeList) {
       // Create Product common fields
       if (actChnlAttribute.getIsCommon() == true) {
         for (FieldDescriptor field : fields) {
@@ -431,15 +318,15 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     // Create Channel Variants
     /* _________________________ */
     /* ------------------------- */
-    List<VariantGroup> actChnlVariantGroupList = actChannelProduct.getVariantGroupsList().stream()
+    List<VariantGroup_> actChnlVariantGroupList = actChannelProduct.getVariantGroupsList().stream()
         .collect(Collectors.toList());
     List<ChannelProductVariantGroup> apiChnlProdVariantGroupList = new ArrayList<>();
-    for (VariantGroup actChnlVariantGroup : actChnlVariantGroupList) {
+    for (VariantGroup_ actChnlVariantGroup : actChnlVariantGroupList) {
 
-      List<ChannelVariant> actChnlVariantList = actChnlVariantGroup.getChannelVariantList().stream()
+      List<ChannelVariant_> actChnlVariantList = actChnlVariantGroup.getChannelVariantList().stream()
           .collect(Collectors.toList());
       List<ChannelProductVariant> apiChnlProdVariantList = new ArrayList<>();
-      for (ChannelVariant actChnlVariant : actChnlVariantList) {
+      for (ChannelVariant_ actChnlVariant : actChnlVariantList) {
 
         ChannelProductVariant apiChnlProdVariant = ChannelProductVariant.newBuilder()
             .setVrntId(actChnlVariant.getVrntId())
@@ -465,15 +352,15 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     // Create Channel Options
     /* _________________________ */
     /* ------------------------- */
-    List<OptionGroup> actChnlOptionGroupList = actChannelProduct.getOptionGroupsList().stream()
+    List<OptionGroup_> actChnlOptionGroupList = actChannelProduct.getOptionGroupsList().stream()
         .collect(Collectors.toList());
     List<ChannelProductOptionGroup> apiChnlProdOptionGroupList = new ArrayList<>();
-    for (OptionGroup actChnlOptionGroup : actChnlOptionGroupList) {
+    for (OptionGroup_ actChnlOptionGroup : actChnlOptionGroupList) {
 
-      List<ChannelOption> actChnlOptionList = actChnlOptionGroup.getChannelOptionList().stream()
+      List<ChannelOption_> actChnlOptionList = actChnlOptionGroup.getChannelOptionList().stream()
           .collect(Collectors.toList());
       List<ChannelProductOption> apiChnlProdOptionList = new ArrayList<>();
-      for (ChannelOption actChnlOption : actChnlOptionList) {
+      for (ChannelOption_ actChnlOption : actChnlOptionList) {
 
         ChannelProductOption apiChnlProdOption = ChannelProductOption.newBuilder()
             .setOptnId(actChnlOption.getOptnId())
@@ -498,54 +385,5 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     return channelProductBuilder;
   }
 
-  private static Struct convertNumberFieldsToString(Map<String, Value> fieldsMap, String... fieldsToConvert) {
-    Struct.Builder structBuilder = Struct.newBuilder();
 
-    for (Map.Entry<String, Value> entry : fieldsMap.entrySet()) {
-      String key = entry.getKey();
-      Value value = entry.getValue();
-
-      if (shouldConvert(key, fieldsToConvert) && value.hasNumberValue()) {
-        BigDecimal numberValue = BigDecimal.valueOf(value.getNumberValue());
-        structBuilder.putFields(key, Value.newBuilder().setStringValue(numberValue.toPlainString()).build());
-      } else if (value.hasStructValue()) {
-        structBuilder.putFields(key, Value.newBuilder().setStructValue(
-            convertNumberFieldsToString(value.getStructValue().getFieldsMap(), fieldsToConvert)).build());
-      } else if (value.hasListValue()) {
-        ListValue.Builder listBuilder = ListValue.newBuilder();
-        for (Value listItem : value.getListValue().getValuesList()) {
-          if (listItem.hasStructValue()) {
-            listBuilder.addValues(Value.newBuilder().setStructValue(
-                convertNumberFieldsToString(listItem.getStructValue().getFieldsMap(), fieldsToConvert)).build());
-          } else {
-            listBuilder.addValues(listItem);
-          }
-        }
-        structBuilder.putFields(key, Value.newBuilder().setListValue(listBuilder.build()).build());
-      } else {
-        structBuilder.putFields(key, value);
-      }
-    }
-
-    return structBuilder.build();
-  }
-
-  private static boolean shouldConvert(String key, String[] fieldsToConvert) {
-    for (String field : fieldsToConvert) {
-      if (key.equals(field)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // private static boolean isFieldToConvert(String key, String[] fieldsToConvert)
-  // {
-  // for (String field : fieldsToConvert) {
-  // if (field.equals(key)) {
-  // return true;
-  // }
-  // }
-  // return false;
-  // }
 }
