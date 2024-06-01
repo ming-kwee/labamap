@@ -34,7 +34,7 @@ cd /Users/admin/MyKalix/labamap && docker compose up &
 sleep 30
 
 echo "===> Starting Labamap Service"
-cd /Users/admin/MyKalix/labamap && mvn compile exec:exec &
+cd /Users/admin/MyKalix/labamap && mvn compile exec:exec -Dlogback.configurationFile=src/main/resources/logback.xml &
 labamap_pid=$!
 
 
