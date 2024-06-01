@@ -24,14 +24,14 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.StatusCodes;
 import io.grpc.StatusException;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata_;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
+import io.products.channelProduct.service.ChannelProductRestActionApi.ChannelProductHttpResponse;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOption;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOptionGroup;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup;
 import io.products.channelProduct.api.ChannelProductApi.CreateChannelProductCommand;
+import io.products.channelProduct.action.ChannelProductSyncActionApi.ChannelMetadata;
 import io.products.channelProduct.service.authorization.BearerToken;
 import io.products.channelProduct.service.authorization.Oauth1_HMACSHA1;
 import io.products.channelProduct.service.authorization.Oauth2_SHA256;
@@ -42,19 +42,26 @@ public class Create_CP_SingleExecution {
 
   public static CompletionStage<HttpResponse> createAChannelProduct(CreateChannelProductCommand channelProduct,
       Map<String, Object> hashmapMetadata, Http http)
-      throws StatusException, JsonMappingException, JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
+      throws StatusException, JsonMappingException, JsonProcessingException, InvalidKeyException,
+      NoSuchAlgorithmException, InterruptedException {
     // LOG.info("CREATE A CHANNEL PRODUCT - Create_CP_WithBearerToken");
-
+    LOG.info("HALO ");
     HttpRequest request = initialSetup_HttpRequest(hashmapMetadata);
+    LOG.info("HALO LAGI");
     String requestBody = transform_AttributeToJson(channelProduct);
+
+    LOG.info("HALOMETA (" + hashmapMetadata);
+    LOG.info("HALOREQUEST (" + request);
+
+    LOG.info("HALOREQUESTBODY (" + requestBody);
 
     return http.singleRequest(request.withEntity(ContentTypes.APPLICATION_JSON, requestBody))
         .thenApply(response -> {
 
-          LOG.info("HALORESPONSE (" + 
-          response.status().intValue() + "):" +
-          response.status().defaultMessage());
-          return response ;
+          LOG.info("HALORESPONSE (" +
+              response.status().intValue() + "):" +
+              response.status().defaultMessage());
+          return response;
         })
         .exceptionally(ex -> {
           return HttpResponse.create().withStatus(StatusCodes.INTERNAL_SERVER_ERROR);
@@ -65,7 +72,8 @@ public class Create_CP_SingleExecution {
   public static CompletionStage<HttpResponse> createSomeChannelProducts(
       List<CreateChannelProductCommand.Builder> channelProductBuilders,
       Map<String, Object> hashmapMetadata, Http http)
-      throws StatusException, JsonMappingException, JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
+      throws StatusException, JsonMappingException, JsonProcessingException, InvalidKeyException,
+      NoSuchAlgorithmException, InterruptedException {
 
     LOG.info("CREATE SOME CHANNEL PRODUCTs - Create_CP_WithBearerToken");
     /* ___________________________________________________ */
@@ -80,7 +88,7 @@ public class Create_CP_SingleExecution {
     }
     String requestBody = "";
     if (hashmapMetadata.containsKey("integration.body_content.root_enclosed_property_name")) {
-      ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
+      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
           .get("integration.body_content.root_enclosed_property_name");
       root.set(channelMetadata.getValue(), productsArray);
       requestBody = root.toString();
@@ -98,6 +106,7 @@ public class Create_CP_SingleExecution {
           return response;
         })
         .exceptionally(ex -> {
+          LOG.info("alamak " + ex.getMessage());
           return HttpResponse.create().withStatus(StatusCodes.INTERNAL_SERVER_ERROR);
         });
   }
@@ -172,78 +181,91 @@ public class Create_CP_SingleExecution {
   }
   // ---------------------------------------------------------------------------------------------------------------
 
+  private static HttpRequest initialSetup_HttpRequest(Map<String, Object> hashmapMetadata) throws JsonMappingException,
+      JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
 
-  private static HttpRequest initialSetup_HttpRequest(Map<String, Object> hashmapMetadata) throws JsonMappingException, JsonProcessingException, InvalidKeyException, NoSuchAlgorithmException, InterruptedException {
-
-
-      /* -------- setting up authorization metadata ------- */
-      String integration_Security_CreateCpTypeOfAuthorization = null;
-      if (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization")) {
-        ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
+    LOG.info("HI 1");
+    /* -------- setting up authorization metadata ------- */
+    String integration_Security_CreateCpTypeOfAuthorization = null;
+    LOG.info("HI 1.1" + hashmapMetadata);
+    if (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization")) {
+      try {
+        LOG.info("HI 1.2");
+        ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
             .get("integration.security.create_cp_type_of_authorization");
+        LOG.info("HI 1.3" + channelMetadata.getKey());
         integration_Security_CreateCpTypeOfAuthorization = (String) channelMetadata.getValue();
-      } else {
+        LOG.info("HI 1.4" + integration_Security_CreateCpTypeOfAuthorization);
+      } catch (Exception e) {
+        LOG.info("HI 1.0" + e.getMessage());
+        e.printStackTrace();
         ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
             .setStatus("FAIL")
-            .setDescription("type of authorization has not been set")
+            .setDescription(e.getMessage())
             .build();
         throw new RuntimeException(cpHttpResponse.getDescription());
       }
 
+    } else {
+      LOG.info("HI 1.5 empty");
+      ChannelProductHttpResponse cpHttpResponse = ChannelProductHttpResponse.newBuilder()
+          .setStatus("FAIL")
+          .setDescription("type of authorization has not been set")
+          .build();
+      throw new RuntimeException(cpHttpResponse.getDescription());
+    }
+    LOG.info("HI 2" + integration_Security_CreateCpTypeOfAuthorization);
 
     String integration_HttpRequest_CreateCpEndpoint = null;
     if (hashmapMetadata.containsKey("integration.http_request.create_cp_endpoint")) {
-      ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
+      ChannelMetadata channelMetadata = (ChannelMetadata) hashmapMetadata
           .get("integration.http_request.create_cp_endpoint");
       integration_HttpRequest_CreateCpEndpoint = (String) channelMetadata.getValue();
     }
-
-      /* --- the entry to the service world based on type of authorization --- */
-      HttpRequest request = null;
-      switch (integration_Security_CreateCpTypeOfAuthorization) {
-        case "bearer":
-          request = BearerToken.setup_HttpRequest(integration_HttpRequest_CreateCpEndpoint, "POST", hashmapMetadata);
-          break;
-        case "oauth1":
+    LOG.info("HI 3" + integration_HttpRequest_CreateCpEndpoint);
+    /* --- the entry to the service world based on type of authorization --- */
+    HttpRequest request = null;
+    switch (integration_Security_CreateCpTypeOfAuthorization) {
+      case "bearer":
+        request = BearerToken.setup_HttpRequest(integration_HttpRequest_CreateCpEndpoint, "POST", hashmapMetadata);
+        break;
+      case "oauth1":
         request = Oauth1_HMACSHA1.setup_HttpRequest(integration_HttpRequest_CreateCpEndpoint, "POST", hashmapMetadata);
         break;
-        case "oauth2":
-          try {
-            request = Oauth2_SHA256.setup_HttpRequest(integration_HttpRequest_CreateCpEndpoint, "POST", hashmapMetadata);
-          } catch (UnsupportedEncodingException e) {
-            System.out.println("ELOLL: " + e.getMessage());
-            e.printStackTrace();
-          }
+      case "oauth2":
+        try {
+          request = Oauth2_SHA256.setup_HttpRequest(integration_HttpRequest_CreateCpEndpoint, "POST", hashmapMetadata);
+        } catch (UnsupportedEncodingException e) {
+          System.out.println("ELOLL: " + e.getMessage());
+          e.printStackTrace();
+        }
         break;
-        default:
-          break;
-      }
+      default:
+        break;
+    }
 
     return request;
   }
 
+  // Implement JSON parsing logic to extract the product ID
+  // private static String extractProductIdFromJson(String responseBody) {
+  // ObjectMapper mapper = new ObjectMapper();
+  // try {
+  // // Parse the JSON response body
+  // JsonNode jsonNode = mapper.readTree(responseBody);
 
+  // // Extract the product ID from the JSON structure
+  // JsonNode productIdNode = jsonNode.path("product").path("id");
+  // if (productIdNode.isMissingNode()) {
+  // throw new RuntimeException("Product ID not found in the response");
+  // }
 
-
-
-    // Implement JSON parsing logic to extract the product ID
-    // private static String extractProductIdFromJson(String responseBody) {
-    //     ObjectMapper mapper = new ObjectMapper();
-    //     try {
-    //         // Parse the JSON response body
-    //         JsonNode jsonNode = mapper.readTree(responseBody);
-
-    //         // Extract the product ID from the JSON structure
-    //         JsonNode productIdNode = jsonNode.path("product").path("id");
-    //         if (productIdNode.isMissingNode()) {
-    //             throw new RuntimeException("Product ID not found in the response");
-    //         }
-
-    //         // Return the product ID as a string
-    //         return productIdNode.asText();
-    //     } catch (IOException e) {
-    //         throw new RuntimeException("Failed to parse JSON response: " + e.getMessage(), e);
-    //     }
-    // }
+  // // Return the product ID as a string
+  // return productIdNode.asText();
+  // } catch (IOException e) {
+  // throw new RuntimeException("Failed to parse JSON response: " +
+  // e.getMessage(), e);
+  // }
+  // }
 
 }
