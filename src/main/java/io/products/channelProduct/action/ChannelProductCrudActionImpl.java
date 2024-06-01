@@ -1,6 +1,5 @@
 package io.products.channelProduct.action;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,80 +9,72 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 import io.grpc.Status;
-import io.grpc.StatusException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.protobuf.Descriptors.FieldDescriptor;
 
 import java.util.function.Function;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelAttribute_;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelOption_;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelVariant_;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata_;
-import io.products.channelProduct.action.ChannelProductActionApi.MetadataGroup_;
-import io.products.channelProduct.action.ChannelProductActionApi.OptionGroup_;
-import io.products.channelProduct.action.ChannelProductActionApi.VariantGroup_;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOption;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOptionGroup;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariantGroup;
 import io.products.channelProduct.api.ChannelProductApi.CreateChannelProductCommand;
 import io.products.channelProduct.api.ChannelProductApi.DeleteChannelProductCommand;
-import io.products.channelProduct.api.ChannelProductApi.UpdateChannelProductCommand;
-import io.products.channelProduct.service.ChannelProductService;
 import io.products.shared.utils;
 import kalix.javasdk.action.ActionCreationContext;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import io.products.channelProduct.action.ChannelProductSyncAction;
 import com.google.protobuf.*;
-import com.google.protobuf.util.JsonFormat;
 
 
-public class ChannelProductActionImpl extends AbstractChannelProductAction {
-  private static final Logger LOG = LoggerFactory.getLogger(ChannelProductActionImpl.class);
+public class ChannelProductCrudActionImpl extends AbstractChannelProductCrudAction {
+  private static final Logger LOG = LoggerFactory.getLogger(ChannelProductCrudActionImpl.class);
 
-  public ChannelProductActionImpl(ActionCreationContext creationContext) {
+  public ChannelProductCrudActionImpl(ActionCreationContext creationContext) {
   }
 
   @Override
-  public Effect<Empty> createChannelProduct(ChannelProductActionApi.ChannelProducts_ actChannelProducts) {
+  public Effect<Empty> createChannelProduct(ChannelProductSyncActionApi.ChannelProducts syncChannelProducts) {
 
     /* _______________________________________________ */
-    // Get Metadata and Set to an List<MetadataGroup>
+    // Get Metadata and Set to List<MetadataGroup>
     /* _______________________________________________ */
-    List<MetadataGroup_> actChnlMetadataGroupList = actChannelProducts.getChannelProductsList().get(0)
+    List<ChannelProductSyncActionApi.MetadataGroup> syncChnlMetadataGroupList = syncChannelProducts.getChannelProductsList().get(0)
         .getMetadataGroupsList().stream()
         .collect(Collectors.toList());
     Map<String, Object> hashmapMetadata = new HashMap<>();
-    for (MetadataGroup_ metadataGroup : actChnlMetadataGroupList) {
-      for (ChannelMetadata_ metadata : metadataGroup.getChannelMetadataList()) {
+    for (ChannelProductSyncActionApi.MetadataGroup metadataGroup : syncChnlMetadataGroupList) {
+      for (ChannelProductSyncActionApi.ChannelMetadata metadata : metadataGroup.getChannelMetadataList()) {
         hashmapMetadata.put(metadata.getGrouping() + '.' + metadata.getSubGrouping() + '.' + metadata.getKey(),
             metadata);
       }
     }
     /* _______________________________________________ */
 
+
+
     /* _______________________________________________ */
     // Convert Data From Action To Api ChannelProduct
     /* _______________________________________________ */
     List<CreateChannelProductCommand.Builder> channelProductBuilders = new ArrayList<>();
-    for (ChannelProductActionApi.ChannelProduct_ actChannelProduct : actChannelProducts.getChannelProductsList()) {
+    for (ChannelProductSyncActionApi.ChannelProduct syncChannelProduct : syncChannelProducts.getChannelProductsList()) {
       channelProductBuilders
-          .add(convert_FromAction_ToApi_ChannelProduct(actChannelProduct, actChannelProducts.getEventId()));
+          .add(convert_FromAction_ToApi_ChannelProduct(syncChannelProduct, syncChannelProducts.getEventId()));
     }
     /* _______________________________________________ */
 
+
+
+
+    /* _______________________________________________ */
+    // Conditioning to create A channel or Some Channel
+    /* _______________________________________________ */
     CompletableFuture<Effect<Empty>> effect;
     if (hashmapMetadata.containsKey("integration.body_content.create_cp_multi_product")) {
-      ChannelMetadata_ bodyContent = (ChannelMetadata_) hashmapMetadata
+      ChannelProductSyncActionApi.ChannelMetadata bodyContent = (ChannelProductSyncActionApi.ChannelMetadata) hashmapMetadata
           .get("integration.body_content.create_cp_multi_product");
       boolean isMultiProduct = "true".equals(bodyContent.getValue());
 
@@ -96,7 +87,6 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     /* ------------------------------------------------------------- */
     return effects().asyncEffect(effect.exceptionally(ExceptionHandling()));
     /* ------------------------------------------------------------- */
-
   }
 
 
@@ -125,10 +115,6 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     return (e) -> effects().error(e.getMessage(), Status.Code.CANCELLED);
     /* ------------------------------------------------------------- */
   }
-
-
-
-
 
 
 
@@ -265,7 +251,7 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
    * -----------------------------------------------------------------------------
    */
   private static CreateChannelProductCommand.Builder convert_FromAction_ToApi_ChannelProduct(
-      ChannelProductActionApi.ChannelProduct_ actChannelProduct,
+          ChannelProductSyncActionApi.ChannelProduct syncChannelProduct,
       String eventId) {
 
     CreateChannelProductCommand.Builder channelProductBuilder = CreateChannelProductCommand.newBuilder();
@@ -277,25 +263,24 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     // Create Channel Attributes
     /* _________________________ */
     /* ------------------------- */
-    List<ChannelAttribute_> actChnlAttributeList = actChannelProduct.getChannelAttributesList().stream()
+    List<ChannelProductSyncActionApi.ChannelAttribute> syncChnlAttributeList = syncChannelProduct.getChannelAttributesList().stream()
         .collect(Collectors.toList());
     List<ChannelProductAttribute> apiChnlProdAttributeList = new ArrayList<>();
     channelProductBuilder.setId(UUID.randomUUID().toString());
-    for (ChannelAttribute_ actChnlAttribute : actChnlAttributeList) {
+    for (ChannelProductSyncActionApi.ChannelAttribute syncChnlAttribute : syncChnlAttributeList) {
       // Create Product common fields
-      if (actChnlAttribute.getIsCommon() == true) {
+      if (syncChnlAttribute.getIsCommon() == true) {
         for (FieldDescriptor field : fields) {
 
-          String propName = utils.replaceAfterUnderscore(actChnlAttribute.getChnlAttrName());
-          LOG.info("PROPNAME " + propName + ", " + field.getName() + ", " + actChnlAttribute.getChnlAttrName());
+          String propName = utils.replaceAfterUnderscore(syncChnlAttribute.getChnlAttrName());
 
           if (field.getName().equals(propName)) {
             if ("sku".equals(field.getName())) {
-              channelProductBuilder.setSku(actChnlAttribute.getChnlAttrValue());
+              channelProductBuilder.setSku(syncChnlAttribute.getChnlAttrValue());
             } else if ("storeId".equals(field.getName())) {
-              channelProductBuilder.setStoreId(actChnlAttribute.getChnlAttrValue());
+              channelProductBuilder.setStoreId(syncChnlAttribute.getChnlAttrValue());
             } else if ("channelId".equals(field.getName())) {
-              channelProductBuilder.setChannelId(actChnlAttribute.getChnlAttrValue());
+              channelProductBuilder.setChannelId(syncChnlAttribute.getChnlAttrValue());
             }
           }
         }
@@ -303,11 +288,11 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
       channelProductBuilder.setEventId(UUID.randomUUID().toString());
 
       ChannelProductAttribute apiChnlProdAttribute = ChannelProductAttribute.newBuilder()
-          .setAttrId(actChnlAttribute.getAttrId())
-          .setChnlAttrName(actChnlAttribute.getChnlAttrName())
-          .setChnlAttrType(actChnlAttribute.getChnlAttrType())
-          .setValue(actChnlAttribute.getChnlAttrValue())
-          .setIsCommon(actChnlAttribute.getIsCommon())
+          .setAttrId(syncChnlAttribute.getAttrId())
+          .setChnlAttrName(syncChnlAttribute.getChnlAttrName())
+          .setChnlAttrType(syncChnlAttribute.getChnlAttrType())
+          .setValue(syncChnlAttribute.getChnlAttrValue())
+          .setIsCommon(syncChnlAttribute.getIsCommon())
           .build();
       apiChnlProdAttributeList.add(apiChnlProdAttribute);
     }
@@ -318,21 +303,21 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     // Create Channel Variants
     /* _________________________ */
     /* ------------------------- */
-    List<VariantGroup_> actChnlVariantGroupList = actChannelProduct.getVariantGroupsList().stream()
+    List<ChannelProductSyncActionApi.VariantGroup> syncChnlVariantGroupList = syncChannelProduct.getVariantGroupsList().stream()
         .collect(Collectors.toList());
     List<ChannelProductVariantGroup> apiChnlProdVariantGroupList = new ArrayList<>();
-    for (VariantGroup_ actChnlVariantGroup : actChnlVariantGroupList) {
+    for (ChannelProductSyncActionApi.VariantGroup syncChnlVariantGroup : syncChnlVariantGroupList) {
 
-      List<ChannelVariant_> actChnlVariantList = actChnlVariantGroup.getChannelVariantList().stream()
+      List<ChannelProductSyncActionApi.ChannelVariant> syncChnlVariantList = syncChnlVariantGroup.getChannelVariantList().stream()
           .collect(Collectors.toList());
       List<ChannelProductVariant> apiChnlProdVariantList = new ArrayList<>();
-      for (ChannelVariant_ actChnlVariant : actChnlVariantList) {
+      for (ChannelProductSyncActionApi.ChannelVariant syncChnlVariant : syncChnlVariantList) {
 
         ChannelProductVariant apiChnlProdVariant = ChannelProductVariant.newBuilder()
-            .setVrntId(actChnlVariant.getVrntId())
-            .setChnlVrntName(actChnlVariant.getChnlVrntName())
-            .setChnlVrntType(actChnlVariant.getChnlVrntType())
-            .setValue(actChnlVariant.getChnlVrntValue())
+            .setVrntId(syncChnlVariant.getVrntId())
+            .setChnlVrntName(syncChnlVariant.getChnlVrntName())
+            .setChnlVrntType(syncChnlVariant.getChnlVrntType())
+            .setValue(syncChnlVariant.getChnlVrntValue())
             .build();
         apiChnlProdVariantList.add(apiChnlProdVariant);
 
@@ -352,21 +337,21 @@ public class ChannelProductActionImpl extends AbstractChannelProductAction {
     // Create Channel Options
     /* _________________________ */
     /* ------------------------- */
-    List<OptionGroup_> actChnlOptionGroupList = actChannelProduct.getOptionGroupsList().stream()
+    List<ChannelProductSyncActionApi.OptionGroup> syncChnlOptionGroupList = syncChannelProduct.getOptionGroupsList().stream()
         .collect(Collectors.toList());
     List<ChannelProductOptionGroup> apiChnlProdOptionGroupList = new ArrayList<>();
-    for (OptionGroup_ actChnlOptionGroup : actChnlOptionGroupList) {
+    for (ChannelProductSyncActionApi.OptionGroup syncChnlOptionGroup : syncChnlOptionGroupList) {
 
-      List<ChannelOption_> actChnlOptionList = actChnlOptionGroup.getChannelOptionList().stream()
+      List<ChannelProductSyncActionApi.ChannelOption> syncChnlOptionList = syncChnlOptionGroup.getChannelOptionList().stream()
           .collect(Collectors.toList());
       List<ChannelProductOption> apiChnlProdOptionList = new ArrayList<>();
-      for (ChannelOption_ actChnlOption : actChnlOptionList) {
+      for (ChannelProductSyncActionApi.ChannelOption syncChnlOption : syncChnlOptionList) {
 
         ChannelProductOption apiChnlProdOption = ChannelProductOption.newBuilder()
-            .setOptnId(actChnlOption.getOptnId())
-            .setChnlOptnName(actChnlOption.getChnlOptnName())
-            .setChnlOptnType(actChnlOption.getChnlOptnType())
-            .setValue(actChnlOption.getChnlOptnValue())
+            .setOptnId(syncChnlOption.getOptnId())
+            .setChnlOptnName(syncChnlOption.getChnlOptnName())
+            .setChnlOptnType(syncChnlOption.getChnlOptnType())
+            .setValue(syncChnlOption.getChnlOptnValue())
             .build();
         apiChnlProdOptionList.add(apiChnlProdOption);
 

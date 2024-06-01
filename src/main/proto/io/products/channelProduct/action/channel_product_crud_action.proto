@@ -1,0 +1,21 @@
+syntax = "proto3";
+package io.products.channelProduct.action;
+
+option java_outer_classname = "ChannelProductCrudActionApi";
+
+import "kalix/annotations.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "io/products/channelProduct/action/channel_product_sync_action.proto";
+service ChannelProductCrudAction {
+    option (kalix.codegen) = {
+      action: {}
+    };
+  
+    rpc CreateChannelProduct(io.products.channelProduct.action.ChannelProducts) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+          post: "/create_channel_product_impl"
+          body: "*"
+      };
+    }
+}

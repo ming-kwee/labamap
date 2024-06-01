@@ -2,7 +2,9 @@ package io.products;
 
 import io.products.attribute.domain.Attribute;
 import io.products.attribute.view.AttributeViewImpl;
+import io.products.channelProduct.action.ChannelProductCrudActionImpl;
 import io.products.channelProduct.action.ChannelProductSyncActionImpl;
+import io.products.channelProduct.service.ChannelProductRestActionImpl;
 import io.products.masterProduct.action.MasterProductActionImpl;
 import io.products.masterProduct.domain.MasterProduct;
 import io.products.masterProduct.view.MasterProductViewImpl;
@@ -25,7 +27,6 @@ import org.slf4j.LoggerFactory;
 
 import io.products.channelPlatform.domain.ChannelPlatform;
 import io.products.channelPlatform.view.ChannelPlatformViewImpl;
-import io.products.channelProduct.action.ChannelProductActionImpl;
 import io.products.channelProduct.domain.ChannelProduct;
 import io.products.channelProduct.view.ChannelProductViewImpl;
 
@@ -57,7 +58,8 @@ public final class Main {
         ChannelMetadataByChannelIdAndTargetViewImpl::new,
         ChannelMetadataViewImpl::new,
         ChannelPlatformViewImpl::new,
-        ChannelProductActionImpl::new,
+            ChannelProductCrudActionImpl::new,
+            ChannelProductRestActionImpl::new,
             ChannelProductSyncActionImpl::new,
         ChannelProductViewImpl::new,
         CredentialByChannelIdAndUserIdViewImpl::new,

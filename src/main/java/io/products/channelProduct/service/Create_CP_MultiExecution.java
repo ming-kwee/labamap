@@ -9,6 +9,7 @@ import java.util.concurrent.CompletionStage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.products.channelProduct.action.ChannelProductSyncActionApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,10 +30,8 @@ import akka.stream.Materializer;
 import akka.stream.SystemMaterializer;
 import akka.util.ByteString;
 import io.grpc.StatusException;
-import io.products.channelProduct.action.ChannelProductActionApi.ChannelMetadata_;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProduct;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductAttribute;
-import io.products.channelProduct.api.ChannelProductApi.ChannelProductHttpResponse;
+import io.products.channelProduct.service.ChannelProductRestActionApi.ChannelProductHttpResponse;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOption;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductOptionGroup;
 import io.products.channelProduct.api.ChannelProductApi.ChannelProductVariant;
@@ -141,7 +140,7 @@ public class Create_CP_MultiExecution {
 
     String bodyForProducts = "";
     if (hashmapMetadata.containsKey("integration.body_content.root_enclosed_property_name")) {
-      ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
+      ChannelProductSyncActionApi.ChannelMetadata channelMetadata = (ChannelProductSyncActionApi.ChannelMetadata) hashmapMetadata
           .get("integration.body_content.root_enclosed_property_name");
       root.set(channelMetadata.getValue(), productsArray);
       bodyForProducts = root.toString();
@@ -285,7 +284,7 @@ public class Create_CP_MultiExecution {
     /* -------- setting up authorization metadata ------- */
     String integration_Security_CreateCpTypeOfAuthorization = null;
     if (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization")) {
-      ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
+      ChannelProductSyncActionApi.ChannelMetadata channelMetadata = (ChannelProductSyncActionApi.ChannelMetadata) hashmapMetadata
           .get("integration.security.create_cp_type_of_authorization");
       integration_Security_CreateCpTypeOfAuthorization = (String) channelMetadata.getValue();
     } else {
@@ -298,7 +297,7 @@ public class Create_CP_MultiExecution {
 
     String integration_HttpRequest_CreateCpEndpoint = null;
     if (hashmapMetadata.containsKey("integration.http_request.create_cp_endpoint")) {
-      ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
+      ChannelProductSyncActionApi.ChannelMetadata channelMetadata = (ChannelProductSyncActionApi.ChannelMetadata) hashmapMetadata
           .get("integration.http_request.create_cp_endpoint");
       integration_HttpRequest_CreateCpEndpoint = (String) channelMetadata.getValue();
     }
@@ -326,7 +325,7 @@ public class Create_CP_MultiExecution {
     /* -------- setting up authorization metadata ------- */
     String integration_Security_CreateCpTypeOfAuthorization = null;
     if (hashmapMetadata.containsKey("integration.security.create_cp_type_of_authorization")) {
-      ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
+      ChannelProductSyncActionApi.ChannelMetadata channelMetadata = (ChannelProductSyncActionApi.ChannelMetadata) hashmapMetadata
           .get("integration.security.create_cp_type_of_authorization");
       integration_Security_CreateCpTypeOfAuthorization = (String) channelMetadata.getValue();
     } else {
@@ -339,7 +338,7 @@ public class Create_CP_MultiExecution {
 
     String integration_HttpRequest_CreateCpVariantEndpoint = null;
     if (hashmapMetadata.containsKey("integration.http_request.create_cp_variant_endpoint")) {
-      ChannelMetadata_ channelMetadata = (ChannelMetadata_) hashmapMetadata
+      ChannelProductSyncActionApi.ChannelMetadata channelMetadata = (ChannelProductSyncActionApi.ChannelMetadata) hashmapMetadata
           .get("integration.http_request.create_cp_variant_endpoint");
           integration_HttpRequest_CreateCpVariantEndpoint = (String) channelMetadata.getValue();
     }  
