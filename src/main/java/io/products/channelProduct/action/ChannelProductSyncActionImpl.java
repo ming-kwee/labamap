@@ -16,22 +16,27 @@ public class ChannelProductSyncActionImpl extends AbstractChannelProductSyncActi
 
   @Override
   public Effect<Empty> syncChannelProduct(ChannelProductSyncActionApi.ChannelProducts channelProducts) {
+//    Before Implement Workflow
+//    CompletionStage<Empty> create_channel_product = components().channelProductCrudActionImpl()
+//            .createChannelProduct(channelProducts).execute();
+//    CompletionStage<Effect<Empty>> effect = create_channel_product.thenApply(x -> {
+//
+//
+//      CompletionStage<ChannelProductRestActionApi.ChannelProductHttpResponse> create_rest_channel_product = components().channelProductRestActionImpl()
+//              .createRestChannelProduct(channelProducts).execute();
+//      CompletionStage<Effect<Empty>> effect2 = create_rest_channel_product.thenApply(y -> {
+//
+//        return effects().reply(Empty.getDefaultInstance());
+//      });
+//
+//      return effects().asyncEffect(effect2.exceptionally(ExceptionHandling()));
+//    });
 
-
-    LOG.info("SYNC CHANNEL PRODUCT");
-    CompletionStage<Empty> create_channel_product = components().channelProductCrudActionImpl()
-            .createChannelProduct(channelProducts).execute();
-    CompletionStage<Effect<Empty>> effect = create_channel_product.thenApply(x -> {
-
-
-      CompletionStage<ChannelProductRestActionApi.ChannelProductHttpResponse> create_rest_channel_product = components().channelProductRestActionImpl()
-              .createRestChannelProduct(channelProducts).execute();
-      CompletionStage<Effect<Empty>> effect2 = create_rest_channel_product.thenApply(y -> {
-
-        return effects().reply(Empty.getDefaultInstance());
-      });
-
-      return effects().asyncEffect(effect2.exceptionally(ExceptionHandling()));
+//    After Implement Workflow
+    CompletionStage<Empty> start_channel_product_workflow = components().channelProductWorkflowImpl()
+            .start(channelProducts).execute();
+    CompletionStage<Effect<Empty>> effect = start_channel_product_workflow.thenApply(x -> {
+      return effects().reply(Empty.getDefaultInstance());
     });
 
     return effects().asyncEffect(effect.exceptionally(ExceptionHandling()));

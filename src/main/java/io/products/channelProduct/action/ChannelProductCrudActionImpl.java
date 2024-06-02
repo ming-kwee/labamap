@@ -37,7 +37,7 @@ public class ChannelProductCrudActionImpl extends AbstractChannelProductCrudActi
   }
 
   @Override
-  public Effect<Empty> createChannelProduct(ChannelProductSyncActionApi.ChannelProducts syncChannelProducts) {
+  public Effect<ChannelProductSyncActionApi.ChannelProducts> createChannelProduct(ChannelProductSyncActionApi.ChannelProducts syncChannelProducts) {
 
     /* _______________________________________________ */
     // Get Metadata and Set to List<MetadataGroup>
@@ -72,18 +72,19 @@ public class ChannelProductCrudActionImpl extends AbstractChannelProductCrudActi
     /* _______________________________________________ */
     // Conditioning to create A channel or Some Channel
     /* _______________________________________________ */
-    CompletableFuture<Effect<Empty>> effect;
+    CompletableFuture<Effect<ChannelProductSyncActionApi.ChannelProducts>> effect;
     if (hashmapMetadata.containsKey("integration.body_content.create_cp_multi_product")) {
       ChannelProductSyncActionApi.ChannelMetadata bodyContent = (ChannelProductSyncActionApi.ChannelMetadata) hashmapMetadata
           .get("integration.body_content.create_cp_multi_product");
       boolean isMultiProduct = "true".equals(bodyContent.getValue());
 
       // Call the appropriate method based on the boolean value
-      effect = !isMultiProduct ? createAChannelProduct(channelProductBuilders.get(0), hashmapMetadata)
-          : createSomeChannelProducts(channelProductBuilders, hashmapMetadata);
+      effect = !isMultiProduct ? createAChannelProduct(channelProductBuilders.get(0), hashmapMetadata, syncChannelProducts)
+          : createSomeChannelProducts(channelProductBuilders, hashmapMetadata, syncChannelProducts);
     } else {
-      effect = createSomeChannelProducts(channelProductBuilders, hashmapMetadata);
+      effect = createSomeChannelProducts(channelProductBuilders, hashmapMetadata, syncChannelProducts);
     }
+
     /* ------------------------------------------------------------- */
     return effects().asyncEffect(effect.exceptionally(ExceptionHandling()));
     /* ------------------------------------------------------------- */
@@ -96,19 +97,19 @@ public class ChannelProductCrudActionImpl extends AbstractChannelProductCrudActi
   /* --------------------------- */
   // Create A Channel Product
   /* ___________________________ */
-  private CompletableFuture<Effect<Empty>> createAChannelProduct(
-      CreateChannelProductCommand.Builder createChannelProductBuilder, Map<String, Object> hashmapMetadata) {
+  private CompletableFuture<Effect<ChannelProductSyncActionApi.ChannelProducts>> createAChannelProduct(
+      CreateChannelProductCommand.Builder createChannelProductBuilder, Map<String, Object> hashmapMetadata, ChannelProductSyncActionApi.ChannelProducts syncChannelProducts) {
 
     LOG.info("CREATE A CHANNEL PRODUCT");
     CompletionStage<Empty> create_channel_product = components().channelProduct()
         .createChannelProduct(createChannelProductBuilder.build()).execute();
 
-    return (CompletableFuture<Effect<Empty>>) create_channel_product.thenApply(x -> {
-       return effects().reply(Empty.getDefaultInstance());
+    return (CompletableFuture<Effect<ChannelProductSyncActionApi.ChannelProducts>>) create_channel_product.thenApply(x -> {
+       return effects().reply(syncChannelProducts);
     });
   }
 
-  private Function<Throwable, ? extends Effect<Empty>> ExceptionHandling() {
+  private Function<Throwable, ? extends Effect<ChannelProductSyncActionApi.ChannelProducts>> ExceptionHandling() {
     /* --- jika kesini artinya ada error saat mencreate product ---- */
     /* ------------------------------------------------------------- */
     LOG.info("jika kesini artinya ada error");
@@ -122,8 +123,8 @@ public class ChannelProductCrudActionImpl extends AbstractChannelProductCrudActi
   /* --------------------------- */
   // Create Some Channel Products
   /* ___________________________ */
-  private CompletableFuture<Effect<Empty>> createSomeChannelProducts(
-          List<CreateChannelProductCommand.Builder> channelProductBuilders, Map<String, Object> hashmapMetadata) {
+  private CompletableFuture<Effect<ChannelProductSyncActionApi.ChannelProducts>> createSomeChannelProducts(
+          List<CreateChannelProductCommand.Builder> channelProductBuilders, Map<String, Object> hashmapMetadata, ChannelProductSyncActionApi.ChannelProducts syncChannelProducts) {
 
     List<CompletableFuture<CompletionStage<Empty>>> futures = new ArrayList<>();
     // Start asynchronous processing for each channelProductBuilder
@@ -173,12 +174,12 @@ public class ChannelProductCrudActionImpl extends AbstractChannelProductCrudActi
         // jika terjadi error saat looping create channel products.
         return rollbackAllChannelProducts(channelProductBuilders, anyException_WhileCreation);
       } else {
-            return CompletableFuture.completedFuture(effects().reply(Empty.getDefaultInstance()));
+            return CompletableFuture.completedFuture(effects().reply(syncChannelProducts));
       }
     });
   }
 
-  private CompletableFuture<Effect<Empty>> rollbackAllChannelProducts(
+  private CompletableFuture<Effect<ChannelProductSyncActionApi.ChannelProducts>> rollbackAllChannelProducts(
           List<CreateChannelProductCommand.Builder> channelProductBuilders, String anyException_WhileProcess) {
 
     List<CompletableFuture<CompletionStage<Empty>>> futures = new ArrayList<>();
@@ -231,7 +232,7 @@ public class ChannelProductCrudActionImpl extends AbstractChannelProductCrudActi
         finalExceptionMessage = anyException_WhileProcess;
       }
       ;
-      return CompletableFuture.<Effect<Empty>>completedFuture(effects().error(finalExceptionMessage));
+      return CompletableFuture.<Effect<ChannelProductSyncActionApi.ChannelProducts>>completedFuture(effects().error(finalExceptionMessage));
 
     });
   }

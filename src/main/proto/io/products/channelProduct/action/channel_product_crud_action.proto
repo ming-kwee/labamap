@@ -12,10 +12,14 @@ service ChannelProductCrudAction {
       action: {}
     };
   
-    rpc CreateChannelProduct(io.products.channelProduct.action.ChannelProducts) returns (google.protobuf.Empty) {
+    rpc CreateChannelProduct(io.products.channelProduct.action.ChannelProducts) returns (io.products.channelProduct.action.ChannelProducts) {
       option (google.api.http) = {
           post: "/create_channel_product_impl"
           body: "*"
       };
     }
+}
+
+message DummyCommandChannelProductCrud {
+  string id = 1 [(kalix.field).entity_key = true];
 }

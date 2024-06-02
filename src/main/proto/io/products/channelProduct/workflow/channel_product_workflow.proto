@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package io.products.channelProduct.workflow;
+
+option java_outer_classname = "ChannelProductWorkflow";
+
+import "google/protobuf/empty.proto";
+import "kalix/annotations.proto";
+import "io/products/channelProduct/action/channel_product_sync_action.proto";
+import "io/products/channelProduct/action/channel_product_crud_action.proto";
+
+service ChannelProductWorkflowService {
+  option (kalix.codegen) = {
+    workflow: {
+      name: "io.products.channelProduct.workflow.ChannelProductWorkflowImpl"
+      type_id: "channel_products_workflow"
+      state: "io.products.channelProduct.domain.ChannelProductState"
+    }
+  };
+  rpc Start(io.products.channelProduct.action.ChannelProducts) returns (google.protobuf.Empty) {}
+  //  rpc Accept(AcceptRequest) returns (google.protobuf.Empty) {}
+  //  rpc AcceptationTimeout(AcceptationTimeoutRequest) returns (google.protobuf.Empty) {}
+  //  rpc GetChannelProductState(GetRequest) returns (io.products.channelProduct.domain.ChannelProductState) {}
+  rpc DummyChannelProductCrud(io.products.channelProduct.action.DummyCommandChannelProductCrud) returns (google.protobuf.Empty) {}
+}

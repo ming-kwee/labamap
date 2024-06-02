@@ -8,23 +8,6 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "kalix/annotations.proto";
 import "google/protobuf/struct.proto";
-import "io/products/channelProduct/action/channel_product_sync_action.proto";
-import "io/products/channelProduct/action/channel_product_crud_action.proto";
-
-// SyncChannelProductWorkflowService
-service SyncChannelProductWorkflowService {
-  option (kalix.codegen) = {
-    workflow: {
-      name: "io.products.channelProduct.api.SyncChannelProductWorkflow"
-      type_id: "sync_channel_products_workflow"
-      state: "io.products.channelProduct.domain.ChannelProductState"
-    }
-  };
-  rpc Start(action.ChannelProducts) returns (google.protobuf.Empty) {}
-  //  rpc Accept(AcceptRequest) returns (google.protobuf.Empty) {}
-  //  rpc AcceptationTimeout(AcceptationTimeoutRequest) returns (google.protobuf.Empty) {}
-  //  rpc GetChannelProductState(GetRequest) returns (io.products.channelProduct.domain.ChannelProductState) {}
-}
 
 service ChannelProductService {
     option (kalix.codegen) = {

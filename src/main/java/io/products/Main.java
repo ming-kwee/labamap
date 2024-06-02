@@ -5,6 +5,7 @@ import io.products.attribute.view.AttributeViewImpl;
 import io.products.channelProduct.action.ChannelProductCrudActionImpl;
 import io.products.channelProduct.action.ChannelProductSyncActionImpl;
 import io.products.channelProduct.service.ChannelProductRestActionImpl;
+import io.products.channelProduct.workflow.ChannelProductWorkflowImpl;
 import io.products.masterProduct.action.MasterProductActionImpl;
 import io.products.masterProduct.domain.MasterProduct;
 import io.products.masterProduct.view.MasterProductViewImpl;
@@ -49,9 +50,9 @@ public final class Main {
         ChannelMetadata::new,
         ChannelPlatform::new,
         ChannelProduct::new,
+        ChannelProductWorkflowImpl::new,
         Credential::new,
         MasterProduct::new,
-        SyncChannelProductWorkflow::new,
         Variant::new,
         AttributeViewImpl::new,
         ChannelAttributeMappingViewImpl::new,
