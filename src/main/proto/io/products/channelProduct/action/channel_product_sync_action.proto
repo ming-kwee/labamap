@@ -22,7 +22,7 @@ service ChannelProductSyncAction {
 
 /* ------------------------------------------------ */
 message ChannelProducts {
-  string eventId = 1 [(kalix.field).entity_key = true];
+  string eventId = 1 [(kalix.field).id = true];
   repeated ChannelProduct channelProducts = 2;
 }
 

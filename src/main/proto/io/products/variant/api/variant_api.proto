@@ -34,7 +34,7 @@ service VariantService {
 }
 
 message Variant {
-  string variant_id = 1  [(kalix.field).entity_key = true];
+  string variant_id = 1  [(kalix.field).id = true];
   string product_id = 2;
   string variant_title = 3;
   double price = 4;
@@ -42,8 +42,8 @@ message Variant {
 }
 
 message GetVariantRequest {
-  string variant_id = 1 [(kalix.field).entity_key = true];
+  string variant_id = 1 [(kalix.field).id = true];
 }
 message DeleteVariantRequest {
-  string variant_id = 1 [(kalix.field).entity_key = true];
+  string variant_id = 1 [(kalix.field).id = true];
 }

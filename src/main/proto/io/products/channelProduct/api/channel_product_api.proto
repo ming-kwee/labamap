@@ -49,7 +49,7 @@ service ChannelProductService {
 ***********************************************************/
 
 message CreateChannelProductCommand {
-    string id = 1 [(kalix.field).entity_key = true];
+    string id = 1 [(kalix.field).id = true];
     string sku = 2;
     string storeId = 3;
     string channelId = 4;
@@ -62,7 +62,7 @@ message CreateChannelProductCommand {
 }
 
 message UpdateChannelProductCommand {
-  string id = 1 [(kalix.field).entity_key = true];
+  string id = 1 [(kalix.field).id = true];
   string sku = 2;
   string storeId = 3;
   string channelId = 4;
@@ -75,11 +75,11 @@ message UpdateChannelProductCommand {
 }
 
 message DeleteChannelProductCommand {
-  string id = 1 [(kalix.field).entity_key = true];
+  string id = 1 [(kalix.field).id = true];
 }
 
 message GetChannelProductRequest {
-  string id = 1  [(kalix.field).entity_key = true];
+  string id = 1  [(kalix.field).id = true];
 }
 
 
@@ -89,7 +89,7 @@ message GetChannelProductRequest {
 ***********************************************************/
 
 message ChannelProduct {
-  string id = 1 [(kalix.field).entity_key = true];
+  string id = 1 [(kalix.field).id = true];
   string sku = 2;
   string storeId = 3;
   string channelId = 4;
@@ -102,7 +102,7 @@ message ChannelProduct {
 }
 
 message ChannelProductAttribute {
-  string attrId = 1 [(kalix.field).entity_key = true];
+  string attrId = 1 [(kalix.field).id = true];
   string chnlAttrName = 2;
   string chnlAttrType = 3;
   string value = 4;
@@ -115,7 +115,7 @@ message ChannelProductVariantGroup {
 }
 
 message ChannelProductVariant {
-  string vrntId = 1 [(kalix.field).entity_key = true];
+  string vrntId = 1 [(kalix.field).id = true];
   string chnlVrntName = 2;
   string chnlVrntType = 3;
   string value = 4;
@@ -126,7 +126,7 @@ message ChannelProductOptionGroup {
 }
 
 message ChannelProductOption {
-  string optnId = 1 [(kalix.field).entity_key = true];
+  string optnId = 1 [(kalix.field).id = true];
   string chnlOptnName = 2;
   string chnlOptnType = 3;
   string value = 4;

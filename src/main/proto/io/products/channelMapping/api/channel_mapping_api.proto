@@ -34,14 +34,14 @@ service ChannelMappingService {
 }
 
 message ChannelMapping {
-  string channel_map_id = 1 [(kalix.field).entity_key = true];
+  string channel_map_id = 1 [(kalix.field).id = true];
   string product_id = 2 ;
   string channel_id = 3;
 }
 
 message GetChannelMappingRequest {
-  string channel_map_id = 1 [(kalix.field).entity_key = true];
+  string channel_map_id = 1 [(kalix.field).id = true];
 }
 message DeleteChannelMappingRequest {
-  string channel_map_id = 1 [(kalix.field).entity_key = true];
+  string channel_map_id = 1 [(kalix.field).id = true];
 }

@@ -34,7 +34,7 @@ service ChannelAttributeMappingService {
 }
 
 message ChannelAttributeMapping {
-  string mappingId = 1 [(kalix.field).entity_key = true];
+  string mappingId = 1 [(kalix.field).id = true];
   string attributeId = 2;
   string channelId = 3;
   string destinationField = 4;
@@ -44,9 +44,9 @@ message ChannelAttributeMapping {
 }
 
 message GetChannelAttributeMappingRequest {
-  string mappingId = 1 [(kalix.field).entity_key = true];
+  string mappingId = 1 [(kalix.field).id = true];
 }
 message DeleteChannelAttributeMappingRequest {
-  string mappingId = 1 [(kalix.field).entity_key = true];
+  string mappingId = 1 [(kalix.field).id = true];
 }
 

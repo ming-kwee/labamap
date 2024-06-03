@@ -35,14 +35,14 @@ service ChannelPlatformService {
 }
 
 message ChannelPlatform {
-    string channelId = 1 [(kalix.field).entity_key = true];
+    string channelId = 1 [(kalix.field).id = true];
     string channelName = 2 ;
     string channelEndpoint = 3;
 }
 
 message GetChannelPlatformRequest {
-    string channelId = 1 [(kalix.field).entity_key = true];
+    string channelId = 1 [(kalix.field).id = true];
 }
 message ChannelPlatformRequest {
-    string channelId = 1 [(kalix.field).entity_key = true];
+    string channelId = 1 [(kalix.field).id = true];
 }

@@ -48,17 +48,17 @@ service AttributeService {
 
     //
 message Attribute {
-    string attributeId = 1 [(kalix.field).entity_key = true];  
-    string attributeName = 2 [(kalix.field).entity_key = true];
+    string attributeId = 1 [(kalix.field).id = true];
+    string attributeName = 2 [(kalix.field).id = true];
     string attributeType = 3;
     bool isCommon = 4;
     string group = 5;
 }
 
 message GetAttributeRequest {
-    string attributeId = 1 [(kalix.field).entity_key = true];
+    string attributeId = 1 [(kalix.field).id = true];
 }
 message DeleteAttributeRequest {
-    string attributeId = 1 [(kalix.field).entity_key = true]; 
+    string attributeId = 1 [(kalix.field).id = true];
 }
 

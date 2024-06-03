@@ -17,7 +17,7 @@ public class ChannelProductSyncActionImpl extends AbstractChannelProductSyncActi
   @Override
   public Effect<Empty> syncChannelProduct(ChannelProductSyncActionApi.ChannelProducts channelProducts) {
 //    Before Implement Workflow
-//    CompletionStage<Empty> create_channel_product = components().channelProductCrudActionImpl()
+//    CompletionStage<ChannelProductSyncActionApi.ChannelProducts> create_channel_product = components().channelProductCrudActionImpl()
 //            .createChannelProduct(channelProducts).execute();
 //    CompletionStage<Effect<Empty>> effect = create_channel_product.thenApply(x -> {
 //

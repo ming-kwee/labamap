@@ -48,7 +48,7 @@ service MasterProductService {
 }
 
 message MasterProduct {
-    string id = 1 [(kalix.field).entity_key = true];
+    string id = 1 [(kalix.field).id = true];
     string productId = 2;
     string masterId = 3;
 
@@ -60,14 +60,14 @@ message MasterProduct {
 }
 
 message GetMasterProductRequest {
-  string id = 1  [(kalix.field).entity_key = true];
+  string id = 1  [(kalix.field).id = true];
 }
 message DeleteMasterProductRequest {
-    string id = 1 [(kalix.field).entity_key = true];
+    string id = 1 [(kalix.field).id = true];
 }
 
 message MasterProductAttribute {
-  string attrId = 1 [(kalix.field).entity_key = true];
+  string attrId = 1 [(kalix.field).id = true];
   string mstrAttrName = 2;
   string mstrAttrType = 3;
   string value = 4;
@@ -82,7 +82,7 @@ message MasterProductVariantGroup {
 
 
 message MasterProductVariant {
-  string vrntId = 1 [(kalix.field).entity_key = true];
+  string vrntId = 1 [(kalix.field).id = true];
   string mstrVrntName = 2;
   string mstrVrntType = 3;
   string value = 4;
@@ -94,7 +94,7 @@ message MasterProductOptionGroup {
 
 
 message MasterProductOption {
-  string optnId = 1 [(kalix.field).entity_key = true];
+  string optnId = 1 [(kalix.field).id = true];
   string mstrOptnName = 2;
   string mstrOptnType = 3;
   string value = 4;

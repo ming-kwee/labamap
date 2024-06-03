@@ -34,8 +34,8 @@ service ChannelMetadataService {
 }
 
 message ChannelMetadata {
-  string channelId = 1  [(kalix.field).entity_key = true];
-  string key = 2 [(kalix.field).entity_key = true];
+  string channelId = 1  [(kalix.field).id = true];
+  string key = 2 [(kalix.field).id = true];
   string value = 3;
   string target = 4;
   string grouping = 5;
@@ -43,10 +43,10 @@ message ChannelMetadata {
 }
 
 message GetChannelMetadataRequest {
-  string channelId = 1 [(kalix.field).entity_key = true];
-  string key = 2 [(kalix.field).entity_key = true];
+  string channelId = 1 [(kalix.field).id = true];
+  string key = 2 [(kalix.field).id = true];
 }
 message DeleteChannelMetadataRequest {
-  string channelId = 1 [(kalix.field).entity_key = true];
-  string key = 2 [(kalix.field).entity_key = true];
+  string channelId = 1 [(kalix.field).id = true];
+  string key = 2 [(kalix.field).id = true];
 }
