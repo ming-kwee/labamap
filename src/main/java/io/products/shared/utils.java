@@ -1,16 +1,17 @@
 package io.products.shared;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import com.google.protobuf.Value;
+import com.google.protobuf.Struct;
+import com.google.protobuf.ListValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.protobuf.*;
+
 public class utils {
 
   private static final Logger LOG = LoggerFactory.getLogger(utils.class);
@@ -131,43 +132,67 @@ public class utils {
   }
 
 
-
-
-
-  public static Struct convertNumberFieldsToString(Map<String, Value> fieldsMap, String... fieldsToConvert) {
-    Struct.Builder structBuilder = Struct.newBuilder();
-
-    for (Map.Entry<String, Value> entry : fieldsMap.entrySet()) {
-      String key = entry.getKey();
-      Value value = entry.getValue();
-
-      if (shouldConvert(key, fieldsToConvert) && value.hasNumberValue()) {
-        BigDecimal numberValue = BigDecimal.valueOf(value.getNumberValue());
-        structBuilder.putFields(key, Value.newBuilder().setStringValue(numberValue.toPlainString()).build());
-      } else if (value.hasStructValue()) {
-        structBuilder.putFields(key, Value.newBuilder().setStructValue(
-            convertNumberFieldsToString(value.getStructValue().getFieldsMap(), fieldsToConvert)).build());
-      } else if (value.hasListValue()) {
+  // Recursive method to convert all number values to strings
+  public static Value convertNumbersToStrings(Value value) {
+    Value.Builder valueBuilder = Value.newBuilder();
+    switch (value.getKindCase()) {
+      case NUMBER_VALUE:
+        // Convert number to string
+        valueBuilder.setStringValue(String.format("%.0f", value.getNumberValue()));
+        break;
+      case STRUCT_VALUE:
+        // Recursively convert struct values
+        Struct.Builder structBuilder = Struct.newBuilder();
+        value.getStructValue().getFieldsMap().forEach((key, nestedValue) ->
+                structBuilder.putFields(key, convertNumbersToStrings(nestedValue))
+        );
+        valueBuilder.setStructValue(structBuilder);
+        break;
+      case LIST_VALUE:
+        // Recursively convert list values
         ListValue.Builder listBuilder = ListValue.newBuilder();
-        for (Value listItem : value.getListValue().getValuesList()) {
-          if (listItem.hasStructValue()) {
-            listBuilder.addValues(Value.newBuilder().setStructValue(
-                convertNumberFieldsToString(listItem.getStructValue().getFieldsMap(), fieldsToConvert)).build());
-          } else {
-            listBuilder.addValues(listItem);
-          }
-        }
-        structBuilder.putFields(key, Value.newBuilder().setListValue(listBuilder.build()).build());
-      } else {
-        structBuilder.putFields(key, value);
-      }
+        value.getListValue().getValuesList().forEach(nestedValue ->
+                listBuilder.addValues(convertNumbersToStrings(nestedValue))
+        );
+        valueBuilder.setListValue(listBuilder);
+        break;
+      default:
+        // Copy other types of values as-is
+        valueBuilder = value.toBuilder();
+        break;
     }
-
-    return structBuilder.build();
+    return valueBuilder.build();
   }
 
 
-  
+  public static String getNestedValue(Map<String, Value> dataMap, String keyPath) {
+    String[] keys = keyPath.split("\\.");
+    Value currentValue = dataMap.get(keys[0]);
+
+    for (int i = 1; i < keys.length; i++) {
+      if (currentValue == null || !currentValue.hasStructValue()) {
+        return null;
+      }
+      Struct struct = currentValue.getStructValue();
+      currentValue = struct.getFieldsMap().get(keys[i]);
+    }
+
+    if (currentValue != null) {
+      if (currentValue.hasStringValue()) {
+        return currentValue.getStringValue();
+      } else if (currentValue.hasNumberValue()) {
+        return String.valueOf(currentValue.getNumberValue());
+      } else if (currentValue.hasBoolValue()) {
+        return String.valueOf(currentValue.getBoolValue());
+      }
+      // Add more cases as needed (e.g., lists, nested structures)
+    }
+
+    return null;
+  }
+
+
+
   /* ------------------------- */
   /* private supporter functions */
   /* ------------------------- */
@@ -252,15 +277,7 @@ public class utils {
     }
   }
   
-  
-  private static boolean shouldConvert(String key, String[] fieldsToConvert) {
-    for (String field : fieldsToConvert) {
-      if (key.equals(field)) {
-        return true;
-      }
-    }
-    return false;
-  }
+
   /* ------------------------- */
   /* private supporter functions */
   /* ------------------------- */

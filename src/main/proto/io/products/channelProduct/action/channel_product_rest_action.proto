@@ -1,5 +1,5 @@
 syntax = "proto3";
-package io.products.channelProduct.service;
+package io.products.channelProduct.action;
 
 option java_outer_classname = "ChannelProductRestActionApi";
 

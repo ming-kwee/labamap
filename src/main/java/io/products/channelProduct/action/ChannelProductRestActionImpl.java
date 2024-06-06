@@ -1,23 +1,28 @@
-package io.products.channelProduct.service;
+package io.products.channelProduct.action;
 
 import com.google.protobuf.Descriptors;
+import com.google.protobuf.Value;
 import io.grpc.StatusException;
 import io.products.channelProduct.action.ChannelProductSyncActionApi;
 import io.products.channelProduct.api.ChannelProductApi;
-import io.products.channelProduct.service.AbstractChannelProductRestAction;
-import io.products.channelProduct.service.ChannelProductRestActionApi;
+import io.products.channelProduct.action.AbstractChannelProductRestAction;
+import io.products.channelProduct.action.ChannelProductRestActionApi;
+import io.products.channelProduct.service.ChannelProductService;
 import io.products.shared.utils;
 import kalix.javasdk.action.ActionCreationContext;
+
 import java.util.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 public class ChannelProductRestActionImpl extends AbstractChannelProductRestAction {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ChannelProductRestActionImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(io.products.channelProduct.action.ChannelProductRestActionImpl.class);
 
-  public ChannelProductRestActionImpl(ActionCreationContext creationContext) {}
+  public ChannelProductRestActionImpl(ActionCreationContext creationContext) {
+  }
 
   @Override
   public Effect<ChannelProductRestActionApi.ChannelProductHttpResponse> createRestChannelProduct(ChannelProductSyncActionApi.ChannelProducts syncChannelProducts) {
@@ -37,7 +42,7 @@ public class ChannelProductRestActionImpl extends AbstractChannelProductRestActi
     /* _______________________________________________ */
 
     LOG.info("CREATE REST CHANNEL PRODUCT ");
-            /* _________________________________________________________ */
+    /* _________________________________________________________ */
     // Convert Data From Sync Action To Api ChannelProduct
     /* _________________________________________________________ */
     List<ChannelProductApi.CreateChannelProductCommand.Builder> channelProductBuilders = new ArrayList<>();
@@ -52,19 +57,29 @@ public class ChannelProductRestActionImpl extends AbstractChannelProductRestActi
       ChannelProductRestActionApi.ChannelProductHttpResponse createRestResult = ChannelProductService
               .createAChannelProductService(channelProductBuilders.get(0).build(), hashmapMetadata);
 
+      // Extract the data map
+      Map<String, Value> originalDataMap = createRestResult.getDataMap();
+      // Create a new map to hold the converted values
+      Map<String, Value> convertedDataMap = new HashMap<>();
+      // Iterate over the original map and convert number values to strings
+      for (Map.Entry<String, Value> entry : originalDataMap.entrySet()) {
+        String key = entry.getKey();
+        Value value = entry.getValue();
+        // Convert the value using the recursive method
+        convertedDataMap.put(key, utils.convertNumbersToStrings(value));
+      }
+
       createRestResultBuilder
               .setDescription(createRestResult.getDescription())
               .setStatus(createRestResult.getStatus())
-              .putAllData(createRestResult.getDataMap());
+              .putAllData(convertedDataMap); //createRestResult.getDataMap());
 
     } catch (StatusException e) {
       throw new RuntimeException(e);
     }
 
     return effects().reply(createRestResultBuilder.build());
-//    return createRestResult;
   }
-
 
 
   private static ChannelProductApi.CreateChannelProductCommand.Builder convert_FromSyncAction_ToApi_ChannelProduct(

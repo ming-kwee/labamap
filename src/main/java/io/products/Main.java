@@ -4,7 +4,7 @@ import io.products.attribute.domain.Attribute;
 import io.products.attribute.view.AttributeViewImpl;
 import io.products.channelProduct.action.ChannelProductCrudActionImpl;
 import io.products.channelProduct.action.ChannelProductSyncActionImpl;
-import io.products.channelProduct.service.ChannelProductRestActionImpl;
+import io.products.channelProduct.action.ChannelProductRestActionImpl;
 import io.products.channelProduct.workflow.ChannelProductWorkflowImpl;
 import io.products.masterProduct.action.MasterProductActionImpl;
 import io.products.masterProduct.domain.MasterProduct;
