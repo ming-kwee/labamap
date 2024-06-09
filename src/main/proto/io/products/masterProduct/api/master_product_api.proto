@@ -71,7 +71,7 @@ message MasterProductAttribute {
   string mstrAttrName = 2;
   string mstrAttrType = 3;
   string value = 4;
-  bool isCommon = 5;
+  bool isCommonField = 5;
   
 }
 

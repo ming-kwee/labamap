@@ -77,7 +77,7 @@ public class MasterProductActionImpl extends AbstractMasterProductAction {
     masterProductBuilder.setId(UUID.randomUUID().toString());
     for (MasterAttribute actMstrAttribute : actMstrAttributeList) {
       // Create Product common fields
-      if (actMstrAttribute.getIsCommon() == true) {
+      if (actMstrAttribute.getIsCommonField() == true) {
         for (FieldDescriptor field : fields) {
           if (field.getName().equals(actMstrAttribute.getMstrAttrName())) {
             String propName = utils.replaceAfterUnderscore(actMstrAttribute.getMstrAttrName());
@@ -95,7 +95,7 @@ public class MasterProductActionImpl extends AbstractMasterProductAction {
           .setMstrAttrName(actMstrAttribute.getMstrAttrName())
           .setMstrAttrType(actMstrAttribute.getMstrAttrType())
           .setValue(actMstrAttribute.getMstrAttrValue())
-          .setIsCommon(actMstrAttribute.getIsCommon())
+          .setIsCommonField(actMstrAttribute.getIsCommonField())
           .build();
       apiMstrProdAttributeList.add(apiMstrProdAttribute);
     }

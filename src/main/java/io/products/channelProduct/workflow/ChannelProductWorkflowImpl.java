@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -64,13 +65,25 @@ public class ChannelProductWorkflowImpl extends AbstractChannelProductWorkflowIm
                     // Define the key path (dot-separated for nested fields)
                     String keyPath = "product.id";
                     // Get the value using the utility method
-                    String value = utils.getNestedValue(dataMap, keyPath);
+                    Object value = utils.getNestedValue(dataMap, keyPath);
 
                     if (value != null) {
                         LOGGER.info("Extracted value: " + value);
                     } else {
                         LOGGER.info("Value not found for key path: " + keyPath);
                     }
+
+                    String variantKeyPath = "product.variants[*].id";
+                    // Get the value using the utility method
+                    Object variantIds  = utils.getNestedValue(dataMap, variantKeyPath);
+
+                    if (variantIds != null) {
+                        LOGGER.info("Extracted value: " + variantIds);
+                    } else {
+                        LOGGER.info("Value not found for key path: " + variantKeyPath);
+                    }
+
+
 
                     return effects().end();
                 });

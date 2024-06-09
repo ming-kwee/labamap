@@ -51,7 +51,7 @@ message Attribute {
     string attributeId = 1 [(kalix.field).id = true];
     string attributeName = 2 [(kalix.field).id = true];
     string attributeType = 3;
-    bool isCommon = 4;
+    bool isCommonField = 4;
     string group = 5;
 }
 

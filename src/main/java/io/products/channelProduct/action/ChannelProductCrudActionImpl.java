@@ -258,7 +258,7 @@ public class ChannelProductCrudActionImpl extends AbstractChannelProductCrudActi
         channelProductBuilder.setId(UUID.randomUUID().toString());
         for (ChannelProductSyncActionApi.ChannelAttribute syncChnlAttribute : syncChnlAttributeList) {
             // Create Product common fields
-            if (syncChnlAttribute.getIsCommon() == true) {
+            if (syncChnlAttribute.getIsCommonField() == true) {
                 for (FieldDescriptor field : fields) {
 
                     String propName = utils.replaceAfterUnderscore(syncChnlAttribute.getChnlAttrName());
@@ -281,7 +281,8 @@ public class ChannelProductCrudActionImpl extends AbstractChannelProductCrudActi
                     .setChnlAttrName(syncChnlAttribute.getChnlAttrName())
                     .setChnlAttrType(syncChnlAttribute.getChnlAttrType())
                     .setValue(syncChnlAttribute.getChnlAttrValue())
-                    .setIsCommon(syncChnlAttribute.getIsCommon())
+                    .setIsCommonField(syncChnlAttribute.getIsCommonField())
+                    .setIsSupportField(syncChnlAttribute.getIsSupportField())
                     .build();
             apiChnlProdAttributeList.add(apiChnlProdAttribute);
         }

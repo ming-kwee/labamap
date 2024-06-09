@@ -65,7 +65,7 @@ public class Attribute extends AbstractAttribute {
     .setAttributeId(command.getAttributeId())
     .setAttributeName(command.getAttributeName())
     .setAttributeType(command.getAttributeType())
-    .setIsCommon(command.getIsCommon())
+    .setIsCommonField(command.getIsCommonField())
     .setGroup(command.getGroup())
     .build();
   }
@@ -94,7 +94,7 @@ public class Attribute extends AbstractAttribute {
     .setAttributeId(state.getAttributeId())
     .setAttributeName(state.getAttributeName())
     .setAttributeType(state.getAttributeType())
-    .setIsCommon(state.getIsCommon())
+    .setIsCommonField(state.getIsCommonField())
     .setGroup(state.getGroup())
     .build();
   }

@@ -50,7 +50,6 @@ public class ChannelProductService {
                         .createAChannelProduct_WithSplitVariants(channelProduct, hashmapMetadata, http, actorSystem)
                         .toCompletableFuture().get();
             } else {
-                LOG.info("Pusing");
                 responseFuture = Create_CP_SingleExecution
                         .createAChannelProduct(channelProduct, hashmapMetadata, http)
                         .thenCompose(response2 -> {

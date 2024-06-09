@@ -92,7 +92,7 @@ public class MasterProduct extends AbstractMasterProduct {
           .setMstrAttrName(apiMstrProdAttribute.getMstrAttrName())
           .setMstrAttrType(apiMstrProdAttribute.getMstrAttrType())
           .setValue(apiMstrProdAttribute.getValue())
-          .setIsCommon(apiMstrProdAttribute.getIsCommon())
+          .setIsCommonField(apiMstrProdAttribute.getIsCommonField())
           .build();
       domMstrProdAttributeList.add(domMstrProdAttribute);
     }
@@ -239,7 +239,7 @@ public class MasterProduct extends AbstractMasterProduct {
           .setMstrAttrName(domMstrProdAttribute.getMstrAttrName())
           .setMstrAttrType(domMstrProdAttribute.getMstrAttrType())
           .setValue(domMstrProdAttribute.getValue())
-          .setIsCommon(domMstrProdAttribute.getIsCommon())
+          .setIsCommonField(domMstrProdAttribute.getIsCommonField())
           .build();
       apiMstrProdAttributeList.add(apiMstrProdAttribute);
     }

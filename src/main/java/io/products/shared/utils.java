@@ -1,10 +1,8 @@
 package io.products.shared;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import com.google.protobuf.Value;
 import com.google.protobuf.Struct;
 import com.google.protobuf.ListValue;
@@ -165,32 +163,87 @@ public class utils {
   }
 
 
-  public static String getNestedValue(Map<String, Value> dataMap, String keyPath) {
-    String[] keys = keyPath.split("\\.");
-    Value currentValue = dataMap.get(keys[0]);
 
-    for (int i = 1; i < keys.length; i++) {
-      if (currentValue == null || !currentValue.hasStructValue()) {
+  public static Object getNestedValue(Map<String, Value> dataMap, String keyPath) {
+    String[] keys = keyPath.split("\\.");
+    Object current = dataMap;
+
+    for (String key : keys) {
+      if (current == null) {
         return null;
       }
-      Struct struct = currentValue.getStructValue();
-      currentValue = struct.getFieldsMap().get(keys[i]);
-    }
 
-    if (currentValue != null) {
-      if (currentValue.hasStringValue()) {
-        return currentValue.getStringValue();
-      } else if (currentValue.hasNumberValue()) {
-        return String.valueOf(currentValue.getNumberValue());
-      } else if (currentValue.hasBoolValue()) {
-        return String.valueOf(currentValue.getBoolValue());
+      if (key.endsWith("[*]")) {
+        String arrayKey = key.substring(0, key.length() - 3);
+        if (current instanceof Map) {
+          current = ((Map<String, Value>) current).get(arrayKey);
+        }
+        if (current instanceof Value && ((Value) current).hasListValue()) {
+          List<Value> valuesList = ((Value) current).getListValue().getValuesList();
+          List<String> result = new ArrayList<>();
+          for (Value item : valuesList) {
+            if (item.hasStructValue()) {
+              Struct struct = item.getStructValue();
+              Value arrayValue = struct.getFieldsOrDefault("id", null);
+              if (arrayValue != null && arrayValue.hasStringValue()) {
+                result.add(arrayValue.getStringValue());
+              }
+            }
+          }
+          return result;
+        }
+      } else {
+        if (current instanceof Map) {
+          current = ((Map<String, Value>) current).get(key);
+        }
+        if (current instanceof Value) {
+          if (((Value) current).hasStructValue()) {
+            current = ((Value) current).getStructValue().getFieldsMap();
+          } else if (((Value) current).hasStringValue()) {
+            current = ((Value) current).getStringValue();
+          } else if (((Value) current).hasNumberValue()) {
+            current = ((Value) current).getNumberValue();
+          } else if (((Value) current).hasBoolValue()) {
+            current = ((Value) current).getBoolValue();
+          } else if (((Value) current).hasListValue()) {
+            current = ((Value) current).getListValue().getValuesList();
+          } else {
+            current = null;
+          }
+        }
       }
-      // Add more cases as needed (e.g., lists, nested structures)
     }
 
-    return null;
+    return current;
   }
 
+
+//  public static String getNestedValue(Map<String, Value> dataMap, String keyPath) {
+//    String[] keys = keyPath.split("\\.");
+//    Value currentValue = dataMap.get(keys[0]);
+//
+//    for (int i = 1; i < keys.length; i++) {
+//      if (currentValue == null || !currentValue.hasStructValue()) {
+//        return null;
+//      }
+//      Struct struct = currentValue.getStructValue();
+//      currentValue = struct.getFieldsMap().get(keys[i]);
+//    }
+//
+//    if (currentValue != null) {
+//      if (currentValue.hasStringValue()) {
+//        return currentValue.getStringValue();
+//      } else if (currentValue.hasNumberValue()) {
+//        return String.valueOf(currentValue.getNumberValue());
+//      } else if (currentValue.hasBoolValue()) {
+//        return String.valueOf(currentValue.getBoolValue());
+//      }
+//      // Add more cases as needed (e.g., lists, nested structures)
+//    }
+//
+//    return null;
+//  }
+//
 
 
   /* ------------------------- */

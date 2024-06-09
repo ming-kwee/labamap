@@ -106,8 +106,8 @@ message ChannelProductAttribute {
   string chnlAttrName = 2;
   string chnlAttrType = 3;
   string value = 4;
-  bool isCommon = 5;
-  
+  bool isSupportField = 5;
+  bool isCommonField = 6;
 }
 /* ------------------------------------------------------- */
 message ChannelProductVariantGroup {
@@ -119,6 +119,7 @@ message ChannelProductVariant {
   string chnlVrntName = 2;
   string chnlVrntType = 3;
   string value = 4;
+  bool isSupportField = 5;
 }
 /* ------------------------------------------------------- */
 message ChannelProductOptionGroup {
@@ -130,16 +131,6 @@ message ChannelProductOption {
   string chnlOptnName = 2;
   string chnlOptnType = 3;
   string value = 4;
+  bool isSupportField = 5;
 }
 
-
-
-///***********************************************************
-//* OTHER MESSAGES
-//***********************************************************/
-//
-//message ChannelProductHttpResponse {
-//  string status = 1;
-//  string description = 2;
-//  map<string, google.protobuf.Value> data = 3;
-//}

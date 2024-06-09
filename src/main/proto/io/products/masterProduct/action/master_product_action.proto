@@ -55,7 +55,7 @@ message MasterAttribute {
   string mstrAttrName = 2;
   string mstrAttrValue = 3;
   string mstrAttrType = 4;
-  bool isCommon = 5;
+  bool isCommonField = 5;
 
 }
 

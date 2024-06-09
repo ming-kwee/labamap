@@ -10,7 +10,7 @@ post_channel_attribute_mapping()
             "destinationField": "id",
             "type": "string",
             "group": "attribute",
-            "isCommon": true
+            "isCommonField": true
         }
 EOF
 }
@@ -32,7 +32,7 @@ post_channel_attribute_mapping()
             "destinationField": "channel_id",
             "type": "string",
             "group": "attribute",
-            "isCommon": true
+            "isCommonField": true
         }
 EOF
 }
@@ -56,7 +56,7 @@ post_channel_attribute_mapping()
             "destinationField": "product_id",
             "type": "string",
             "group": "attribute",
-            "isCommon": true
+            "isCommonField": true
         }
 EOF
 }
@@ -80,7 +80,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.title",
             "type": "string",
             "group": "attribute",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -103,7 +103,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.body_html",
             "type": "string",
             "group": "attribute",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -125,7 +125,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.vendor",
             "type": "string",
             "group": "attribute",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -147,7 +147,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.product_type",
             "type": "string",
             "group": "attribute",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -170,7 +170,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.status",
             "type": "string",
             "group": "attribute",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -193,7 +193,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.images",
             "type": "object[]",
             "group": "attribute",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -216,7 +216,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.option1",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -238,7 +238,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.option2",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -261,7 +261,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.price",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -284,7 +284,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.sku",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -307,7 +307,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.id",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -330,7 +330,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.product_id",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -353,7 +353,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.taxable",
             "type": "boolean",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -376,7 +376,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.barcode",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -399,7 +399,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.weight",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -421,7 +421,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.weight_unit",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -444,7 +444,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.compare_at_price",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -467,7 +467,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.requires_shipping",
             "type": "boolean",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -490,7 +490,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.inventory_quantity",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -513,7 +513,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.inventory_policy",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -536,7 +536,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.position",
             "type": "int",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -559,7 +559,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.track",
             "type": "string",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -582,7 +582,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.variants.images",
             "type": "object[]",
             "group": "variant",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -605,7 +605,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.options.name",
             "type": "string",
             "group": "option",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }
@@ -628,7 +628,7 @@ post_channel_attribute_mapping()
             "destinationField": "product.options.values",
             "type": "string[]",
             "group": "option",
-            "isCommon": false
+            "isCommonField": false
         }
 EOF
 }

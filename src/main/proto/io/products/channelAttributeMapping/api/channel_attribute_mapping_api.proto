@@ -40,7 +40,8 @@ message ChannelAttributeMapping {
   string destinationField = 4;
   string type = 5;
   string group = 6;
-  bool isCommon = 7;
+  bool isCommonField = 7;
+  bool isSupportField = 8;
 }
 
 message GetChannelAttributeMappingRequest {

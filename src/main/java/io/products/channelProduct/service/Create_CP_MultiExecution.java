@@ -208,16 +208,20 @@ public class Create_CP_MultiExecution {
 
             // Convert attributes to a map and add to the parent map
             for (ChannelProductAttribute attribute : channelProduct.getChannelProductAttributeList()) {
-                utils.addAttribute_toMap(parentMap, attribute.getChnlAttrName(), attribute.getValue(),
-                        attribute.getChnlAttrType());
+                if (!attribute.getIsSupportField()) {
+                    utils.addAttribute_toMap(parentMap, attribute.getChnlAttrName(), attribute.getValue(),
+                            attribute.getChnlAttrType());
+                }
             }
 
             List<Map<String, Object>> variantsGroupList = new ArrayList<>();
             for (ChannelProductVariantGroup variantGroup : channelProduct.getChannelProductVariantGroupList()) {
                 Map<String, Object> groupMap = new HashMap<>();
                 for (ChannelProductVariant variant : variantGroup.getChannelProductVariantList()) {
-                    groupMap = utils.addVariantOrOption_toGroupMap(groupMap, variant.getChnlVrntName(), variant.getValue(),
-                            variant.getChnlVrntType());
+                    if (!variant.getIsSupportField()) {
+                        groupMap = utils.addVariantOrOption_toGroupMap(groupMap, variant.getChnlVrntName(), variant.getValue(),
+                                variant.getChnlVrntType());
+                    }
                 }
                 variantsGroupList.add(groupMap);
             }
@@ -226,8 +230,10 @@ public class Create_CP_MultiExecution {
             for (ChannelProductOptionGroup optionGroup : channelProduct.getChannelProductOptionGroupList()) {
                 Map<String, Object> groupMap = new HashMap<>();
                 for (ChannelProductOption option : optionGroup.getChannelProductOptionList()) {
-                    groupMap = utils.addVariantOrOption_toGroupMap(groupMap, option.getChnlOptnName(), option.getValue(),
-                            option.getChnlOptnType());
+                    if (!option.getIsSupportField()) {
+                        groupMap = utils.addVariantOrOption_toGroupMap(groupMap, option.getChnlOptnName(), option.getValue(),
+                                option.getChnlOptnType());
+                    }
                 }
                 optionsGroupList.add(groupMap);
             }
@@ -238,10 +244,12 @@ public class Create_CP_MultiExecution {
                 int deepLevel = 0;
                 for (ChannelProductVariant variant : channelProduct.getChannelProductVariantGroupList().get(0)
                         .getChannelProductVariantList()) {
-                    if (!variant.getChnlVrntType().trim().substring(variant.getChnlVrntType().trim().length() - 2).equals("[]")) {
-                        int lengthOfArray = variant.getChnlVrntName().split("\\.").length;
-                        deepLevel = lengthOfArray > 0 ? lengthOfArray - 1 : 0;
-                        break;
+                    if (!variant.getIsSupportField()) {
+                        if (!variant.getChnlVrntType().trim().substring(variant.getChnlVrntType().trim().length() - 2).equals("[]")) {
+                            int lengthOfArray = variant.getChnlVrntName().split("\\.").length;
+                            deepLevel = lengthOfArray > 0 ? lengthOfArray - 1 : 0;
+                            break;
+                        }
                     }
                 }
                 Map<String, Object> temp = utils.mergeMaps(variantsGroupList, deepLevel);
@@ -256,10 +264,12 @@ public class Create_CP_MultiExecution {
                 int deepLevel = 0;
                 for (ChannelProductOption option : channelProduct.getChannelProductOptionGroupList().get(0)
                         .getChannelProductOptionList()) {
-                    if (!option.getChnlOptnType().trim().substring(option.getChnlOptnType().trim().length() - 2).equals("[]")) {
-                        int lengthOfArray = option.getChnlOptnName().split("\\.").length;
-                        deepLevel = lengthOfArray > 0 ? lengthOfArray - 1 : 0;
-                        break;
+                    if (!option.getIsSupportField()) {
+                        if (!option.getChnlOptnType().trim().substring(option.getChnlOptnType().trim().length() - 2).equals("[]")) {
+                            int lengthOfArray = option.getChnlOptnName().split("\\.").length;
+                            deepLevel = lengthOfArray > 0 ? lengthOfArray - 1 : 0;
+                            break;
+                        }
                     }
                 }
                 result = utils.finalMergeMaps(result, utils.mergeMaps(optionsGroupList, deepLevel));

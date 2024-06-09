@@ -51,7 +51,8 @@ public class ChannelAttributeMapping extends AbstractChannelAttributeMapping {
             .setChannelId(channelAttributeMapping.getChannelId())
             .setDestinationField(channelAttributeMapping.getDestinationField())
             .setGroup(channelAttributeMapping.getGroup())
-            .setIsCommon(channelAttributeMapping.getIsCommon())
+            .setIsCommonField(channelAttributeMapping.getIsCommonField())
+            .setIsSupportField(channelAttributeMapping.getIsSupportField())
             .setType(channelAttributeMapping.getType())
             .build();
   }

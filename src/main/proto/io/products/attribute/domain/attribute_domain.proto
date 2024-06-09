@@ -8,6 +8,6 @@ message AttributeState {
     string attributeId = 1;
     string attributeName = 2;
     string attributeType = 3;
-    bool isCommon = 4;
+    bool isCommonField = 4;
     string group = 5;
 }

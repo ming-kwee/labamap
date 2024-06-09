@@ -101,7 +101,7 @@ public class ChannelProductRestActionImpl extends AbstractChannelProductRestActi
     channelProductBuilder.setId(UUID.randomUUID().toString());
     for (ChannelProductSyncActionApi.ChannelAttribute syncChnlAttribute : syncChnlAttributeList) {
       // Create Product common fields
-      if (syncChnlAttribute.getIsCommon()) {
+      if (syncChnlAttribute.getIsCommonField()) {
         for (Descriptors.FieldDescriptor field : fields) {
 
           String propName = utils.replaceAfterUnderscore(syncChnlAttribute.getChnlAttrName());
@@ -124,7 +124,8 @@ public class ChannelProductRestActionImpl extends AbstractChannelProductRestActi
               .setChnlAttrName(syncChnlAttribute.getChnlAttrName())
               .setChnlAttrType(syncChnlAttribute.getChnlAttrType())
               .setValue(syncChnlAttribute.getChnlAttrValue())
-              .setIsCommon(syncChnlAttribute.getIsCommon())
+              .setIsCommonField(syncChnlAttribute.getIsCommonField())
+              .setIsSupportField(syncChnlAttribute.getIsSupportField())
               .build();
       apiChnlProdAttributeList.add(apiChnlProdAttribute);
     }

@@ -78,7 +78,7 @@ public class MasterProductViewImpl extends AbstractMasterProductView {
           .setMstrAttrName(domMstrProdAttribute.getMstrAttrName())
           .setMstrAttrType(domMstrProdAttribute.getMstrAttrType())
           .setValue(domMstrProdAttribute.getValue())
-          .setIsCommon(domMstrProdAttribute.getIsCommon())
+          .setIsCommonField(domMstrProdAttribute.getIsCommonField())
           .build();
       apiMstrProdAttributeList.add(apiMstrProdAttribute);
     }

@@ -73,7 +73,8 @@ public class ChannelProduct extends AbstractChannelProduct {
                     .setChnlAttrName(apiChnlProdAttribute.getChnlAttrName())
                     .setChnlAttrType(apiChnlProdAttribute.getChnlAttrType())
                     .setValue(apiChnlProdAttribute.getValue())
-                    .setIsCommon(apiChnlProdAttribute.getIsCommon())
+                    .setIsCommonField(apiChnlProdAttribute.getIsCommonField())
+                    .setIsSupportField(apiChnlProdAttribute.getIsSupportField())
                     .build();
             domChnlProdAttributeList.add(domChnlProdAttribute);
         }
@@ -202,7 +203,8 @@ public class ChannelProduct extends AbstractChannelProduct {
                     .setChnlAttrName(apiChnlProdAttribute.getChnlAttrName())
                     .setChnlAttrType(apiChnlProdAttribute.getChnlAttrType())
                     .setValue(apiChnlProdAttribute.getValue())
-                    .setIsCommon(apiChnlProdAttribute.getIsCommon())
+                    .setIsCommonField(apiChnlProdAttribute.getIsCommonField())
+                    .setIsSupportField(apiChnlProdAttribute.getIsSupportField())
                     .build();
             domChnlProdAttributeList.add(domChnlProdAttribute);
         }
@@ -352,7 +354,8 @@ public class ChannelProduct extends AbstractChannelProduct {
                     .setChnlAttrName(domChnlProdAttribute.getChnlAttrName())
                     .setChnlAttrType(domChnlProdAttribute.getChnlAttrType())
                     .setValue(domChnlProdAttribute.getValue())
-                    .setIsCommon(domChnlProdAttribute.getIsCommon())
+                    .setIsCommonField(domChnlProdAttribute.getIsCommonField())
+                    .setIsSupportField(domChnlProdAttribute.getIsSupportField())
                     .build();
             apiChnlProdAttributeList.add(apiChnlProdAttribute);
         }

@@ -18,11 +18,6 @@ import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductOpti
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductVariant;
 import io.products.channelProduct.domain.ChannelProductDomain.ChannelProductVariantGroup;
 
-// This class was initially generated based on the .proto definition by Kalix tooling.
-// This is the implementation for the View Service described in your io/products/channelProduct/view/channel_product_view.proto file.
-//
-// As long as this file exists it will not be overwritten: you can maintain it yourself,
-// or delete it so it is regenerated as needed.
 
 public class ChannelProductViewImpl extends AbstractChannelProductView {
     private static final Logger LOG = LoggerFactory.getLogger(ChannelProductViewImpl.class);
@@ -92,7 +87,8 @@ public class ChannelProductViewImpl extends AbstractChannelProductView {
                     .setChnlAttrName(domChnlProdAttribute.getChnlAttrName())
                     .setChnlAttrType(domChnlProdAttribute.getChnlAttrType())
                     .setValue(domChnlProdAttribute.getValue())
-                    .setIsCommon(domChnlProdAttribute.getIsCommon())
+                    .setIsCommonField(domChnlProdAttribute.getIsCommonField())
+                    .setIsSupportField(domChnlProdAttribute.getIsSupportField())
                     .build();
             apiChnlProdAttributeList.add(apiChnlProdAttribute);
         }

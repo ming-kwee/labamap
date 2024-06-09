@@ -38,7 +38,8 @@ message ChannelAttribute {
   string chnlAttrName = 2;
   string chnlAttrValue = 3;
   string chnlAttrType = 4;
-  bool isCommon = 5;
+  bool isSupportField = 5;
+  bool isCommonField = 6;
 }
 /* ------------------------------------------------ */
 message VariantGroup {
@@ -49,6 +50,7 @@ message ChannelVariant {
   string chnlVrntName = 2;
   string chnlVrntValue = 3;
   string chnlVrntType = 4;
+  bool isSupportField = 5;
 }
 /* ------------------------------------------------ */
 message OptionGroup {
@@ -59,6 +61,7 @@ message ChannelOption {
   string chnlOptnName = 2;
   string chnlOptnValue = 3;
   string chnlOptnType = 4;
+  bool isSupportField = 5;
 }
 /* ------------------------------------------------ */
 message MetadataGroup {
@@ -71,5 +74,4 @@ message ChannelMetadata {
   string target = 4;
   string grouping = 5;
   string subGrouping = 6;
-
 }
